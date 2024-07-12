@@ -41,55 +41,19 @@ if (!isset($_SESSION['role'])) {
                                     <?php
                                     if (!isset($_SESSION['resident'])) {
                                         ?>
-                                        <button class="btn btn-primary btn-sm" id="addActivityBtn"><i class="fa fa-user-plus"
-                                                aria-hidden="true"></i> Add Activity</button>
+
+                                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addModal"><i
+                                                class="fa fa-user-plus" aria-hidden="true"></i> Add Activity</button>
 
                                         <?php
                                         if (!isset($_SESSION['staff'])) {
                                             ?>
-                                            <button class="btn btn-danger btn-sm" id="deleteBtn"><i class="fa fa-trash-o"
-                                                    aria-hidden="true"></i> Delete</button>
+                                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal"><i
+                                                    class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                                             <?php
                                         }
                                     }
                                     ?>
-
-                                    <script>
-                                        // Add Activity button
-                                        document.getElementById('addActivityBtn').addEventListener('click', function () {
-                                            Swal.fire({
-                                                title: 'Add Activity',
-                                                text: "Are you sure you want to add a new activity?",
-                                                icon: 'question',
-                                                showCancelButton: true,
-                                                confirmButtonColor: '#3085d6',
-                                                cancelButtonColor: '#d33',
-                                                confirmButtonText: 'Yes, add it!'
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    $('#addModal').modal('show'); // Show the add modal if confirmed
-                                                }
-                                            });
-                                        });
-
-                                        // Delete button
-                                        document.getElementById('deleteBtn').addEventListener('click', function () {
-                                            Swal.fire({
-                                                title: 'Delete Activity',
-                                                text: "Are you sure you want to delete this activity?",
-                                                icon: 'warning',
-                                                showCancelButton: true,
-                                                confirmButtonColor: '#3085d6',
-                                                cancelButtonColor: '#d33',
-                                                confirmButtonText: 'Yes, delete it!'
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    $('#deleteModal').modal('show'); // Show the delete modal if confirmed
-                                                }
-                                            });
-                                        });
-                                    </script>
-
 
                                 </div>
                             </div><!-- /.box-header -->
@@ -253,10 +217,6 @@ include "../footer.php"; ?>
             <?php
         }
         ?>
-
-            < link rel = "stylesheet" href = "https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" >
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     </script>
 </body>
 
