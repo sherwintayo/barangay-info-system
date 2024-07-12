@@ -1,7 +1,37 @@
-<?php if(isset($_SESSION['delete'])){
-    echo '<script>$(document).ready(function (){deleted();});</script>';
-    unset($_SESSION['delete']);
-    } ?>
-<div class="alert alert-danger alert-autocloseable-danger" style=" position: fixed; top: 7em; right: 35em; z-index: 9999; display: none;">
-     Deleted Successfully !
-</div>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .swal2-success {
+            border-color: green !important;
+        }
+
+        .swal2-success .swal2-icon-content {
+            color: green !important;
+        }
+
+        .swal2-square-button {
+            width: 100px;
+            /* Adjust the width as needed */
+            height: 100px;
+            /* Adjust the height as needed */
+            border-radius: 0;
+            /* To make the button square */
+        }
+    </style>
+</head>
+<?php if (isset($_SESSION['delete'])): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Deleted Successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                    confirmButton: 'swal2-square-button'
+                }
+            });
+        });
+    </script>
+    <?php unset($_SESSION['delete']); ?>
+<?php endif; ?>
