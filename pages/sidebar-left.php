@@ -1,11 +1,11 @@
 <?php
 
 echo '
-	<aside class="left-side sidebar-offcanvas" style="background-color:#0000FF; ">
+	<aside class="left-side sidebar-offcanvas" style="background-color:#00BB27; ">
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     <!-- Sidebar user panel -->
-                    <div class="user-panel" style=" background:-color:#0000FF;">
+                    <div class="user-panel" style=" background:-color:#00BB27;">
                         
                         <div class="pull-left info">
                             <h4>Hello, ' . $_SESSION['role'] . '</h4>
@@ -17,7 +17,7 @@ echo '
                     ';
 if ($_SESSION['role'] == "Administrator") {
     echo '
-                    <ul class="sidebar-menu" style="background:-color:#0000FF;">
+                    <ul class="sidebar-menu" style="background:-color:#00BB27;">
                             <li>
                                 <a href="../dashboard/dashboard.php">
                                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
