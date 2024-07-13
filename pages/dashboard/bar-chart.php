@@ -13,17 +13,17 @@
 				echo "{y:'" . $row['zone'] . "',a:'" . $row['cnt'] . "'},";
 			}
 			?>
-			],
+		],
 		xkey: 'y',
 		ykeys: ['a'],
 		labels: ['Resident per Zone'],
 		hideHover: 'auto',
-barColors: ['#7AD7F0'] // Change this color to your desired color
+		barColors: ['#FFF017'] // Change this color to your desired color
 	});
 </script>
 
 
-	
+
 
 <script>
 	Morris.Bar({
@@ -40,7 +40,7 @@ barColors: ['#7AD7F0'] // Change this color to your desired color
 		ykeys: ['a'],
 		labels: ['householdnumber'],
 		hideHover: 'auto',
-		barColors: ['#7AD7F0'] // Change this color to your desired color
+		barColors: ['#FFF017'] // Change this color to your desired color
 	});
 </script>
 
@@ -60,7 +60,7 @@ barColors: ['#7AD7F0'] // Change this color to your desired color
 		ykeys: ['a'],
 		labels: ['gender'],
 		hideHover: 'auto',
-		barColors: ['#7AD7F0'] // Change this color to your desired color
+		barColors: ['#FFF017'] // Change this color to your desired color
 	});
 </script>
 

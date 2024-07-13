@@ -1,15 +1,8 @@
 <?php include "../connection.php"; ?>
 
 <script>
-	// Function to generate random colors
-	function generateRandomColor() {
-		var letters = '0123456789ABCDEF';
-		var color = '#';
-		for (var i = 0; i < 6; i++) {
-			color += letters[Math.floor(Math.random() * 16)];
-		}
-		return color;
-	}
+	// Define the desired color
+	var desiredColor = '#FFF017';
 
 	Morris.Bar({
 		element: 'morris-bar-chart2',
@@ -29,7 +22,7 @@
 		labels: ['Age'],
 		hideHover: 'auto',
 		barColors: function (row, series, type) {
-			return generateRandomColor(); // Random color for each bar
+			return desiredColor; // Set to desired color
 		}
 	});
 
@@ -48,7 +41,7 @@
 		labels: ['Resident per Zone/Purok'],
 		hideHover: 'auto',
 		barColors: function (row, series, type) {
-			return generateRandomColor(); // Random color for each bar
+			return desiredColor; // Set to desired color
 		}
 	});
 
@@ -67,7 +60,7 @@
 		labels: ['householdnumber'],
 		hideHover: 'auto',
 		barColors: function (row, series, type) {
-			return generateRandomColor(); // Random color for each bar
+			return desiredColor; // Set to desired color
 		}
 	});
 
@@ -86,7 +79,7 @@
 		labels: ['gender'],
 		hideHover: 'auto',
 		barColors: function (row, series, type) {
-			return generateRandomColor(); // Random color for each bar
+			return desiredColor; // Set to desired color
 		}
 	});
 </script>
