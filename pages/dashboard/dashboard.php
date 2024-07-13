@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <?php
 session_start();
 if (!isset($_SESSION['role'])) {
@@ -12,7 +11,6 @@ if (!isset($_SESSION['role'])) {
   <body class="skin-black">
     <!-- header logo: style can be found in header.less -->
     <?php
-
     include "../connection.php";
     ?>
     <?php include ('../header.php'); ?>
@@ -28,7 +26,6 @@ if (!isset($_SESSION['role'])) {
           <h1>
             Dashboard
           </h1>
-
         </section>
 
         <!-- Main content -->
@@ -36,12 +33,11 @@ if (!isset($_SESSION['role'])) {
           <div class="row">
             <!-- left column -->
             <div class="box">
-
+              <!-- Total Household -->
               <div class="col-md-3 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
-                  <a href="../household/household.php"><span class="info-box-icon bg-#0424f6"><i
+                  <a href="../household/household.php"><span class="info-box-icon" style="background-color: #38ACEC;"><i
                         class="fa fa-home"></i></span></a>
-
                   <div class="info-box-content">
                     <span class="info-box-text">Total Household</span>
                     <span class="info-box-number">
@@ -52,16 +48,14 @@ if (!isset($_SESSION['role'])) {
                       ?>
                     </span>
                   </div>
-                  <!-- /.info-box-content -->
                 </div>
-                <!-- /.info-box -->
               </div>
 
+              <!-- Total Resident -->
               <div class="col-md-3 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
-                  <a href="../resident/resident.php"><span class="info-box-icon bg-#0424f6"><i
+                  <a href="../resident/resident.php"><span class="info-box-icon" style="background-color: #F28500;"><i
                         class="fa fa-users"></i></span></a>
-
                   <div class="info-box-content">
                     <span class="info-box-text">Total Resident</span>
                     <span class="info-box-number">
@@ -72,15 +66,14 @@ if (!isset($_SESSION['role'])) {
                       ?>
                     </span>
                   </div>
-                  <!-- /.info-box-content -->
                 </div>
-                <!-- /.info-box -->
               </div>
+
+              <!-- Total New Resident -->
               <div class="col-md-3 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
-                  <a href="../resident/newResident.php"><span class="info-box-icon bg-#0424f6"><i
+                  <a href="../resident/newResident.php"><span class="info-box-icon" style="background-color: #0424f6;"><i
                         class="fa fa-users"></i></span></a>
-
                   <div class="info-box-content">
                     <span class="info-box-text">Total New Resident</span>
                     <span class="info-box-number">
@@ -91,16 +84,14 @@ if (!isset($_SESSION['role'])) {
                       ?>
                     </span>
                   </div>
-                  <!-- /.info-box-content -->
                 </div>
-                <!-- /.info-box -->
               </div>
 
+              <!-- Clearance Issued -->
               <div class="col-md-3 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
-                  <a href="../clearance/clearance.php"><span class="info-box-icon bg-#0424f6"><i
+                  <a href="../clearance/clearance.php"><span class="info-box-icon" style="background-color: #0424f6;"><i
                         class="fa fa-file"></i></span></a>
-
                   <div class="info-box-content">
                     <span class="info-box-text">Clearance Issued</span>
                     <span class="info-box-number">
@@ -111,16 +102,14 @@ if (!isset($_SESSION['role'])) {
                       ?>
                     </span>
                   </div>
-                  <!-- /.info-box-content -->
                 </div>
-                <!-- /.info-box -->
               </div>
 
+              <!-- Permit Issued -->
               <div class="col-md-3 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
-                  <a href="../permit/permit.php"><span class="info-box-icon bg-#0424f6"><i
+                  <a href="../permit/permit.php"><span class="info-box-icon" style="background-color: #0424f6;"><i
                         class="fa fa-file"></i></span></a>
-
                   <div class="info-box-content">
                     <span class="info-box-text">Permit Issued</span>
                     <span class="info-box-number">
@@ -131,16 +120,14 @@ if (!isset($_SESSION['role'])) {
                       ?>
                     </span>
                   </div>
-                  <!-- /.info-box-content -->
                 </div>
-                <!-- /.info-box -->
               </div>
 
+              <!-- Blotter Issued -->
               <div class="col-md-3 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
-                  <a href="../blotter/blotter.php"><span class="info-box-icon bg-#0424f6"><i
+                  <a href="../blotter/blotter.php"><span class="info-box-icon" style="background-color: #0424f6;"><i
                         class="fa fa-user"></i></span></a>
-
                   <div class="info-box-content">
                     <span class="info-box-text">Blotter Issued</span>
                     <span class="info-box-number">
@@ -151,10 +138,10 @@ if (!isset($_SESSION['role'])) {
                       ?>
                     </span>
                   </div>
-                  <!-- /.info-box-content -->
                 </div>
-                <!-- /.info-box -->
               </div>
+
+              <!-- Population per Zone/Purok -->
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="panel panel-default">
                   <div class="panel-heading">
@@ -165,7 +152,8 @@ if (!isset($_SESSION['role'])) {
                   </div>
                 </div>
               </div>
-              <!--/Population per zone-->
+
+              <!-- Males and Females in Barangay -->
               <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="panel panel-default">
                   <div class="panel-heading">
@@ -176,7 +164,8 @@ if (!isset($_SESSION['role'])) {
                   </div>
                 </div>
               </div>
-              <!--/Population per gender-->
+
+              <!-- Resident Educational Attainment -->
               <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="panel panel-default">
                   <div class="panel-heading">
@@ -186,7 +175,9 @@ if (!isset($_SESSION['role'])) {
                     <div id="morris-donut-chart"></div>
                   </div>
                 </div>
-              </div><!--/ resident Educational Attainment-->
+              </div>
+
+              <!-- Total Households -->
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="panel panel-default">
                   <div class="panel-heading">

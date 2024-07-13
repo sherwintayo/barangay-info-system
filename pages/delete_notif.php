@@ -1,5 +1,5 @@
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
         .swal2-success {
             border-color: green !important;
