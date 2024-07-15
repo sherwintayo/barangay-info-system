@@ -44,8 +44,7 @@ session_start();
     <div class="container" style="margin-top:50px ">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
-                <div class="panel-heading"
-                    style="text-align:center; background: linear-gradient(to right, #00B7D8, #146CF6, #00B7D8);">
+                <div class="panel-heading" style="text-align:center; background-color: #00BB27 ;">
                     <img src="img/tugas_logo.png" style="height:150px;" />
                     <h3 class="panel-title">
                         <strong>
@@ -70,7 +69,7 @@ session_start();
                             </div>
                         </div>
                         <button type="submit" class="btn btn-sm btn-primary" name="btn_login"
-                            style="background: linear-gradient(to right, #00B7D8, #146CF6, #00B7D8);">Log in</button>
+                            style="background-color:#00BB27;">Log in</button>
                         <a href="pages/resetpassword.php" style="float: right;">Forgot password</a>
                         <label id="error" class="label label-danger pull-right"></label>
                     </form>

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -41,8 +42,8 @@
     }
 
     body {
-      background-color: linear-gradient(to right, #00B7D8, #146CF6, #00B7D8);
-      /* Light gray background color */
+      background-color: #0000FF;
+      /* Set background color to blue */
     }
   </style>
 </head>
@@ -65,7 +66,6 @@
         </ul>
         <ul>
           <li><a href="about.php" class="top_parent">&nbsp; About</a>
-
           </li>
         </ul>
         <ul>

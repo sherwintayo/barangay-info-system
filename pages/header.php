@@ -236,7 +236,7 @@ if (!empty($count_active)) {
 }
 echo '</ul>
         <div class="navbar-right">
-            <ul class="nav navbar-nav" style="background:linear-gradient(to right, #00B7D8, #146CF6, #00B7D8);">
+            <ul class="nav navbar-nav" style="background-color:#0000FF;">
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
@@ -245,17 +245,17 @@ echo '</ul>
                   
                     <ul class="dropdown-menu">
                         <!-- User image -->
-                        <li class="user-header bg-light-blue" style="background:linear-gradient(to right, #00B7D8, #146CF6, #00B7D8);">
+                        <li class="user-header bg-light-blue" style="background-color:#0000FF;">
                             <p>' . $_SESSION['role'] . '</p>
                         </li>
                         <!-- Menu Body -->
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background:linear-gradient(to right, #80b3ff, #b2fefa);">Change Account</a>
+                                <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background-color: #00BB27;">Change Account</a>
                             </div>
                             <div class="pull-right">
-                                <a href="../../logout.php" class="btn btn-default btn-flat" style="background:linear-gradient(to right, #80b3ff, #0ed2f7);">Sign out</a>
+                                <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
                             </div>
                         </li>
                     </ul>
