@@ -268,7 +268,7 @@ body.fixed .wrapper {
 /* Content */
 .content {
   padding: 20px 15px;
-  background: #f9f9f9;
+  background: #EEEDEB;
 }
 
 /* Utility */
@@ -1138,7 +1138,7 @@ body>.header .logo .icon {
   border-radius: 0;
   padding: 1px 0 0 0;
   border-top-width: 0;
-  width: 280px;
+ 
 }
 
 .navbar-nav>.user-menu>.dropdown-menu:after {
@@ -1618,7 +1618,7 @@ body>.header .logo .icon {
 .box {
   position: relative;
   background: #ffffff;
-  border-top: 2px solid #c1c1c1;
+ /* border-top: 2px solid #c1c1c1;*/
   margin-bottom: 20px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -3250,17 +3250,17 @@ Component: timeline
 
 .skin-black .user-panel>.info,
 .skin-black .user-panel>.info>a {
-  color: #eee;
+  color: black;
 }
 
 /* skin-black sidebar */
 .skin-black .sidebar {
-  border-bottom: 1px solid #333;
+/*  border-bottom: 1px solid #333;*/
 }
 
 .skin-black .sidebar>.sidebar-menu>li {
-  border-top: 1px solid #333;
-  border-bottom: 0px solid #444;
+ /* border-top: 1px solid #333;
+  border-bottom: 0px solid #444;*/
 }
 
 .skin-black .sidebar>.sidebar-menu>li:first-of-type {
@@ -3291,7 +3291,7 @@ Component: timeline
 }
 
 .skin-black .sidebar a {
-  color: #eee;
+  color: #1f254e;
 }
 
 .skin-black .sidebar a:hover {

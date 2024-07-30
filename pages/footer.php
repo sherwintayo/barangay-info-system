@@ -40,7 +40,8 @@
             $('#autoclosable-btn-success').prop('disabled', false);
         });
     }
-
+    
+   
     function save_success(){
         $('#autoclosable-btn-add').prop('disabled', true);
         $('.alert-autocloseable-add').show();

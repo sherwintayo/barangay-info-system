@@ -85,9 +85,9 @@
                                     <!-- <label class="control-label">Civil Status:</label>-->
                                     <select name="txt_cstatus" class="form-control input-sm input-size">
                                         <option selected="" disabled="">-Select Status-</option>
-                                        <option>Single</option>
-                                        <option>Married</option>
-                                        <option>Widow</option>
+                                        <option value="Single">Single</option>
+                                        <option value="Married">Married</option>
+                                        <option value="Widow">Widow</option>
                                     </select>
                                 </div>
 
@@ -99,15 +99,15 @@
                                 <div class="form-group">
                                     <!--<label class="control-label">Educational Attainment:</label>-->
                                     <select name="ddl_eattain" class="form-control input-sm input-size">
-                                        <option>No schooling completed</option>
-                                        <option>Elementary</option>
-                                        <option>High school, undergrad</option>
-                                        <option>High school graduate</option>
-                                        <option>College, undergrad</option>
-                                        <option>Vocational</option>
-                                        <option>Bachelor’s degree</option>
-                                        <option>Master’s degree</option>
-                                        <option>Doctorate degree</option>
+                                        <option value="No schooling completed">No schooling completed</option>
+                                        <option value="Elementary">Elementary</option>
+                                        <option value="High school, undergrad">High school, undergrad</option>
+                                        <option value="High school graduate">High school graduate</option>
+                                        <option value="College, undergrad">College, undergrad</option>
+                                        <option value="Vocational">Vocational</option>
+                                        <option value="Bachelor’s degree">Bachelor’s degree</option>
+                                        <option value="Master’s degree">Master’s degree</option>
+                                        <option value="Doctorate degree">Doctorate degree</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -117,13 +117,13 @@
                                 </div>
                                 <div class="form-group">
                                     <!-- <label class="control-label">Civil Status:</label>-->
-                                    <select name="txt_cstatus" class="form-control input-sm input-size">
-                                        <option selected="" disabled="">-Select -</option>
-                                        <option>PWD</option>
-                                        <option>Senior</option>
-                                        <option>Pregnant</option>
-                                        <option>InActive</option>
-                                        <option>Active</option>
+                                    <select name="status" class="form-control input-sm input-size">
+                                        <option value="" selected disabled>-Select Status -</option>
+                                        <option value="PWD">PWD</option>
+                                        <option value="Senior">Senior</option>
+                                        <option value="Pregnant">Pregnant</option>
+                                        <option value="InActive">InActive</option>
+                                        <option value="Active">Active</option>
                                     </select>
                                 </div>
 

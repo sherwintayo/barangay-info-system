@@ -21,23 +21,23 @@ if(isset($row['id'])) {
         <div class="row">
                             <div class="container-fluid">
                                 <div class="col-md-6 col-sm-12">
-
+                                    <input type="hidden" name="hidden_id" value="<?= $row['id'] ?>">
                                     <div class="form-group">
                                         <!--<label class="control-label" >Name:</label><br>-->
                                         <div class="col-sm-4">
-                                            <input name="txt_lname" class="form-control input-sm" type="text" placeholder="Lastname" required="" />
+                                            <input name="txt_lname" class="form-control input-sm" type="text" placeholder="Lastname" required="" value="<?= $row['lname'] ?>" />
                                         </div>
                                         <div class="col-sm-4">
-                                            <input name="txt_fname" class="form-control input-sm col-sm-4" type="text" placeholder="Firstname" required="" />
+                                            <input name="txt_fname" class="form-control input-sm col-sm-4" type="text" placeholder="Firstname" required="" value="<?= $row['fname'] ?>" />
                                         </div>
                                         <div class="col-sm-4">
-                                            <input name="txt_mname" class="form-control input-sm col-sm-4" type="text" placeholder="Middlename" required="" />
+                                            <input name="txt_mname" class="form-control input-sm col-sm-4" type="text" placeholder="Middlename" required="" value="<?= $row['mname'] ?>" />
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <!-- <label class="control-label">Birthdate:</label>-->
-                                        <input name="txt_bdate" class="form-control input-sm input-size" type="date" placeholder="Birthdate" required="" />
+                                        <input name="txt_bdate" class="form-control input-sm input-size" type="date" placeholder="Birthdate" required="" value="<?= $row['bdate'] ?>" />
                                     </div>
                                     <!--
                                     <div class="form-group">
@@ -48,62 +48,63 @@ if(isset($row['id'])) {
 
                                     <div class="form-group">
                                         <!-- <label class="control-label">Barangay:</label>-->
-                                        <input name="txt_brgy" class="form-control input-sm input-size" type="text" placeholder="Barangay" required="" />
+                                        <input name="txt_brgy" class="form-control input-sm input-size" type="text" placeholder="Barangay" required="" value="<?= $row['barangay'] ?>" />
                                     </div>
 
                                     <div class="form-group">
                                        <!--  <label class="control-label">Household #:</label>-->
-                                        <input name="txt_householdnum" class="form-control input-sm input-size" type="number" min="1" placeholder="Household #" required="" />
+                                        <input name="txt_householdnum" class="form-control input-sm input-size" type="number" min="1" placeholder="Household #" required="" value="<?= $row['householdnum'] ?>" />
                                     </div>
 
                                     <div class="form-group">
                                         <!-- <label class="control-label">Civil Status:</label>-->
                                         <select name="txt_cstatus" class="form-control input-sm input-size">
                                         <option selected="" disabled="" >-Select Status-</option>
-                                            <option>Single</option>
-                                            <option>Married</option>
-                                            <option>Widow</option>
+                                            <option value="Single" <?= $row['civilstatus'] == 'Single' ? 'selected' : '' ?>>Single</option>
+                                            <option value="Married" <?= $row['civilstatus'] == 'Married' ? 'selected' : '' ?>>Married</option>
+                                            <option value="Widow" <?= $row['civilstatus'] == 'Widow' ? 'selected' : '' ?>>Widow</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                          <!--<label class="control-label">Region:</label>-->
-                                        <input name="txt_region" class="form-control input-sm input-size" type="text" placeholder="Region" required="" />
+                                        <input name="txt_region" class="form-control input-sm input-size" type="text" placeholder="Region" required="" value="<?= $row['region'] ?>" />
                                     </div>
                                     <div class="form-group">
                                          <!--<label class="control-label">Educational Attainment:</label>-->
                                         <select name="ddl_eattain" class="form-control input-sm input-size">
-                                            <option>No schooling completed</option>
-                                            <option>Elementary</option>
-                                            <option>High school, undergrad</option>
-                                            <option>High school graduate</option>
-                                            <option>College, undergrad</option>
-                                            <option>Vocational</option>
-                                            <option>Bachelor’s degree</option>
-                                            <option>Master’s degree</option>
-                                            <option>Doctorate degree</option>
+                                        <option selected="" disabled="">-Select Educational Attainment -</option>
+                                            <option value="No schooling completed" <?= $row['highestEducationalAttainment'] == 'No schooling completed' ? 'selected' : '' ?>>No schooling completed</option>
+                                            <option value="Elementary" <?= $row['highestEducationalAttainment'] == 'Elementary' ? 'selected' : '' ?>>Elementary</option>
+                                            <option value="High school, undergrad" <?= $row['highestEducationalAttainment'] == 'High school, undergrad' ? 'selected' : '' ?>>High school, undergrad</option>
+                                            <option value="High school graduate" <?= $row['highestEducationalAttainment'] == 'High school graduate' ? 'selected' : '' ?>>High school graduate</option>
+                                            <option value="College, undergrad" <?= $row['highestEducationalAttainment'] == 'College, undergrad' ? 'selected' : '' ?>>College, undergrad</option>
+                                            <option value="Vocational" <?= $row['highestEducationalAttainment'] == 'Vocational' ? 'selected' : '' ?>>Vocational</option>
+                                            <option value="Bachelor’s degree" <?= $row['highestEducationalAttainment'] == 'Bachelor’s degree' ? 'selected' : '' ?>>Bachelor’s degree</option>
+                                            <option value="Master’s degree" <?= $row['highestEducationalAttainment'] == 'Master’s degree' ? 'selected' : '' ?>>Master’s degree</option>
+                                            <option value="Doctorate degree" <?= $row['highestEducationalAttainment'] == 'Doctorate degree' ? 'selected' : '' ?>>Doctorate degree</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                          <!--<label class="control-label">Municipality:</label>-->
-                                        <input name="txt_Municipality" class="form-control input-sm input-size" type="text" placeholder="Municipality" required="" />
+                                        <input name="txt_Municipality" class="form-control input-sm input-size" type="text" placeholder="Municipality" required="" value="<?= $row['Municipality'] ?>" />
                                     </div>
                                     <div class="form-group">
                                     <!-- <label class="control-label">Civil Status:</label>-->
-                                    <select name="txt_cstatus" class="form-control input-sm input-size">
-                                        <option selected="" disabled="">-Select -</option>
-                                        <option>PWD</option>
-                                        <option>Senior</option>
-                                        <option>Pregnant</option>
-                                        <option>InActive</option>
-                                        <option>Active</option>
+                                    <select name="status" class="form-control input-sm input-size" required>
+                                        <option selected="" disabled="">- Select Type -</option>
+                                        <option value="PWD" <?= $row['status'] == 'PWD' ? 'selected' : '' ?>>PWD</option>
+                                        <option value="Senior" <?= $row['status'] == 'Senior' ? 'selected' : '' ?>>Senior</option>
+                                        <option value="Pregnant" <?= $row['status'] == 'Pregnant' ? 'selected' : '' ?>>Pregnant</option>
+                                        <option value="InActive" <?= $row['status'] == 'InActive' ? 'selected' : '' ?>>InActive</option>
+                                        <option value="Active" <?= $row['status'] == 'Active' ? 'selected' : '' ?>>Active</option>
                                     </select>
                                 </div>
 
                                     
                                     <div class="form-group">
                                         <label class="control-label">Date Moved In:</label>
-                                        <input id="txt_date_of_transfer" name="txt_date_of_transfer" class="form-control input-sm" type="date" placeholder="Date Moved In" required="" />
+                                        <input id="txt_date_of_transfer" name="txt_date_of_transfer" class="form-control input-sm" type="date" placeholder="Date Moved In" required="" value="<?= date('Y-m-d', strtotime($row['datemove'])) ?>" />
                                         <span id="length_of_stay"></span> <!-- This span will display the calculated length of stay -->
                                     </div>
                                     <?php
@@ -138,51 +139,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     
                                     <div class="form-group">     
                                          <!--<label class="control-label">Gender:</label>-->
-                                        <select name="ddl_gender" class="form-control input-sm" required=""/>
+                                        <select name="ddl_gender" class="form-control input-sm" required="">
                                             <option selected="" disabled="">-Select Gender-</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
+                                            <option value="Male" <?= $row['gender'] == 'Male' ? 'selected' : '' ?>>Male</option>
+                                            <option value="Female" <?= $row['gender'] == 'Female' ? 'selected' : '' ?>>Female</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                        <!--  <label class="control-label">Birthplace:</label>-->
-                                        <input name="txt_bplace" class="form-control input-sm" type="text" placeholder="Birthplace" required="" />
+                                        <input name="txt_bplace" class="form-control input-sm" type="text" placeholder="Birthplace" required="" value="<?= $row['bplace'] ?>" />
                                     </div> 
 
                                     <div class="form-group">
                                         <!-- <label class="control-label">Province:</label>-->
-                                        <input name="txt_province" class="form-control input-sm" type="text" placeholder="Province" required="" />
+                                        <input name="txt_province" class="form-control input-sm" type="text" placeholder="Province" required=""  value="<?= $row['province'] ?>" />
                                     </div> 
 
                                     <div class="form-group">
                                         <!-- <label class="control-label">Purok/Zone #:</label>-->
         
-                                        <select name="txt_zone" class="form-control input-sm"  />
-                                    <option selected="" disabled="">-- Select Zone/Purok -- </option>
-                                    <option value="Rosas"> Rosas</option>
-                                    <option value="Bombil"> Bombil</option>
-                                    <option value="Santan"> Santan</option>
-                                     <option value="Kumintang"> Kumintang</option>
+                                    <select name="txt_zone" class="form-control input-sm"  >
+                                        <option selected="" disabled="">-- Select Zone/Purok -- </option>
+                                        <option value="Rosas" <?= $row['zone'] == 'Rosas' ? 'selected' : '' ?>> Rosas</option>
+                                        <option value="Bombil" <?= $row['zone'] == 'Bombil' ? 'selected' : '' ?>> Bombil</option>
+                                        <option value="Santan" <?= $row['zone'] == 'Santan' ? 'selected' : '' ?>> Santan</option>
+                                        <option value="Kumintang" <?= $row['zone'] == 'Kumintang' ? 'selected' : '' ?>> Kumintang</option>
                                     </select>
                                     </div>
 
                                     <div class="form-group">
                                         <!-- <label class="control-label">Total Household Member:</label>-->
-                                        <input name="txt_householdmem" class="form-control input-sm" type="number" min="1" placeholder="Total Household Member" required="" />
+                                        <input name="txt_householdmem" class="form-control input-sm" type="number" min="1" placeholder="Total Household Member" required=""  value="<?= $row['totalhousehold'] ?>" />
                                     </div>
 
                                     <div class="form-group">
                                         <!-- <label class="control-label">Occupation:</label>-->
-                                        <input name="txt_occp" class="form-control input-sm" type="text" placeholder="Occupation" required="" />
+                                        <input name="txt_occp" class="form-control input-sm" type="text" placeholder="Occupation" required=""  value="<?= $row['occupation'] ?>" />
                                     </div>
                                     <div class="form-group">
                                          <!--<label class="control-label">Citizenship:</label>-->
-                                        <input name="txt_Citizenship" class="form-control input-sm" type="text" placeholder="Citizenship" required="" />
+                                        <input name="txt_Citizenship" class="form-control input-sm" type="text" placeholder="Citizenship" required=""  value="<?= $row['Citizenship'] ?>" />
                                     </div>
                                     <div class="form-group">
                                          <!--<label class="control-label">Former Address:</label>-->
-                                        <input name="txt_faddress" class="form-control input-sm" type="text" placeholder="Former Address" required="" />
+                                        <input name="txt_faddress" class="form-control input-sm" type="text" placeholder="Former Address" required=""  value="<?= $row['formerAddress'] ?>" />
                                     </div>
 
                                     
@@ -193,7 +194,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                     <div class="form-group">
                                         <label class="control-label">Image:</label>
-                                        <input name="txt_image" class="form-control input-sm" type="file" required="" />
+                                        <input name="txt_image" class="form-control input-sm" type="file" />
                                     </div>
 
 

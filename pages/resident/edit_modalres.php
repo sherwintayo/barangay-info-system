@@ -1,247 +1,242 @@
 <?php
-if (isset($row['id'])) {
-    echo '<div id="editModal' . $row['id'] . '" class="modal fade">';
-
+if(isset($row['id'])) {
+    echo '<div id="editModal'.$row['id'].'" class="modal fade">';
+    
     // Rest of your code...
-
+    
 } else {
     echo "No data found for editing.";
 }
 ?>
 
-<form class="form-horizontal" method="post" enctype="multipart/form-data">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Edit for residents</h4>
-            </div>
-            <div class="modal-body">
+<form class="form-horizontal" method="post" enctype="multipart/form-data"> 
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Edit Resident Information</h4>
+        </div>
+        <div class="modal-body">
 
-                <div class="row">
-                    <div class="container-fluid">
-                        <div class="col-md-6 col-sm-12">
+        <div class="row">
+                        <div class="container-fluid">
+                            <div class="col-md-6 col-sm-12">
+                                <input type="hidden" name="hidden_id" value="<?= $row['id'] ?>">
 
-                            <div class="form-group">
-                                <!--<label class="control-label" >Name:</label><br>-->
-                                <div class="col-sm-4">
-                                    <input name="txt_lname" class="form-control input-sm" type="text"
-                                        placeholder="Lastname" required="" />
+                                <div class="form-group">
+                                    <!--<label class="control-label" >Name:</label><br>-->
+                                    <div class="col-sm-4">
+                                        <input name="txt_lname" class="form-control input-sm" type="text" placeholder="Lastname" required="" value="<?= $row['lname'] ?>" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input name="txt_fname" class="form-control input-sm col-sm-4" type="text" placeholder="Firstname" required="" value="<?= $row['fname'] ?>" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input name="txt_mname" class="form-control input-sm col-sm-4" type="text" placeholder="Middlename" required="" value="<?= $row['mname'] ?>" />
+                                    </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <input name="txt_fname" class="form-control input-sm col-sm-4" type="text"
-                                        placeholder="Firstname" required="" />
-                                </div>
-                                <div class="col-sm-4">
-                                    <input name="txt_mname" class="form-control input-sm col-sm-4" type="text"
-                                        placeholder="Middlename" required="" />
-                                </div>
-                            </div>
 
-                            <div class="form-group">
-                                <!-- <label class="control-label">Birthdate:</label>-->
-                                <input name="txt_bdate" class="form-control input-sm input-size" type="date"
-                                    placeholder="Birthdate" required="" />
-                            </div>
-                            <!--
+                                <div class="form-group">
+                                    <!-- <label class="control-label">Birthdate:</label>-->
+                                    <input name="txt_bdate" class="form-control input-sm input-size" type="date" placeholder="Birthdate" required="" value="<?= $row['bdate'] ?>" />
+                                </div>
+                                <!--
                                     <div class="form-group">
                                         <label class="control-label">Age:</label>
                                         <input name="txt_age" class="form-control input-sm input-size" type="number" placeholder="Age"/>
                                     </div> -->
 
 
-                            <div class="form-group">
-                                <!-- <label class="control-label">Barangay:</label>-->
-                                <input name="txt_brgy" class="form-control input-sm input-size" type="text"
-                                    placeholder="Barangay" required="" />
+                                <div class="form-group">
+                                    <!-- <label class="control-label">Barangay:</label>-->
+                                    <input name="txt_brgy" class="form-control input-sm input-size" type="text" placeholder="Barangay" required="" value="<?= $row['barangay'] ?>" />
+                                </div>
+
+                                <div class="form-group">
+                                    <!--  <label class="control-label">Household #:</label>-->
+                                    <input name="txt_householdnum" class="form-control input-sm input-size" type="number" min="1" placeholder="Household #" required="" value="<?= $row['householdnum'] ?>" />
+                                </div>
+
+                                <div class="form-group">
+                                    <!--<label class="control-label">Civil Status:</label>-->
+                                    <select name="txt_cstatus" class="form-control input-sm" required="true">
+                                    <option selected="" disabled="">-Select Civil Status-</option>
+                                    <option value="Single" <?= $row['civilstatus'] == 'Single' ? 'selected' : '' ?>>Single</option>
+                                    <option value="Married" <?= $row['civilstatus'] == 'Married' ? 'selected' : '' ?>>Married</option>
+                                    <option value="Widow" <?= $row['civilstatus'] == 'Widow' ? 'selected' : '' ?>>Widow</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <!--<label class="control-label">Region:</label>-->
+                                    <input name="txt_region" class="form-control input-sm input-size" type="text" placeholder="Region" required="" value="<?= $row['region'] ?>" />
+                                </div>
+                                <div class="form-group">
+                                    <!--<label class="control-label">Educational Attainment:</label>-->
+                                    <select name="ddl_eattain" class="form-control input-sm input-size" required>
+                                        <option selected="" disabled="">-Select Educational Attainment -</option>
+                                        <option value="No schooling completed" <?= $row['highestEducationalAttainment'] == 'No schooling completed' ? 'selected' : '' ?>>No schooling completed</option>
+                                        <option value="Elementary" <?= $row['highestEducationalAttainment'] == 'Married' ? 'selected' : '' ?>>Elementary</option>
+                                        <option value="High school, undergrad" <?= $row['highestEducationalAttainment'] == 'High school, undergrad' ? 'selected' : '' ?>>High school, undergrad</option>
+                                        <option value="High school graduate" <?= $row['highestEducationalAttainment'] == 'High school graduate' ? 'selected' : '' ?>>High school graduate</option>
+                                        <option value="College, undergrad" <?= $row['highestEducationalAttainment'] == 'College, undergrad' ? 'selected' : '' ?>>College, undergrad</option>
+                                        <option value="Vocational" <?= $row['highestEducationalAttainment'] == 'Vocational' ? 'selected' : '' ?>>Vocational</option>
+                                        <option value="Bachelor’s degree" <?= $row['highestEducationalAttainment'] == 'Bachelor’s degree' ? 'selected' : '' ?>>Bachelor’s degree</option>
+                                        <option value="Master’s degree" <?= $row['highestEducationalAttainment'] == 'Master’s degree' ? 'selected' : '' ?>>Master’s degree</option>
+                                        <option value="Doctorate degree" <?= $row['highestEducationalAttainment'] == 'Doctorate degree' ? 'selected' : '' ?>>Doctorate degree</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <!--<label class="control-label">Municipality:</label>-->
+                                    <input name="txt_Municipality" class="form-control input-sm input-size" type="text" placeholder="Municipality" required="" value="<?= $row['Municipality'] ?>" />
+                                </div>
+
+                                <div class="form-group">
+                                    <!-- <label class="control-label">Civil Status:</label>-->
+                                    <select name="status" class="form-control input-sm input-size" required>
+                                        <option selected="" disabled="">-Select Status -</option>
+                                        <option value="PWD" <?= $row['status'] == 'PWD' ? 'selected' : '' ?>>PWD</option>
+                                        <option value="Senior" <?= $row['status'] == 'Senior' ? 'selected' : '' ?>>Senior</option>
+                                        <option value="Pregnant" <?= $row['status'] == 'Pregnant' ? 'selected' : '' ?>>Pregnant</option>
+                                        <option value="InActive" <?= $row['status'] == 'InActive' ? 'selected' : '' ?>>InActive</option>
+                                        <option value="Active" <?= $row['status'] == 'Active' ? 'selected' : '' ?>>Active</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <!-- <label class="control-label">Username:</label>
+                                        <input name="txt_uname" id="username" class="form-control input-sm input-size" type="text" placeholder="Username" required="" />
+                                        <label id="user_msg" style="color:#CC0000;" ></label>-->
+                                </div>
+
                             </div>
 
-                            <div class="form-group">
-                                <!--  <label class="control-label">Household #:</label>-->
-                                <input name="txt_householdnum" class="form-control input-sm input-size" type="number"
-                                    min="1" placeholder="Household #" required="" />
-                            </div>
+                            <div class="col-md-6 col-sm-12">
 
-                            <div class="form-group">
-                                <!-- <label class="control-label">Civil Status:</label>-->
-                                <input name="txt_cstatus" class="form-control input-sm input-size" type="text"
-                                    placeholder="Civil Status" required="" />
-                            </div>
-                            <div class="form-group">
-                                <!--<label class="control-label">Region:</label>-->
-                                <input name="txt_region" class="form-control input-sm input-size" type="text"
-                                    placeholder="Region" required="" />
-                            </div>
-                            <div class="form-group">
-                                <!--<label class="control-label">Educational Attainment:</label>-->
-                                <select name="ddl_eattain" class="form-control input-sm input-size">
-                                    <option>No schooling completed</option>
-                                    <option>Elementary</option>
-                                    <option>High school, undergrad</option>
-                                    <option>High school graduate</option>
-                                    <option>College, undergrad</option>
-                                    <option>Vocational</option>
-                                    <option>Bachelor’s degree</option>
-                                    <option>Master’s degree</option>
-                                    <option>Doctorate degree</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <!--<label class="control-label">Municipality:</label>-->
-                                <input name="txt_Municipality" class="form-control input-sm input-size" type="text"
-                                    placeholder="Municipality" required="" />
-                            </div>
+                                <div class="form-group">
+                                    <!--<label class="control-label">Gender:</label>-->
+                                    <select name="ddl_gender" class="form-control input-sm" required>
+                                    <option selected="" disabled="">-Select Gender-</option>
+                                    <option value="Male" <?= $row['gender'] == 'Male' ? 'selected' : '' ?>>Male</option>
+                                    <option value="Female" <?= $row['gender'] == 'Female' ? 'selected' : '' ?>>Female</option>
+                                    </select>
+                                </div>
 
-                            <div class="form-group">
-                                <!-- <label class="control-label">Username:</label>-->
-                                <input name="txt_uname" id="username" class="form-control input-sm input-size"
-                                    type="text" placeholder="Username" required="" />
-                                <label id="user_msg" style="color:#CC0000;"></label>
+                                <div class="form-group">
+                                    <!--  <label class="control-label">Birthplace:</label>-->
+                                    <input name="txt_bplace" class="form-control input-sm" type="text" placeholder="Birthplace" required="" value="<?= $row['bplace'] ?>" />
+                                </div>
+
+                                <div class="form-group">
+                                    <!-- <label class="control-label">Province:</label>-->
+                                    <input name="txt_province" class="form-control input-sm" type="text" placeholder="Province" required="" value="<?= $row['province'] ?>" />
+                                </div>
+
+                                <div class="form-group">
+                                    <!-- <label class="control-label">Purok/Zone #:</label>-->
+
+                                    <select name="txt_zone" class="form-control input-sm" required>
+                                    <option selected="" disabled="">-- Select Zone/Purok -- </option>
+                                    <option value="Rosas" <?= $row['zone'] == 'Rosas' ? 'selected' : '' ?>> Rosas</option>
+                                    <option value="Bombil" <?= $row['zone'] == 'Bombil' ? 'selected' : '' ?>> Bombil</option>
+                                    <option value="Santan" <?= $row['zone'] == 'Santan' ? 'selected' : '' ?>> Santan</option>
+                                    <option value="Kumintang" <?= $row['zone'] == 'Kumintang' ? 'selected' : '' ?>> Kumintang</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <!-- <label class="control-label">Total Household Member:</label>-->
+                                    <input name="txt_householdmem" class="form-control input-sm" type="number" min="1" placeholder="Total Household Member" required="" value="<?= $row['totalhousehold'] ?>" />
+                                </div>
+
+                                <div class="form-group">
+                                    <!-- <label class="control-label">Occupation:</label>-->
+                                    <input name="txt_occp" class="form-control input-sm" type="text" placeholder="Occupation" required="" value="<?= $row['occupation'] ?>" />
+                                </div>
+                                <div class="form-group">
+                                    <!--<label class="control-label">Citizenship:</label>-->
+                                    <input name="txt_Citizenship" class="form-control input-sm" type="text" placeholder="Citizenship" required="" value="<?= $row['Citizenship'] ?>" />
+                                </div>
+                                <div class="form-group">
+                                    <!--<label class="control-label">Former Address:</label>-->
+                                    <input name="txt_faddress" class="form-control input-sm" type="text" placeholder="Former Address" required="" value="<?= $row['formerAddress'] ?>" />
+                                </div>
+
+
+                                <div class="form-group">
+                                    <!--<label class="control-label">Password:</label>
+                                        <input name="txt_upass" class="form-control input-sm" type="password" placeholder="Password" required="" />-->
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Image:</label>
+                                    <input name="txt_image" class="form-control input-sm" type="file"/>
+                                </div>
+
+
+
                             </div>
 
                         </div>
-
-                        <div class="col-md-6 col-sm-12">
-
-                            <div class="form-group">
-                                <!--<label class="control-label">Gender:</label>-->
-                                <select name="ddl_gender" class="form-control input-sm" required="" />
-                                <option selected="" disabled="">-Select Gender-</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <!--  <label class="control-label">Birthplace:</label>-->
-                                <input name="txt_bplace" class="form-control input-sm" type="text"
-                                    placeholder="Birthplace" required="" />
-                            </div>
-
-                            <div class="form-group">
-                                <!-- <label class="control-label">Province:</label>-->
-                                <input name="txt_province" class="form-control input-sm" type="text"
-                                    placeholder="Province" required="" />
-                            </div>
-
-                            <div class="form-group">
-                                <!-- <label class="control-label">Purok/Zone #:</label>-->
-
-                                <select name="txt_zone" class="form-control input-sm" />
-                                <option selected="" disabled="">-- Select Zone/Purok -- </option>
-                                <option value="Rosas"> Rosas</option>
-                                <option value="Bombil"> Bombil</option>
-                                <option value="Santan"> Santan</option>
-                                <option value="Kumintang"> Kumintang</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <!-- <label class="control-label">Total Household Member:</label>-->
-                                <input name="txt_householdmem" class="form-control input-sm" type="number" min="1"
-                                    placeholder="Total Household Member" required="" />
-                            </div>
-
-                            <div class="form-group">
-                                <!-- <label class="control-label">Occupation:</label>-->
-                                <input name="txt_occp" class="form-control input-sm" type="text"
-                                    placeholder="Occupation" required="" />
-                            </div>
-                            <div class="form-group">
-                                <!--<label class="control-label">Citizenship:</label>-->
-                                <input name="txt_Citizenship" class="form-control input-sm" type="text"
-                                    placeholder="Citizenship" required="" />
-                            </div>
-                            <div class="form-group">
-                                <!--<label class="control-label">Former Address:</label>-->
-                                <input name="txt_faddress" class="form-control input-sm" type="text"
-                                    placeholder="Former Address" required="" />
-                            </div>
-
-
-                            <div class="form-group">
-                                <!--<label class="control-label">Password:</label>-->
-                                <input name="txt_upass" class="form-control input-sm" type="password"
-                                    placeholder="Password" required="" />
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label">Image:</label>
-                                <input name="txt_image" class="form-control input-sm" type="file" required="" />
-                            </div>
-
-
-
-                        </div>
-
                     </div>
-                </div>
-
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default btn-sm" data-dismiss="modal" value="Cancel" />
-                    <input type="submit" class="btn btn-primary btn-sm" name="btn_save" value="Update" />
-                </div>
-            </div>
+                        
+                        </div>
+        <div class="modal-footer">
+            <input type="button" class="btn btn-default btn-sm" data-dismiss="modal" value="Cancel"/>
+            <input type="submit" class="btn btn-primary btn-sm" name="btn_save" value="Update"/>
         </div>
+    </div>
+  </div>
 </form>
 </div>
+           
+          
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script type="text/javascript">
+$(document).ready(function() {
+    // Function to calculate length of stay and send notification 
+    function sendNotification(selectedDate) {
+        // Convert the selected date string to a Date object
+        var dateMovedIn = new Date(selectedDate);
+        
+        // Get the current date
+        var today = new Date();
+        
+        // Calculate the difference in milliseconds between the current date and the selected date
+        var diffInMilliseconds = today - dateMovedIn;
+        
+        // Calculate the difference in months (approximately)
+        var diffInMonths = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24 * 30));
+        
+        // Display the calculated length of stay in months
+        $('#length_of_stay').html('Length of stay: ' + diffInMonths + ' months');
 
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        var timeOut = null; // this used for hold few seconds to made ajax request
-
-        var loading_html = '<img src="../../img/ajax-loader.gif" style="height: 20px; width: 20px;"/>'; // just an loading image or we can put any texts here
-
-        //when button is clicked
-        $('#username').keyup(function (e) {
-
-            // when press the following key we need not to make any ajax request, you can customize it with your own way
-            switch (e.keyCode) {
-                //case 8:   //backspace
-                case 9:     //tab
-                case 13:    //enter
-                case 16:    //shift
-                case 17:    //ctrl
-                case 18:    //alt
-                case 19:    //pause/break
-                case 20:    //caps lock
-                case 27:    //escape
-                case 33:    //page up
-                case 34:    //page down
-                case 35:    //end
-                case 36:    //home
-                case 37:    //left arrow
-                case 38:    //up arrow
-                case 39:    //right arrow
-                case 40:    //down arrow
-                case 45:    //insert
-                    //case 46:  //delete
-                    return;
-            }
-            if (timeOut != null)
-                clearTimeout(timeOut);
-            timeOut = setTimeout(is_available, 500);  // delay delay ajax request for 1000 milliseconds
-            $('#user_msg').html(loading_html); // adding the loading text or image
-        });
-    });
-    function is_available() {
-        //get the username
-        var username = $('#username').val();
-
-        //make the ajax request to check is username available or not
-        $.post("check_username.php", { username: username },
-            function (result) {
-                console.log(result);
-                if (result != 0) {
-                    $('#user_msg').html('Not Available');
-                    document.getElementById("btn_add").disabled = true;
-                }
-                else {
-                    $('#user_msg').html('<span style="color:#006600;">Available</span>');
-                    document.getElementById("btn_add").disabled = false;
-                }
-            });
-
+        // Check if 6 months have passed
+        if (diffInMonths >= 6) {
+            // Send notification
+            alert("The new resident will now be considered as a citizen of the barangay.");
+            // You can replace the alert with an AJAX call to send the notification to the server
+        }
     }
+
+    // When the "Add Resident" button is clicked
+    $('#btn_add').click(function() {
+        // Get the selected date from the input field
+        var selectedDate = $('#txt_date_of_transfer').val();
+        
+        // Check if a date is selected
+        if (selectedDate !== '') {
+            // Call the function to send notification
+            sendNotification(selectedDate);
+        } else {
+            // If no date is selected, clear the displayed length of stay
+            $('#length_of_stay').html('');
+        }
+    });
+});  
 </script>
+
+                
+
+        
+       

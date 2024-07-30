@@ -111,7 +111,7 @@ if (!isset($_SESSION['role'])) {
 
                                                         if (!isset($_SESSION['staff'])) {
 
-                                                            $squery = mysqli_query($con, "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid FROM tblpermit p left join tblresident r on r.id = p.residentid where status = 'Approved'") or die('Error: ' . mysqli_error($con));
+                                                            $squery = mysqli_query($con, "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid, p.status AS pstatus FROM tblpermit p left join tblresident r on r.id = p.residentid where p.status = 'Approved'") or die('Error: ' . mysqli_error($con));
                                                             while ($row = mysqli_fetch_array($squery)) {
                                                                 echo '
                                                     <tr>

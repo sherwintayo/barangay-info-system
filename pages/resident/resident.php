@@ -74,40 +74,36 @@ if (!isset($_SESSION['role'])) {
                                     <div class="navbar-left">
                                         <ul class="nav navbar-nav" style="background:white;">
                                             <!-- User Account: style can be found in dropdown.less -->
-                                            <li class="dropdown user user-menu">
-                                                <a href="resident.php" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="glyphicon glyphicon-user"></i><span>Select Resident Status:<i
-                                                            class="caret"></i></span>
-                                                </a>
+                                           
 
-                                                <ul class="dropdown-menu">
-                                                    <!-- User image -->
-                                                    <li class="user-header bg-white" style="background:white;">
-
-                                                    </li>
-                                                    <!-- Menu Body -->
-                                                    <!-- Menu Footer-->
-                                                    <div class="box-body table-responsive">
-                                                        <ul class="nav nav-tabs" id="myTab">
-                                                            <li class="user-footer">
-                                                                <div class="pull-left">
-                                                                    <a href="resident.php" class="btn btn-default btn-flat"
-                                                                        data-toggle="modal" data-target="#editProfileModal"
-                                                                        style=" background:white;">Active Resident</a>
-                                                                </div>
-                                                                <br>
-                                                                <div class="pull-left">
-                                                                    <a href="inactiveRes.php" class="btn btn-default btn-flat"
-                                                                        style="background:white;">Inactive Resident </a>
-                                                                </div>
-                                                                <br>
-                                                                <div class="pull-left">
-                                                                    <a href="NewResident.php" class="btn btn-default btn-flat"
-                                                                        style="background:white;">New Resident </a>
-                                                            </li>
+                                                <ul class="nav navbar-nav">
+                                                    <li class="dropdown user user-menu">
+                                                        <a href="resident.php" class="dropdown-toggle" data-toggle="dropdown">
+                                                            <i class="glyphicon glyphicon-user"></i>
+                                                            <span>Select Resident Status: <i class="caret"></i></span>
+                                                        </a>
+                                                        <ul class="dropdown-menu">
+                                                            <li class="user-header bg-white"></li>
+                                                            <div class="box-body table-responsive">
+                                                                <ul class="nav nav-tabs" id="myTab">
+                                                                    <li class="user-footer">
+                                                                        <a href="resident.php" class="btn btn-default btn-flat"
+                                                                            data-toggle="modal"
+                                                                            data-target="#editProfileModal">Active Resident</a>
+                                                                        <a href="inactiveRes.php"
+                                                                            class="btn btn-default btn-flat">Inactive
+                                                                            Resident</a>
+                                                                        <a href="NewResident.php"
+                                                                            class="btn btn-default btn-flat">New Resident</a>
+                                                                            <a href="pwd.php" class="btn btn-default btn-flat">PWD</a>
+                                                                    <a href="senior.php" class="btn btn-default btn-flat">Senior</a>
+                                                                    <a href="pregnant.php" class="btn btn-default btn-flat">Pregnant</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
                                                         </ul>
-                                            </li>
-                                        </ul>
+                                                    </li>
+                                                </ul>
                                     </div>
                                 </div><!-- /.box-header -->
                                 <div class="box-body table-responsive">
@@ -118,8 +114,7 @@ if (!isset($_SESSION['role'])) {
                                                     <?php
                                                     if (!isset($_SESSION['staff'])) {
                                                         ?>
-                                                        <th style="width: 20px !important;"><input type="checkbox"
-                                                                name="chk_delete[]" class="cbxMain" onchange="checkMain(this)" />
+                                                        <th style="width: 20px !important;"><input type="checkbox" class="cbxMain" onchange="checkMain(this)" />
                                                         </th>
                                                         <?php
                                                     }
@@ -136,7 +131,7 @@ if (!isset($_SESSION['role'])) {
                                             <tbody>
                                                 <?php
                                                 if (!isset($_SESSION['staff'])) {
-                                                    $squery = mysqli_query($con, "SELECT zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where statRes=0 order by zone ");
+                                                    $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where statRes=0 order by zone ");
                                                     while ($row = mysqli_fetch_array($squery)) {
                                                         echo '
                                                     <tr>
@@ -154,7 +149,7 @@ if (!isset($_SESSION['role'])) {
                                                         include "edit_modalres.php";
                                                     }
                                                 } else {
-                                                    $squery = mysqli_query($con, "SELECT zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident order by zone");
+                                                    $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident order by zone");
                                                     while ($row = mysqli_fetch_array($squery)) {
                                                         echo '
                                                     <tr>
@@ -209,8 +204,7 @@ if (!isset($_SESSION['role'])) {
                                         <table id="table" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th style="width: 20px !important;"><input type="checkbox"
-                                                            name="chk_delete[]" class="cbxMain" onchange="checkMain(this)" />
+                                                    <th style="width: 20px !important;"><input type="checkbox" class="cbxMain" onchange="checkMain(this)" />
                                                     </th>
                                                     <th>Image</th>
                                                     <th>Name</th>
@@ -222,7 +216,7 @@ if (!isset($_SESSION['role'])) {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $squery = mysqli_query($con, "SELECT id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where householdnum = '" . $_GET['resident'] . "'");
+                                                $squery = mysqli_query($con, "SELECT *,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where householdnum = '" . $_GET['resident'] . "'");
                                                 while ($row = mysqli_fetch_array($squery)) {
                                                     echo '
                                                 <tr>
@@ -258,13 +252,59 @@ if (!isset($_SESSION['role'])) {
         <!-- jQuery 2.0.2 -->
     <?php }
 include "../footer.php"; ?>
+
     <script type="text/javascript">
+         success();
         $(function () {
             $("#table").dataTable({
                 "aoColumnDefs": [{ "bSortable": false, "aTargets": [0, 6] }], "aaSorting": []
             });
         });
     </script>
+    <style>
+        .navbar-nav {
+            background-color: white;
+            border-radius: 8px;
+            padding: 10px;
+           
+        }
+        .dropdown-menu {
+            background-color: #f8f9fa;
+            border: none;
+           
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-menu .user-header {
+            background-color: white;
+            
+        }
+
+        .dropdown-menu .user-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 10px;
+        }
+
+        .dropdown-menu .user-footer a {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 5px;
+            color: #333;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-menu .user-footer a:hover {
+            background-color: #e9ecef;
+            color: #007bff;
+        }
+    </style>
 </body>
 
 </html>

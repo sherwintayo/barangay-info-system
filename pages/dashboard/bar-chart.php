@@ -18,7 +18,7 @@
 		ykeys: ['a'],
 		labels: ['Resident per Zone'],
 		hideHover: 'auto',
-		barColors: ['#FFF017'] // Change this color to your desired color
+		barColors: ['#37B7C3'] // Change this color to your desired color
 	});
 </script>
 
@@ -40,7 +40,7 @@
 		ykeys: ['a'],
 		labels: ['householdnumber'],
 		hideHover: 'auto',
-		barColors: ['#FFF017'] // Change this color to your desired color
+		barColors: ['#37B7C3'] // Change this color to your desired color
 	});
 </script>
 
@@ -60,7 +60,7 @@
 		ykeys: ['a'],
 		labels: ['gender'],
 		hideHover: 'auto',
-		barColors: ['#FFF017'] // Change this color to your desired color
+		barColors: ['#37B7C3'] // Change this color to your desired color
 	});
 </script>
 

@@ -91,7 +91,7 @@ if (!isset($_SESSION['role'])) {
                                         <span class="info-box-text">Total Resident</span>
                                         <span class="info-box-number" style="text-align: center;">
                                             <?php
-                                            $q = mysqli_query($con, "SELECT * from tblnewresident where statRes=0");
+                                            $q = mysqli_query($con, "SELECT * from tblnewresident where statRes= 0 AND status = 'Senior'");
                                             $num_rows = mysqli_num_rows($q);
                                             echo $num_rows;
                                             ?>
@@ -152,7 +152,7 @@ if (!isset($_SESSION['role'])) {
                                             <tbody>
                                                 <?php
                                                 if (!isset($_SESSION['staff'])) {
-                                                    $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblnewresident where statRes=0 order by zone ");
+                                                    $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblnewresident where statRes=0 AND status = 'Senior' order by zone ");
                                                     while ($row = mysqli_fetch_array($squery)) {
                                                         echo '
                                                     <tr>
@@ -229,7 +229,7 @@ if (!isset($_SESSION['role'])) {
                                             <thead>
                                                 
                                                 <tr>
-                                                    <th style="width: 20px !important;"><input type="checkbox" class="cbxMain" onchange="checkMain(this)" />
+                                                    <th style="width: 20px !important;"><input type="checkbox" name="chk_delete[]" class="cbxMain" onchange="checkMain(this)" />
                                                     </th>
                                                     <th>Image</th>
                                                     <th>Name</th>

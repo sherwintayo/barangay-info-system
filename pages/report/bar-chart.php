@@ -2,7 +2,7 @@
 
 <script>
 	// Define the desired color
-	var desiredColor = '#FFF017';
+	var desiredColor = '#79add1';
 
 	Morris.Bar({
 		element: 'morris-bar-chart2',

@@ -24,6 +24,10 @@ session_start();
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
     <style>
         .eye-icon {
             position: absolute;
@@ -44,7 +48,7 @@ session_start();
     <div class="container" style="margin-top:50px ">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
-                <div class="panel-heading" style="text-align:center; background-color: #00BB27 ;">
+                <div class="panel-heading" style="text-align:center; ">
                     <img src="img/tugas_logo.png" style="height:150px;" />
                     <h3 class="panel-title">
                         <strong>
@@ -80,6 +84,8 @@ session_start();
 
     <?php
     include "pages/connection.php";
+
+
     if (isset($_POST['btn_login'])) {
         $username = $_POST['txt_username'];
         $password = $_POST['txt_password'];
@@ -111,14 +117,34 @@ session_start();
                 $_SESSION['userid'] = $row['id'];
                 $_SESSION['username'] = $row['username'];
             }
-            header('location: pages/dashboard/dashboard.php');
+            echo "<script>
+            Swal.fire({
+                title: 'Success!',
+                text: 'Welcome, Administrator!',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = 'pages/dashboard/dashboard.php';
+            });
+        </script>";
         } elseif ($zone_result->num_rows > 0) {
             while ($row = $zone_result->fetch_assoc()) {
                 $_SESSION['role'] = "Zone Leader";
                 $_SESSION['userid'] = $row['id'];
                 $_SESSION['username'] = $row['username'];
             }
-            header('location: pages/permit/permit.php');
+            echo "<script>
+            Swal.fire({
+                title: 'Success!',
+                text: 'Welcome, Zone Leader!',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = 'pages/permit/permit.php';
+            });
+        </script>";
         } elseif ($staff_result->num_rows > 0) {
             while ($row = $staff_result->fetch_assoc()) {
                 $_SESSION['role'] = $row['name'];
@@ -126,7 +152,17 @@ session_start();
                 $_SESSION['userid'] = $row['id'];
                 $_SESSION['username'] = $row['username'];
             }
-            header('location: pages/resident/resident.php');
+            echo "<script>
+            Swal.fire({
+                title: 'Success!',
+                text: 'Welcome, Staff Member!',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = 'pages/resident/resident.php';
+            });
+        </script>";
         } elseif ($user_result->num_rows > 0) {
             while ($row = $user_result->fetch_assoc()) {
                 $_SESSION['role'] = $row['fname'];
@@ -134,26 +170,30 @@ session_start();
                 $_SESSION['userid'] = $row['id'];
                 $_SESSION['username'] = $row['username'];
             }
-            header('location: pages/permit/permit.php');
+            echo "<script>
+            Swal.fire({
+                title: 'Success!',
+                text: 'Welcome, Resident!',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = 'pages/permit/permit.php';
+            });
+        </script>";
         } else {
-            echo '<script type="text/javascript">document.getElementById("error").innerHTML = "Invalid user";</script>';
+            echo "<script>
+            Swal.fire({
+                title: 'Error!',
+                text: 'Invalid username or password.',
+                icon: 'error',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        </script>";
         }
     }
-
     ?>
-
-    <script>
-        const togglePassword = document.querySelector('#togglePassword');
-        const password = document.querySelector('#txt_password');
-
-        togglePassword.addEventListener('click', function () {
-            // toggle the type attribute
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
-            // toggle the eye icon
-            this.classList.toggle('fa-eye-slash');
-        });
-    </script>
 
 </body>
 

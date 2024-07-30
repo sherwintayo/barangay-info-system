@@ -110,7 +110,7 @@
                                                         <td>'.$row['lupon'].'</td>
                                                         <td>
                                                         <button class="btn btn-primary btn-xs" data-target="#editModal'.$row['bid'].'" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
-                                                        <a  href="printblotter.php?resident='.$row['bid'].'&blotter='.$row['complainant'].'&val='.sha1($row['complainant'].'|'.$row['personToComplain'].'|'.$row['dateRecorded']).'" onclick="location.reload();" class="btn btn-success btn-xs" target="_blank"><i class="fa fa-print" aria-hidden="true"></i>view</a></li>
+                                                        <a href="printblotter.php?resident='.$row['bid'].'&blotter='.$row['complainant'].'&val='.sha1($row['complainant'].'|'.$row['personToComplain'].'|'.$row['dateRecorded']).'" class="btn btn-success btn-xs" target="_blank"><i class="fa fa-print" aria-hidden="true"></i>view</a></li>
                                                         <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button> 
                                                             <?php
                                                                 }

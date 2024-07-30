@@ -189,11 +189,16 @@ while ($rows = mysqli_fetch_assoc($result)) {
 </style>
 
 <?php
+$squery = mysqli_query($con, "SELECT * FROM tblsettings");
+$data = $squery->fetch_assoc();
+$logo = $data['logo'];
+$name = $data['name'];
+
 echo '<header class="header">
     <a href="#" class="logo">
-        <img src="../../images/tugas_logo.png" style="height: 50px; width:50px; float: left; margin-left: -10px;">
+        <img src="../../images/'.$logo.'" style="height: 50px; width:50px; float: left; margin-left: -10px;">
         <!-- Add the class icon to your logo image or logo icon to add the margining -->
-        <p style="font-size: 12px;"> Barangay Management System</p>
+        <p style="font-size: 12px;"> '.$name.'</p>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
@@ -205,7 +210,7 @@ echo '<header class="header">
             <span class="icon-bar"></span>
         </a>
         <ul class="nav navbar-nav navbar-right">
-        <li><i class="fa fa-bell" id="over" data-value="' . $count_active . '" style="z-index:-99 !important;font-size:32px;color:black;margin:0.5rem 0.4rem !important;"></i></li>';
+        <li><i class="fa fa-bell" id="over" data-value="' . $count_active . '" style="z-index:-99 !important;font-size:20px;color:black;margin:1.5rem 0.4rem !important;"></i></li>';
 if (!empty($count_active)) {
     echo '<div class="round" id="bell-count" data-value="' . $count_active . '"><span>' . $count_active . '</span></div>';
 }
@@ -234,9 +239,9 @@ if (!empty($count_active)) {
     }
     echo '</div>';
 }
-echo '</ul>
+echo '<ul>
         <div class="navbar-right">
-            <ul class="nav navbar-nav" style="background-color:#0000FF;">
+            <ul class="nav navbar-nav" style="background-color:transparent;">
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="resident" class="dropdown-toggle" data-toggle="dropdown">

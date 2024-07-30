@@ -11,7 +11,7 @@
             echo $_GET['to_date'];
         } ?>" />
     </div>
-    <button type="submit" class="btn btn-primary">Filter</button>
+    <button type="submit" name="blotter_filter" class="btn btn-primary">Filter</button>
 </form>
 
 <div style="margin-top: 1rem">
@@ -28,33 +28,36 @@
         </thead>
         <tbody>
             <?php
-            if (isset($_GET['from_date']) && isset($_GET['to_date'])) {
-                $from_date = $_GET['from_date'];
-                $to_date = $_GET['to_date'];
-
-                $query = "SELECT *,r.id as rid,b.id as bid,CONCAT(r.lname,', ', r.fname, ' ', r.mname) as rname from tblblotter b left join tblresident r on b.personToComplain = r.id WHERE dateRecorded BETWEEN '$from_date' AND '$to_date'";
-                $result = $con->query($query);
-
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo '
+            if (isset($_GET['blotter_filter'])) {
+                if (isset($_GET['from_date']) && isset($_GET['to_date'])) {
+                    $from_date = $_GET['from_date'];
+                    $to_date = $_GET['to_date'];
+    
+                    $query = "SELECT *,r.id as rid,b.id as bid,CONCAT(r.lname,', ', r.fname, ' ', r.mname) as rname from tblblotter b left join tblresident r on b.personToComplain = r.id WHERE dateRecorded BETWEEN '$from_date' AND '$to_date'";
+                    $result = $con->query($query);
+    
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '
+                                                <tr>
+                                                    <td>' . $row['complainant'] . '</td>
+                                                    <td>' . $row['rname'] . '</td>
+                                                    <td>' . $row['complaint'] . '</td> 
+                                                    <td>' . $row['sStatus'] . '</td>
+                                                    <td>' . $row['locationOfIncidence'] . '</td>
+                                                </tr>
+                                            ';
+                        }
+                    } else {
+                        echo "
                                             <tr>
-                                                <td>' . $row['complainant'] . '</td>
-                                                <td>' . $row['rname'] . '</td>
-                                                <td>' . $row['complaint'] . '</td> 
-                                                <td>' . $row['sStatus'] . '</td>
-                                                <td>' . $row['locationOfIncidence'] . '</td>
+                                                <td>No Record Found</td>
                                             </tr>
-                                        ';
+                                        ";
                     }
-                } else {
-                    echo "
-                                        <tr>
-                                            <td>No Record Found</td>
-                                        </tr>
-                                    ";
                 }
             }
+           
             ?>
         </tbody>
     </table>

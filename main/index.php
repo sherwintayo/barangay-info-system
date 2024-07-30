@@ -52,7 +52,7 @@
   <div id="container">
     <div id="top">
       <header>
-        <img src="../images/head_logo.png">
+        <img src="../images/head_logo-1.png">
       </header>
     </div>
     <div id="menuh-container">

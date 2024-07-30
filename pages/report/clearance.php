@@ -9,7 +9,7 @@
                         <input type="date" class="form-control" id="to_date_clearance" name="to_date"
                             value="<?php if(isset($_GET['to_date'])){ echo $_GET['to_date']; } ?>" onchange="handleChange(event, 'max')" />
                     </div>
-                    <button type="submit" class="btn btn-primary">Filter</button>
+                    <button type="submit" name="clearance_filter" class="btn btn-primary">Filter</button>
                 </form>
 
                 <div style="margin-top: 1rem">
@@ -24,7 +24,8 @@
                         </thead>
                         <tbody>
                             <?php
-                        if(isset($_GET['from_date']) && isset($_GET['to_date']))
+                            if (isset($_GET['clearance_filter'])) {
+                                if(isset($_GET['from_date']) && isset($_GET['to_date']))
                         {
                             $from_date = $_GET['from_date'];
                             $to_date = $_GET['to_date'];
@@ -54,6 +55,8 @@
                                     ";
                             }
                         }
+                            }
+                        
                     ?>
                         </tbody>
                     </table>

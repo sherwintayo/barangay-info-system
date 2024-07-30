@@ -115,7 +115,7 @@
                                                 if(!isset($_SESSION['staff']))
                                                 {
 
-                                                    $squery = mysqli_query($con, "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid FROM tblclearance p left join tblresident r on r.id = p.residentid  where status = 'Approved'") or die('Error: ' . mysqli_error($con));
+                                                    $squery = mysqli_query($con, "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid FROM tblclearance p left join tblresident r on r.id = p.residentid  where p.status = 'Approved'") or die('Error: ' . mysqli_error($con));
                                                     while($row = mysqli_fetch_array($squery))
                                                     {
                                                         echo '
@@ -132,8 +132,8 @@
                                                                   <?php
                                                                        }
                                                                      ?>
-                                                            <a  href="clearance_form.php?resident='.$row['residentid'].'&clearance='.$row['clearanceNo'].'&val='.sha1($row['clearanceNo'].'|'.$row['residentname'].'|'.$row['dateRecorded']).'" onclick="location.reload();" class="btn btn-warning btn-xs" target="_blank" style="margin-top:3px;"><i class="fa fa-print" aria-hidden="true"></i>  Clearance </a></li>
-                                                            <a  href="indigency.php?resident='.$row['residentid'].'&clearance='.$row['clearanceNo'].'&val='.sha1($row['clearanceNo'].'|'.$row['residentname'].'|'.$row['dateRecorded']).'" onclick="location.reload();" class="btn btn-success btn-xs" target="_blank" style="margin-top:3px;"><i class="fa fa-print" aria-hidden="true"></i>indigency </a>
+                                                            <a  href="clearance_form.php?resident='.$row['residentid'].'&clearance='.$row['clearanceNo'].'&val='.sha1($row['clearanceNo'].'|'.$row['residentname'].'|'.$row['dateRecorded']).'" class="btn btn-warning btn-xs" target="_blank" style="margin-top:3px;"><i class="fa fa-print" aria-hidden="true"></i>  Clearance </a></li>
+                                                            <a  href="indigency.php?resident='.$row['residentid'].'&clearance='.$row['clearanceNo'].'&val='.sha1($row['clearanceNo'].'|'.$row['residentname'].'|'.$row['dateRecorded']).'" class="btn btn-success btn-xs" target="_blank" style="margin-top:3px;"><i class="fa fa-print" aria-hidden="true"></i>indigency </a>
                                                              
                                                                 </div>
                                                           </td>
