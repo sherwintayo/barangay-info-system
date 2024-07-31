@@ -33,7 +33,7 @@
         <div class="col-xs-12 col-sm-6 col-md-8" style="" >
             <div style=" background: black;" >
                 <div class="col-xs-4 col-sm-6 col-md-3" style="background: white; margin-right:10px; margin-top: 50px;">
-                    <center><image src="../../img/<?= $logo ?>" style="width:90%;height:164px;"/></center>
+                    <center><image src="../../images/<?= $logo ?>" style="width:90%;height:164px;"/></center>
                     <h1></h1>
                     <div style="margin-top:20px; text-align: center; word-wrap: break-word;  border: 2px solid blue;">
                         <br><p style="font-size:  20px;"><b>SANGGUNIANG BARANGAY</b><br><br></p>
