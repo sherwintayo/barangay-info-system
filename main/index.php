@@ -52,7 +52,26 @@
   <div id="container">
     <div id="top">
       <header>
-        <img src="../images/head_logo-1.png">
+        <?php
+        if (!isset($_SESSION['staff'])) {
+          $squery = mysqli_query($con, "SELECT * FROM tblsettings");
+          $data = $squery->fetch_assoc();
+          ?>
+          <form method="post" enctype="multipart/form-data">
+            <label for="">Name</label>
+            <input type="text" name="name" class="form-control" style="margin: 10px 0;" value="<?= $data['name'] ?>">
+            <label for="">Logo</label>
+            <br>
+            <img src="../../images/<?= $data['logo'] ?>" alt="image" style="width: 200px;margin: 10px 0;">
+            <input type="file" name="logo" class="form-control" style="margin: 10px 0;">
+
+            <input type="submit" class="btn btn-primary btn-sm" name="btn_update" id="btn_update" value="Update" />
+
+            <?php require 'update.php' ?>
+          </form>
+          <?php
+        }
+        ?>
       </header>
     </div>
     <div id="menuh-container">

@@ -43,16 +43,20 @@ session_start();
         }
     </style>
 </head>
+<?php include 'pages/connection.php';
+$squery = mysqli_query($con, "SELECT * FROM tblsettings");
+$data = $squery->fetch_assoc();
+?>
 
 <body class="skin-black">
     <div class="container" style="margin-top:50px ">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
                 <div class="panel-heading" style="text-align:center; ">
-                    <img src="img/tugas_logo.png" style="height:150px;" />
+                    <img src="images/<?= $data['logo'] ?>" alt="image" style="width: 200px;margin: 10px 0;">
                     <h3 class="panel-title">
                         <strong>
-                            Management System
+                            <?php echo $data['name'] ?>
                         </strong>
                     </h3>
                     <p>Login</p>
@@ -117,6 +121,8 @@ session_start();
                 $_SESSION['userid'] = $row['id'];
                 $_SESSION['username'] = $row['username'];
             }
+
+
             echo "<script>
             Swal.fire({
                 title: 'Success!',
