@@ -12,7 +12,7 @@
                     <button type="submit" name="permit_filter" class="btn btn-primary">Filter</button>
                 </form>
 
-                <div style="margin-top: 1rem">
+                <div style="margin-top: 1rem" id="permit">
                     <table id="table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -63,4 +63,18 @@
                         </tbody>
                     </table>
                 </div>
+
+                <a href="print.php?from_date=<?= $_GET['from_date'] ?>&to_date=<?= $_GET['to_date'] ?>&permit_filter" class="btn btn-primary btn-sm" style="margin-left: 20px;">Print</a>
+
+                <script>
+                    let btnPermit =document.getElementById("btnPermit")
+
+                    btnPermit.onclick = () => {
+                        window.print()
+                        // document.getElementById("clearance").classList.add("dont-print")
+                        // document.getElementById("blotter").classList.add("dont-print")
+                        // document.getElementById("blotter1").classList.add("dont-print")
+                    }
+                       
+                </script>
               
