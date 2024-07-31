@@ -19,20 +19,27 @@ if (!isset($_SESSION['role'])) {
 } else {
     ob_start();
     $_SESSION['clr'] = $_GET['blotter'];
-    include ('../head_css.php'); ?>
+    include ('../head_css.php');
+  
+    ?>
 
     <body class="skin-black">
         <!-- header logo: style can be found in header.less -->
         <?php
 
         include "../connection.php";
+
+        $squery = mysqli_query($con, "SELECT * FROM tblsettings");
+        $data = $squery->fetch_assoc();
+        $logo = $data['logo'];
+        $name = $data['name'];
         ?>
 
         <div class="col-xs-12 col-sm-6 col-md-8" style="">
             <div style=" background: black;">
                 <div class="col-xs-4 col-sm-6 col-md-3" style="background: white; margin-right:10px;  margin-top: 50px;">
                     <center>
-                        <image src="../../img/tugas_logo.png" style="width:90%;height:164px;" />
+                        <image src="../../img/<?= $logo ?>" style="width:90%;height:164px;" />
                     </center>
                     <h1></h1>
                     <div style="margin-top:20px; text-align: center; word-wrap: break-word; border: 2px solid blue;">
