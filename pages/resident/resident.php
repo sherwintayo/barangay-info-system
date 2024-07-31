@@ -88,8 +88,7 @@ if (!isset($_SESSION['role'])) {
                                                                 <ul class="nav nav-tabs" id="myTab">
                                                                     <li class="user-footer">
                                                                         <a href="resident.php" class="btn btn-default btn-flat"
-                                                                            data-toggle="modal"
-                                                                            data-target="#editProfileModal">Active Resident</a>
+                                                                           >Active Resident</a>
                                                                         <a href="inactiveRes.php"
                                                                             class="btn btn-default btn-flat">Inactive
                                                                             Resident</a>
