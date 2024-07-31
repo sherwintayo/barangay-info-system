@@ -366,8 +366,7 @@ if (isset($_POST['btn_delete'])) {
     if (isset($_POST['chk_delete'])) {
         foreach ($_POST['chk_delete'] as $value) {
           if (!is_null($value)) {
-            $query = mysqli_query($con, "DELETE FROM tblresident WHERE id = '$value' ") or die('Error: ' . mysqli_error($con));
-
+            $query = mysqli_query($con, "UPDATE tblresident SET status = 'InActive' WHERE id = '$value' ") or die('Error: ' . mysqli_error($con));
             if ($query) {
                 // $_SESSION['delete'] = true;
                 // header("location: " . $_SERVER['REQUEST_URI']);
