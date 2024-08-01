@@ -29,6 +29,18 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
     <style>
+  body{
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(./images/bg-img.jpeg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .container{
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
         .eye-icon {
             position: absolute;
             top: 50%;
@@ -49,7 +61,7 @@ $data = $squery->fetch_assoc();
 ?>
 
 <body class="skin-black">
-    <div class="container" style="margin-top:50px ">
+    <div class="container" >
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
                 <div class="panel-heading" style="text-align:center; ">
