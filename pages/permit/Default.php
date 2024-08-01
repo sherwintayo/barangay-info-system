@@ -1,0 +1,141 @@
+<div class="row">
+                            <!-- left column -->
+                            <div class="box">
+                                <div class="box-header">
+                                    <div style="padding:10px;">
+                                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#reqModal"><i
+                                                class="fa fa-user-plus" aria-hidden="true"></i> Request Permit</button>
+                                    </div>
+                                </div><!-- /.box-header -->
+                                <div class="box-body table-responsive">
+
+                                    <ul class="nav nav-tabs" id="myTab">
+                                        <li class="active"><a data-target="#new" data-toggle="tab">New</a></li>
+                                        <li><a data-target="#approved" data-toggle="tab">Approved</a></li>
+                                        <li><a data-target="#disapproved" data-toggle="tab">Disapproved</a></li>
+                                    </ul>
+
+                                    <form method="post">
+
+                                        <div class="tab-content">
+                                            <div id="new" class="tab-pane active in">
+                                                <table id="table" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Business Name</th>
+                                                            <th>Business Address</th>
+                                                            <th>Status</th>
+                                                            <th>Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $squery = mysqli_query($con, "SELECT * FROM tblpermit p left join tblresident r on r.id = p.residentid where r.id = " . $_SESSION['userid'] . " and status = 'New' ") or die('Error: ' . mysqli_error($con));
+                                                        if (mysqli_num_rows($squery) > 0) {
+                                                            while ($row = mysqli_fetch_array($squery)) {
+                                                                echo '
+                                                    <tr>
+                                                        <td>' . $row['businessName'] . '</td>
+                                                        <td>' . $row['businessAddress'] . '</td>
+                                                         <td>' . $row['status'] . '</td>
+                                                          <td>' . $row['dateRecorded'] . '</td>
+                                                    </tr>
+                                                    ';
+                                                            }
+                                                        } else {
+                                                            echo '
+                                                <tr>
+                                                <td colspan="5" style="text-align: center;">No record found</td>
+                                                </tr>
+                                                ';
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div id="approved" class="tab-pane">
+                                                <table id="table" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Business Name</th>
+                                                            <th>Business Address</th>
+
+                                                            <th>OR Number</th>
+                                                            <th>Amount</th>
+                                                            <th>Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $squery = mysqli_query($con, "SELECT * FROM tblpermit p left join tblresident r on r.id = p.residentid where r.id = " . $_SESSION['userid'] . " and status = 'Approved'  ") or die('Error: ' . mysqli_error($con));
+                                                        if (mysqli_num_rows($squery) > 0) {
+                                                            while ($row = mysqli_fetch_array($squery)) {
+                                                                echo '
+                                                    <tr>
+                                                        <td>' . $row['businessName'] . '</td>
+                                                        <td>' . $row['businessAddress'] . '</td>
+                                                        
+                                                        <td>' . $row['orNo'] . '</td>
+                                                        <td>₱ ' . number_format($row['samount'], 2) . '</td>
+                                                        <td>' . $row['dateRecorded'] . '</td>
+                                                    </tr>
+                                                    ';
+                                                            }
+                                                        } else {
+                                                            echo '
+                                                <tr>
+                                                <td colspan="5" style="text-align: center;">No record found</td>
+                                                </tr>
+                                                ';
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div id="disapproved" class="tab-pane">
+                                                <table id="table" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Business Name</th>
+                                                            <th>Business Address</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $squery = mysqli_query($con, "SELECT * FROM tblpermit p left join tblresident r on r.id = p.residentid where r.id = " . $_SESSION['userid'] . " and status = 'Disapproved'  ") or die('Error: ' . mysqli_error($con));
+                                                        if (mysqli_num_rows($squery) > 0) {
+                                                            while ($row = mysqli_fetch_array($squery)) {
+                                                                echo '
+                                                    <tr>
+                                                        <td>' . $row['businessName'] . '</td>
+                                                        <td>' . $row['businessAddress'] . '</td>
+                                                        
+                                                    </tr>
+                                                    ';
+                                                            }
+                                                        } else {
+                                                            echo '
+                                                <tr>
+                                                <td colspan="5" style="text-align: center;">No record found</td>
+                                                </tr>
+                                                ';
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+
+                                        <?php include "req_modal.php"; ?>
+                                        <?php include "function.php"; ?>
+
+                                    </form>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+
+
+                        </div> <!-- /.row -->
