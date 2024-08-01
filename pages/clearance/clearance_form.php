@@ -24,18 +24,18 @@
         <?php 
         
         include "../connection.php";
-           $squery = mysqli_query($con, "SELECT * FROM tblsettings");
+        $squery = mysqli_query($con, "SELECT * FROM tblsettings");
         $data = $squery->fetch_assoc();
         $logo = $data['logo'];
         $name = $data['name'];
         ?>
        
-        <div class="col-xs-12 col-sm-6 col-md-8" style="" >
+        <div class="col-xs-12 col-sm-6 col-md-8"  style="" >
             <div style=" background: black;" >
                 <div class="col-xs-4 col-sm-6 col-md-3" style="background: white;  margin-top: 50px;">
                     <center><image src="../../images/<?= $logo ?>" style="width:90%;height:164px;"/></center>
                     <h1></h1>
-                    <div style="margin-top:20px; text-align: center; word-wrap: break-word; margin-right:10px; border: 2px solid blue;">
+                    <div style="margin-top:20px; text-align: center; word-wrap: break-word; margin-right:10px; border: 2px solid blue; padding: 10px 10px 0 10px !important; height: 100% !important;">
                         <br><p style="font-size:  20px;"><b>SANGGUNIANG BARANGAY</b><br><br></p>
                         <?php
                             $qry = mysqli_query($con,"SELECT * from tblofficial");
@@ -119,8 +119,8 @@
                         ?>
                     </div>
                 </div>
-                <div class="col-xs-7 col-sm-5 col-md-8" style="background: white; margin-top: 50px; ">
-                    <div class="pull-left" style="font-size: 16px;margin-left: 95px;"><center><p style="font-size: 20px;">
+                <div class="col-xs-7 col-sm-5 col-md-8" style="background: white; ">
+                    <div class="pull-left" style="font-size: 16px;"><center><p style="font-size: 20px;">
                         Republic of the Philippines<br>
                         Province of Cebu<br>
                         Municipality of Madridejos<br>
