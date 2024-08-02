@@ -39,7 +39,24 @@
 
                                 <div class="form-group">
                                     <!-- <label class="control-label">Barangay:</label>-->
-                                    <input name="txt_brgy" class="form-control input-sm input-size" type="text" placeholder="Barangay" required="" />
+<!--                                     <input name="txt_brgy" class="form-control input-sm input-size" type="text" placeholder="Barangay" required="" /> -->
+                                      <select name="txt_brgy" class="form-control input-sm" required="">
+                                        <option selected="" disabled="">-Select Barangay-</option>
+                                        <option value="Kangwayan">Kangwayan</option>
+                                        <option value="Kodia">Kodia</option>
+                                        <option value="Pili">Pili</option>
+                                        <option value="Bunakan">Bunakan</option>
+                                        <option value="Tabagak">Tabagak</option>
+                                        <option value="Maalat">Maalat</option>
+                                        <option value="Tarong">Tarong</option>
+                                        <option value="Malbago">Malbago</option>
+                                        <option value="Mancilang">Mancilang</option>
+                                        <option value="Kaongkod">Kaongkod</option>
+                                        <option value="San Agustin">San Agustin</option>
+                                        <option value="Poblacion">Poblacion</option>
+                                        <option value="Tugas">Tugas</option>
+                                        <option value="Talangnan">Talangnan</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
