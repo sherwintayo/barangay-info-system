@@ -88,11 +88,11 @@ if (!isset($_SESSION['role'])) {
                                                                 <ul class="nav nav-tabs" id="myTab">
                                                                     <li class="user-footer">
                                                                         <a href="resident.php" class="btn btn-default btn-flat"
-                                                                           >Active Resident</a>
+                                                                          >Active Resident</a>
                                                                         <a href="inactiveRes.php"
                                                                             class="btn btn-default btn-flat">Inactive
                                                                             Resident</a>
-                                                                        <a href="NewResident.php"
+                                                                        <a href="newResident.php"
                                                                             class="btn btn-default btn-flat">New Resident</a>
                                                                             <a href="pwd.php" class="btn btn-default btn-flat">PWD</a>
                                                                     <a href="senior.php" class="btn btn-default btn-flat">Senior</a>
@@ -130,7 +130,7 @@ if (!isset($_SESSION['role'])) {
                                             <tbody>
                                                 <?php
                                                 if (!isset($_SESSION['staff'])) {
-                                                    $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where statRes=0 order by zone ");
+                                                    $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where statRes=0 AND status = 'Active' order by zone ");
                                                     while ($row = mysqli_fetch_array($squery)) {
                                                         echo '
                                                     <tr>
@@ -148,7 +148,7 @@ if (!isset($_SESSION['role'])) {
                                                         include "edit_modalres.php";
                                                     }
                                                 } else {
-                                                    $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident order by zone");
+                                                    $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident WHERE status = 'Active' order by zone");
                                                     while ($row = mysqli_fetch_array($squery)) {
                                                         echo '
                                                     <tr>
