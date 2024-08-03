@@ -22,7 +22,7 @@
                                         <input name="txt_fname" class="form-control input-sm col-sm-4" type="text" placeholder="Firstname" required="" />
                                     </div>
                                     <div class="col-sm-4">
-                                        <input name="txt_mname" class="form-control input-sm col-sm-4" type="text" placeholder="Middlename" required="" />
+                                        <input name="txt_mname" class="form-control input-sm col-sm-4" type="text" placeholder="Middlename" />
                                     </div>
                                 </div>
 
@@ -39,8 +39,8 @@
 
                                 <div class="form-group">
                                     <!-- <label class="control-label">Barangay:</label>-->
-<!--                                     <input name="txt_brgy" class="form-control input-sm input-size" type="text" placeholder="Barangay" required="" /> -->
-                                      <select name="txt_brgy" class="form-control input-sm" required="">
+                                    <!-- <input name="txt_brgy" class="form-control input-sm input-size" type="text" placeholder="Barangay" required="" /> -->
+                                    <select name="txt_brgy" class="form-control input-sm" required="">
                                         <option selected="" disabled="">-Select Barangay-</option>
                                         <option value="Kangwayan">Kangwayan</option>
                                         <option value="Kodia">Kodia</option>
@@ -66,7 +66,7 @@
 
                                 <div class="form-group">
                                     <!--<label class="control-label">Civil Status:</label>-->
-                                    <select name="ddl_gender" class="form-control input-sm" required="">
+                                    <select name="txt_cstatus" class="form-control input-sm" required="">
                                     <option selected="" disabled="">-Select Civil Status-</option>
                                     <option value="Single">Single</option>
                                     <option value="Married">Married</option>
@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="form-group">
                                     <!--<label class="control-label">Educational Attainment:</label>-->
-                                    <select name="ddl_eattain" class="form-control input-sm input-size">
+                                    <select name="ddl_eattain" class="form-control input-sm input-size" required="">
                                         <option selected="" disabled="">-Select Educational Attainment -</option>
                                         <option value="No schooling completed">No schooling completed</option>
                                         <option value="Elementary">Elementary</option>
@@ -102,12 +102,22 @@
                                     <!-- <label class="control-label">Civil Status:</label>-->
                                     <select name="status" class="form-control input-sm input-size" required>
                                     <option value="" selected disabled>-Select Status -</option>
+                                        <option value="New Resident">New Resident</option>
                                         <option value="PWD">PWD</option>
                                         <option value="Senior">Senior</option>
                                         <option value="Pregnant">Pregnant</option>
                                         <option value="InActive">InActive</option>
                                         <option value="Active">Active</option>
                                     </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Date Moved In:</label>
+                                    <input id="txt_date_of_transfer" name="datemove"
+                                        class="form-control input-sm" type="date" placeholder="Date Moved In"
+                                        required="" />
+                                    <span id="length_of_stay"></span>
+                                    <!-- This span will display the calculated length of stay -->
                                 </div>
 
                                 <div class="form-group">
