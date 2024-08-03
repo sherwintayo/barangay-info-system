@@ -7,6 +7,8 @@ if (isset($_POST['btn_add'])) {
     $txt_bdate = $_POST['txt_bdate'];
     $txt_bplace = $_POST['txt_bplace'];
     //$txt_age = $_POST['txt_age'];
+    $status = $_POST['status'];
+    $datemove = $_POST['datemove'];
     $dateOfBirth = $txt_bdate;
     $today = date("Y-m-d");
     $diff = date_diff(date_create($dateOfBirth), date_create($today));
@@ -92,7 +94,9 @@ if (isset($_POST['btn_add'])) {
                                         Municipality,
                                         image,
                                         username,
-                                        password
+                                        password,
+                                        status,
+                                        datemove
                                     ) 
                                     values (
                                         '$txt_lname', 
@@ -117,7 +121,9 @@ if (isset($_POST['btn_add'])) {
                                         '$txt_Municipality', 
                                         '$txt_image',
                                         '$txt_uname', 
-                                        '$hash_password'
+                                        '$hash_password',
+                                        '$status',
+                                        '$datemove'
                                     )"
                     )
                         or die('Error: ' . mysqli_error($con));
@@ -132,7 +138,7 @@ if (isset($_POST['btn_add'])) {
                                 confirmButton: 'swal2-square-button'
                             }
                         }).then(() => {
-                            window.location.href = "resident.php"
+                            window.location.href = "<?= $_SERVER['REQUEST_URI'] ?>"
                         });
                     </script>
             <?php
@@ -169,7 +175,9 @@ if (isset($_POST['btn_add'])) {
                                         Municipality,
                                         image,
                                         username,
-                                        password
+                                        password,
+                                        status,
+                                        datemove
                                     ) 
                                     values (
                                         '$txt_lname', 
@@ -194,7 +202,9 @@ if (isset($_POST['btn_add'])) {
                                         '$txt_Municipality', 
                                         '$txt_image',
                                         '$txt_uname', 
-                                        '$hash_password'
+                                        '$hash_password',
+                                        '$status',
+                                        '$datemove'
                                     )"
             )
                 or die('Error: ' . mysqli_error($con));
@@ -215,7 +225,7 @@ if (isset($_POST['btn_add'])) {
                         confirmButton: 'swal2-square-button'
                     }
                 }).then(() => {
-                    window.location.href = "resident.php"
+                    window.location.href = "<?= $_SERVER['REQUEST_URI'] ?>"
                 });
             </script>
         <?php
@@ -251,6 +261,8 @@ if (isset($_POST['btn_save'])) {
     $txt_edit_Municipality = $_POST['txt_Municipality'];
     $txt_edit_type = $_POST['status'];
     $milliseconds = round(microtime(true) * 1000);
+    // $status = $_POST['status'];
+    $datemove = $_POST['datemove'];
 
 
     // if(isset($_SESSION['role'])){
@@ -283,7 +295,8 @@ if (isset($_POST['btn_save'])) {
                                     highestEducationalAttainment = '$ddl_edit_eattain',
                                     formerAddress = '$txt_edit_faddress',
                                     Municipality = '$txt_edit_Municipality',
-                                    status = '$txt_edit_type'
+                                    status = '$txt_edit_type',
+                                    datemove = '$datemove'
                                     where id = '$txt_id'
                             ") or die('Error: ' . mysqli_error($con));
         ?>
@@ -298,7 +311,7 @@ if (isset($_POST['btn_save'])) {
                     confirmButton: 'swal2-square-button'
                 }
             }).then(() => {
-                window.location.href = "resident.php"
+                window.location.href = "<?= $_SERVER['REQUEST_URI'] ?>"
             });
             })
         </script>
@@ -350,7 +363,7 @@ if (isset($_POST['btn_save'])) {
             confirmButton: 'swal2-square-button'
         }
     }).then(() => {
-        window.location.href = "resident.php"
+        window.location.href = "<?= $_SERVER['REQUEST_URI'] ?>"
     });
     })
 </script>
@@ -367,6 +380,7 @@ if (isset($_POST['btn_delete'])) {
         foreach ($_POST['chk_delete'] as $value) {
           if (!is_null($value)) {
             $query = mysqli_query($con, "UPDATE tblresident SET status = 'InActive' WHERE id = '$value' ") or die('Error: ' . mysqli_error($con));
+
             if ($query) {
                 // $_SESSION['delete'] = true;
                 // header("location: " . $_SERVER['REQUEST_URI']);
@@ -381,7 +395,7 @@ if (isset($_POST['btn_delete'])) {
                                           confirmButton: 'swal2-square-button'
                                       }
                                   }).then(() => {
-                                      window.location.href = "resident.php"
+                                      window.location.href = "<?= $_SERVER['REQUEST_URI'] ?>"
                                   });
                               </script>
                               <?php 
