@@ -6,7 +6,7 @@
         <div style="padding:10px;">
 
 
-            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addModal"><i class="fa fa-user-plus" aria-hidden="true"></i> Add Project</button>
+            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addModal"><i class="fa fa-user-plus" aria-hidden="true"></i> Add Permit</button>
 
             <?php
             if (!isset($_SESSION['staff'])) {
