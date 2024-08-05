@@ -41,7 +41,7 @@ if (!isset($_SESSION['role'])) {
                     if (($_SESSION['role'] == "Administrator") || isset($_SESSION['staff'])) {
                         require 'Administrator.php';
                     } elseif ($_SESSION['role'] == "Zone Leader") {
-                        require 'ZoneLeader.ph';
+                        require 'ZoneLeader.php';
                     }else{
                         require 'Default.php';
                     }
