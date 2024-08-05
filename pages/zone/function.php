@@ -36,25 +36,27 @@ if(isset($_POST['btn_save']))
     $txt_edit_pass = $_POST['txt_edit_pass'];
 
     if(isset($_SESSION['role'])){
-        $action = 'Update Zone number '.$txt_edit_busname;
+        $action = 'Update Zone number '.$txt_edit_zone;
         $iquery = mysqli_query($con,"INSERT INTO tbllogs (user,logdate,action) values ('".$_SESSION['role']."', NOW(), '".$action."')");
     }
 
-    $su = mysqli_query($con,"SELECT * from tblzone where username = '".$txt_edit_uname."' ");
-    $ct = mysqli_num_rows($su);
+    // $su = mysqli_query($con,"SELECT * from tblzone where username = '".$txt_edit_uname."' ");
+    // $ct = mysqli_num_rows($su);
     
-    if($ct == 0){
-        $update_query = mysqli_query($con,"UPDATE tblzone set zone = '".$txt_edit_zone."', username = '".$txt_edit_uname."', password = '".$txt_edit_pass."' where id = '".$txt_id."' ") or die('Error: ' . mysqli_error($con));
+    // if($ct == 0){
+        $update_query = mysqli_query($con,"UPDATE tblzone set `zone` = '$txt_edit_zone', username = '$txt_edit_uname', password = '$txt_edit_pass' where id = '$txt_id' ");
+
+        var_dump($update_query);
 
         if($update_query == true){
             $_SESSION['edited'] = 1;
             header("location: ".$_SERVER['REQUEST_URI']);
         }
-    }
-    else{
-        $_SESSION['duplicateuser'] = 1;
-        header ("location: ".$_SERVER['REQUEST_URI']);
-    } 
+    // }
+    // else{
+    //     $_SESSION['duplicateuser'] = 1;
+    //     header ("location: ".$_SERVER['REQUEST_URI']);
+    // } 
 }
 
 if(isset($_POST['btn_delete']))
