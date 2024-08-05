@@ -11,7 +11,7 @@ session_start();
     <!-- bootstrap 3.0.2 -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
-    <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
+<!--     <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" /> -->
     <link href="../css/style1.css" rel="stylesheet" type="text/css" />
     <!--/ icon link--->
     <link rel="icon" type="image/png" href="images/favicon_io/favicon.ico">
