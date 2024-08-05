@@ -75,11 +75,13 @@ if(isset($_POST['btn_save']))
     $txt_id = $_POST['hidden_id'];
     $txt_edit_busname = $_POST['txt_edit_busname'];
     $txt_edit_busadd = $_POST['txt_edit_busadd'];
-    $ddl_edit_tob = $_POST['ddl_edit_tob'];
+    // $ddl_edit_tob = $_POST['ddl_edit_tob'];
     $txt_edit_ornum = $_POST['txt_edit_ornum'];
     $txt_edit_amount = $_POST['txt_edit_amount'];
 
-    $update_query = mysqli_query($con,"UPDATE tblpermit set businessName = '".$txt_edit_busname."', businessAddress = '".$txt_edit_busadd."', typeOfBusiness= '".$ddl_edit_tob."', orNo = '".$txt_edit_ornum."', samount = '".$txt_edit_amount."', isRead=0  where id = '".$txt_id."' ") or die('Error: ' . mysqli_error($con));
+    // $update_query = mysqli_query($con,"UPDATE tblpermit set businessName = '".$txt_edit_busname."', businessAddress = '".$txt_edit_busadd."', typeOfBusiness= '".$ddl_edit_tob."', orNo = '".$txt_edit_ornum."', samount = '".$txt_edit_amount."', isRead=0  where id = '".$txt_id."' ") or die('Error: ' . mysqli_error($con));
+
+    $update_query = mysqli_query($con,"UPDATE tblpermit set businessName = '".$txt_edit_busname."', businessAddress = '".$txt_edit_busadd."', orNo = '".$txt_edit_ornum."', samount = '".$txt_edit_amount."', isRead=0  where id = '".$txt_id."' ") or die('Error: ' . mysqli_error($con));
 
     if(isset($_SESSION['role'])){
         $action = 'Update Permit with business name of '.$txt_edit_busname;
