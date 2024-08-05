@@ -18,7 +18,7 @@ if (!isset($_SESSION['role'])) {
     header("Location: ../../login.php");
 } else {
     ob_start();
-    $_SESSION['clr'] = $_GET['print.php'];
+    // $_SESSION['clr'] = $_GET['print.php'];
     include ('../head_css.php'); ?>
 
     <body class="skin-black">
@@ -28,7 +28,7 @@ if (!isset($_SESSION['role'])) {
         include "../connection.php";
         ?>
 
-        <div class="col-xs-12 col-sm-6 col-md-8" style="">
+        <div class="col-xs-12 col-sm-6 col-md-8" style="" id="permit">
             <div style=" background: black; margin-top: 50px;">
                 <div class="col-xs-4 col-sm-6 col-md-3">
                     <center>
@@ -181,7 +181,7 @@ if (!isset($_SESSION['role'])) {
 
             </div>
         </div>
-        <button class="btn btn-primary noprint" id="printpagebutton" onclick="Print('#clearance')">Print</button>
+        <button class="btn btn-primary noprint" id="printpagebutton" onclick="PrintElem('#permit')">Print</button>
     </body>
     <?php
 }
@@ -190,7 +190,7 @@ if (!isset($_SESSION['role'])) {
 
 <script>
     function PrintElem(elem) {
-        window.print();
+        window.print(document.getElementById(elem));
     }
 
     function Popup(data) {
