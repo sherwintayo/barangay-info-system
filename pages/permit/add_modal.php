@@ -31,7 +31,24 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Business Address:</label>
-                                    <input name="txt_busadd" class="form-control input-sm" type="text" placeholder="Business Address" required="" />
+                                    <!-- <input name="txt_busadd" class="form-control input-sm" type="text" placeholder="Business Address" required="" /> -->
+                                    <select name="txt_busadd" class="form-control input-sm" required="">
+                                        <option selected="" disabled="" value="">-Select Barangay-</option>
+                                        <option value="Kangwayan">Kangwayan</option>
+                                        <option value="Kodia">Kodia</option>
+                                        <option value="Pili">Pili</option>
+                                        <option value="Bunakan">Bunakan</option>
+                                        <option value="Tabagak">Tabagak</option>
+                                        <option value="Maalat">Maalat</option>
+                                        <option value="Tarong">Tarong</option>
+                                        <option value="Malbago">Malbago</option>
+                                        <option value="Mancilang">Mancilang</option>
+                                        <option value="Kaongkod">Kaongkod</option>
+                                        <option value="San Agustin">San Agustin</option>
+                                        <option value="Poblacion">Poblacion</option>
+                                        <option value="Tugas">Tugas</option>
+                                        <option value="Talangnan">Talangnan</option>
+                            </select>
                                 </div>
                                 
                                 <div class="form-group">
