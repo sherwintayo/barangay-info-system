@@ -240,8 +240,8 @@ if (!empty($count_active)) {
     echo '</div>';
 }
 echo '<ul>
-        <div class="navbar-right">
-             <ul class="nav navbar-nav" style="background-color:transparent;">
+    <div class="navbar-right">
+        <ul class="nav navbar-nav" style="background-color:transparent;">
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
                 <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
@@ -283,6 +283,8 @@ echo '<ul>
                 </ul>
             </li>
         </ul>
+    </div>
+</ul>
         </div>
     </nav>
 </header>';
