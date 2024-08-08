@@ -54,14 +54,15 @@ if (!isset($_SESSION['role'])) {
                                     ?>
                                 </span>
                             </div>
-                            <div class="box-body table-responsive">
+                            <!-- <div class="box-body table-responsive">
                                 <ul class="nav nav-tabs" id="myTab">
                                     <li class="active"><a href="archive.php">Active Residents</a></li>
                                     <li><a href="inactiveRes.php">Inactive Residents</a></li>
                                     <li><a href="newResident.php">New Residents</a></li>
 
                                 </ul>
-                            </div><!-- /.box-header -->
+                            </div> -->
+                            <!-- /.box-header -->
                             <div class="box-body table-responsive">
                                 <form method="post" enctype="multipart/form-data">
                                     <table id="table" class="table table-bordered table-striped">
@@ -87,7 +88,7 @@ if (!isset($_SESSION['role'])) {
                                         <tbody>
                                             <?php
                                             if (!isset($_SESSION['staff'])) {
-                                                $squery = mysqli_query($con, "SELECT zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where statRes=0 order by zone ");
+                                                $squery = mysqli_query($con, "SELECT zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where statRes=0 AND status = 'Inactive' order by zone ");
                                                 while ($row = mysqli_fetch_array($squery)) {
                                                     echo '
                                                     <tr>
@@ -172,7 +173,7 @@ if (!isset($_SESSION['role'])) {
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $squery = mysqli_query($con, "SELECT id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where householdnum = '" . $_GET['resident'] . "'");
+                                        $squery = mysqli_query($con, "SELECT id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where householdnum = '" . $_GET['resident'] . "' AND status = 'Inactive' ");
                                         while ($row = mysqli_fetch_array($squery)) {
                                             echo '
                                                 <tr>
