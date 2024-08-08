@@ -216,7 +216,7 @@ echo '<ul>
                         <i class="glyphicon glyphicon-user"></i>
                         <span>';
 if ($_SESSION['role'] == "Zone Leader") {
-    echo 'Zone Leader of ' . $_SESSION['barangay'];
+    echo $_SESSION['barangay'];
 } else {
     echo $_SESSION['role'];
 }
@@ -226,7 +226,7 @@ echo '<i class="caret"></i></span>
                         <li class="user-header bg-light-blue" style="background-color:#0000FF;">
                             <p>';
 if ($_SESSION['role'] == "Zone Leader") {
-    echo 'Zone Leader of ' . $_SESSION['barangay'];
+    echo $_SESSION['barangay'];
 } else {
     echo $_SESSION['role'];
 }
