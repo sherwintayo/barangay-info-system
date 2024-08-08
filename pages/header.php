@@ -5,8 +5,30 @@
 <script src="./assets/js/bootstrap.min.js"></script>
 
 <?php
+$today = date("Y-m-d");
 
-$find_notifications = "Select * from tblnewresident where active = 1";
+$count_tblactivity = $con->query("SELECT * FROM tblactivity WHERE DATE(date_created) = '$today'");
+
+$count_tblactivityphoto = $con->query("SELECT * FROM tblactivityphoto WHERE DATE(date_created) = '$today'");
+$count_tblblotter = $con->query("SELECT * FROM tblblotter WHERE DATE(date_created) = '$today'");
+$count_tblclearance = $con->query("SELECT * FROM tblclearance WHERE DATE(date_created) = '$today'");
+$count_tblhousehold = $con->query("SELECT * FROM tblhousehold WHERE DATE(date_created) = '$today'");
+$count_tbllogs = $con->query("SELECT * FROM tbllogs WHERE DATE(logdate) = '$today'");
+$count_tblofficial = $con->query("SELECT * FROM tblofficial WHERE DATE(date_created) = '$today'");
+$count_tblpermit = $con->query("SELECT * FROM tblpermit WHERE DATE(date_created) = '$today'");
+$count_tblproject = $con->query("SELECT * FROM tblproject WHERE DATE(date_created) = '$today'");
+$count_tblsession = $con->query("SELECT * FROM tblsession WHERE DATE(date_created) = '$today'");
+$count_tblsettings = $con->query("SELECT * FROM tblsettings WHERE DATE(date_created) = '$today'");
+$count_tblstaff = $con->query("SELECT * FROM tblstaff WHERE DATE(date_created) = '$today'");
+$count_tbluser = $con->query("SELECT * FROM tbluser WHERE DATE(date_created) = '$today'");
+$count_tblvisitor = $con->query("SELECT * FROM tblvisitor WHERE DATE(date_created) = '$today'");
+$count_tblzone = $con->query("SELECT * FROM tblzone WHERE DATE(date_created) = '$today'");
+
+
+
+
+
+$find_notifications = "Select * from tblresident where  DATE(date_created) = '$today'";
 $result = mysqli_query($con, $find_notifications);
 $count_active = '';
 $notifications_data = array();
@@ -19,10 +41,34 @@ while ($rows = mysqli_fetch_assoc($result)) {
         "lname" => $rows['lname'],
         "mname" => $rows['mname'],
         "datemove" => $rows['datemove']
+
+
+
     );
 }
+
+
+$total_count = 
+            $count_tblactivity->num_rows + 
+            $count_tblactivityphoto->num_rows +
+            $count_tblblotter->num_rows + 
+            $count_tblclearance->num_rows + 
+            $count_tblhousehold->num_rows + 
+            $count_tbllogs->num_rows + 
+            $count_tblofficial->num_rows + 
+            $count_tblpermit->num_rows + 
+            $count_tblproject->num_rows +
+            $count_tblsession->num_rows + 
+            $count_tblsettings->num_rows + 
+            $count_tblstaff->num_rows +
+            $count_tbluser->num_rows +
+            $count_tblvisitor->num_rows + 
+            $count_tblzone->num_rows + 
+            $result->num_rows
+            ;
+
 //only five specific posts
-$deactive_notifications = "Select * from tblnewresident where active = 0 ORDER BY id DESC LIMIT 0,5";
+$deactive_notifications = "Select * from tblresident where  DATE(date_created) = '$today' ORDER BY id DESC LIMIT 0,5";
 $result = mysqli_query($con, $deactive_notifications);
 while ($rows = mysqli_fetch_assoc($result)) {
     $deactive_notifications_dump[] = array(
@@ -36,68 +82,7 @@ while ($rows = mysqli_fetch_assoc($result)) {
 
 ?>
 
-<script>
-    $(document).ready(function () {
-        var ids = new Array();
-        $('#over').on('click', function () {
-            $('#list').toggle();
-        });
 
-        //Message with Ellipsis
-        $('div.msg').each(function () {
-            var len = $(this).text().trim(" ").split(" ");
-            if (len.length > 12) {
-                var add_elip = $(this).text().trim().substring(0, 1000)
-                $(this).text(add_elip);
-            }
-        });
-
-        $("#bell-count").on('click', function (e) {
-            e.preventDefault();
-
-            let belvalue = $('#bell-count').attr('data-value');
-
-            if (belvalue == '') {
-                console.log("inactive");
-            } else {
-                $(".round").css('display', 'none');
-                $("#list").css('display', 'block');
-
-                $('.message').click(function (e) {
-                    e.preventDefault();
-                    $.ajax({
-                        url: '../connection/deactive.php',
-                        type: 'POST',
-                        data: { "id": $(this).attr('data-id') },
-                        success: function (data) {
-                            console.log(data);
-                            location.reload();
-                        }
-                    });
-                });
-            }
-        });
-
-        $('#notify').on('click', function (e) {
-            e.preventDefault();
-            var name = $('#notifications_name').val();
-            var ins_msg = $('#message').val();
-            if ($.trim(name).length > 0 && $.trim(ins_msg).length > 0) {
-                var form_data = $('#frm_data').serialize();
-                $.ajax({
-                    url: './connection/insert.php',
-                    type: 'POST',
-                    data: form_data,
-                    success: function (data) {
-                        location.reload();
-                    }
-                });
-            } else {
-                alert("Please Fill All the fields");
-            }
-        });
-    });
-</script>
 <style>
     .round {
         width: 20px;
@@ -122,6 +107,7 @@ while ($rows = mysqli_fetch_assoc($result)) {
     }
 
     #list {
+
         display: none;
         top: 33px;
         position: absolute;
@@ -130,8 +116,11 @@ while ($rows = mysqli_fetch_assoc($result)) {
         z-index: 100 !important;
         width: 25vw;
         margin-left: -37px;
+
         padding: 0 !important;
         margin: 0 auto !important;
+
+
     }
 
     .message>span {
@@ -145,9 +134,16 @@ while ($rows = mysqli_fetch_assoc($result)) {
         font-weight: bold;
         border-bottom: 1px solid white;
         font-size: 1.8rem !important;
+
     }
 
     .message {
+        /* background:#ff7f50;
+          margin:0.3rem 0.2rem !important;
+          padding:0.2rem 0 !important;
+          width:100%;
+          display:block; */
+
     }
 
     .message>.msg {
@@ -157,7 +153,16 @@ while ($rows = mysqli_fetch_assoc($result)) {
         text-align: justify;
         font-weight: bold;
         display: block;
+
+
     }
+
+        @media print {
+            .dont-print{
+                display: none !important;
+            }
+        }
+   
 </style>
 
 <?php
@@ -169,9 +174,12 @@ $name = $data['name'];
 echo '<header class="header">
     <a href="#" class="logo">
         <img src="../../images/'.$logo.'" style="height: 50px; width:50px; float: left; margin-left: -10px;">
+        <!-- Add the class icon to your logo image or logo icon to add the margining -->
         <p style="font-size: 12px;"> '.$name.'</p>
     </a>
+    <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
         <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -179,9 +187,9 @@ echo '<header class="header">
             <span class="icon-bar"></span>
         </a>
         <ul class="nav navbar-nav navbar-right">
-        <li><i class="fa fa-bell" id="over" data-value="' . $count_active . '" style="z-index:-99 !important;font-size:20px;color:black;margin:1.5rem 0.4rem !important;"></i></li>';
-if (!empty($count_active)) {
-    echo '<div class="round" id="bell-count" data-value="' . $count_active . '"><span>' . $count_active . '</span></div>';
+        <li><i class="fa fa-bell" id="over" data-value="' . $total_count . '" style="z-index:-99 !important;font-size:20px;color:black;margin:1.5rem 0.4rem !important;"></i></li>';
+if (!empty($total_count)) {
+    echo '<div class="round" id="bell-count" data-value="' . $total_count . '"><span>' . $total_count . '</span></div>';
 }
 if (!empty($count_active)) {
     echo '<div id="list">';
@@ -211,27 +219,19 @@ if (!empty($count_active)) {
 echo '<ul>
         <div class="navbar-right">
             <ul class="nav navbar-nav" style="background-color:transparent;">
+                <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="glyphicon glyphicon-user"></i>
-                        <span>';
-if ($_SESSION['role'] == "Zone Leader") {
-    echo $_SESSION['barangay'];
-} else {
-    echo $_SESSION['role'];
-}
-echo '<i class="caret"></i></span>
+                        <i class="glyphicon glyphicon-user"></i><span>' . $_SESSION['role'] . '<i class="caret"></i></span>
                     </a>
+                  
                     <ul class="dropdown-menu">
+                        <!-- User image -->
                         <li class="user-header bg-light-blue" style="background-color:#0000FF;">
-                            <p>';
-if ($_SESSION['role'] == "Zone Leader") {
-    echo $_SESSION['barangay'];
-} else {
-    echo $_SESSION['role'];
-}
-echo '</p>
+                            <p>' . $_SESSION['role'] . '</p>
                         </li>
+                        <!-- Menu Body -->
+                        <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
                                 <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background-color: #00BB27;">Change Account</a>
@@ -287,7 +287,7 @@ echo '</p>
                                         <input name="txt_password" id="txt_password" class="form-control input-sm" type="password"  value="' . $row['password'] . '"/>
                                     </div>';
                                 }
-                            } elseif ($_SESSION['role'] == "Staff") {
+                            } elseif ($_SESSION['staff'] == "Staff") {
                                 $user = mysqli_query($con, "SELECT * from tblstaff where id = '" . $_SESSION['userid'] . "' ");
                                 while ($row = mysqli_fetch_array($user)) {
                                     echo '
@@ -315,17 +315,20 @@ echo '</p>
                                 }
                             }
                             ?>
+
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default btn-sm" data-dismiss="modal" value="Cancel" />
-                    <input type="submit" class="btn btn-primary btn-sm" id="btn_saveeditProfile" name="btn_saveeditProfile" value="Save" />
+                    <input type="submit" class="btn btn-primary btn-sm" id="btn_saveeditProfile"
+                        name="btn_saveeditProfile" value="Save" />
                 </div>
             </div>
         </div>
     </form>
 </div>
+
 
 <?php
 if (isset($_POST['btn_saveeditProfile'])) {
@@ -342,11 +345,87 @@ if (isset($_POST['btn_saveeditProfile'])) {
         if ($updzone == true) {
             header("location: " . $_SERVER['REQUEST_URI']);
         }
-    } elseif ($_SESSION['role'] == "Staff") {
+    } elseif ($_SESSION['staff'] == "Staff") {
         $updstaff = mysqli_query($con, "UPDATE tblstaff set username = '$username', password = '$password' where id = '" . $_SESSION['userid'] . "' ");
         if ($updstaff == true) {
             header("location: " . $_SERVER['REQUEST_URI']);
         }
     }
 }
+
 ?>
+
+<script>
+    $(document).ready(function () {
+        var ids = new Array();
+        $('#over').on('click', function () {
+            $('#list').toggle();
+        });
+
+        //Message with Ellipsis
+        $('div.msg').each(function () {
+            var len = $(this).text().trim(" ").split(" ");
+            if (len.length > 12) {
+                var add_elip = $(this).text().trim().substring(0, 1000)
+                $(this).text(add_elip);
+            }
+
+        });
+
+
+        $("#bell-count").on('click', function (e) {
+            e.preventDefault();
+
+            let belvalue = $('#bell-count').attr('data-value');
+
+            if (belvalue == '') {
+
+                console.log("inactive");
+            } else {
+                $(".round").css('display', 'none');
+                $("#list").css('display', 'block');
+
+                // $('.message').each(function(){
+                // var i = $(this).attr("data-id");
+                // ids.push(i);
+
+                // });
+                //Ajax
+                $('.message').click(function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: '../connection/deactive.php',
+                        type: 'POST',
+                        data: { "id": $(this).attr('data-id') },
+                        success: function (data) {
+
+                            console.log(data);
+                            location.reload();
+                        }
+                    });
+                });
+            }
+        });
+
+        $('#notify').on('click', function (e) {
+            e.preventDefault();
+            var name = $('#notifications_name').val();
+            var ins_msg = $('#message').val();
+            if ($.trim(name).length > 0 && $.trim(ins_msg).length > 0) {
+                var form_data = $('#frm_data').serialize();
+                $.ajax({
+                    url: './connection/insert.php',
+                    type: 'POST',
+                    data: form_data,
+                    success: function (data) {
+                        location.reload();
+                    }
+                });
+            } else {
+                alert("Please Fill All the fields");
+            }
+
+
+        });
+    });
+</script>
