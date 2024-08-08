@@ -19,9 +19,6 @@ while ($rows = mysqli_fetch_assoc($result)) {
         "lname" => $rows['lname'],
         "mname" => $rows['mname'],
         "datemove" => $rows['datemove']
-
-
-
     );
 }
 //only five specific posts
@@ -53,9 +50,7 @@ while ($rows = mysqli_fetch_assoc($result)) {
                 var add_elip = $(this).text().trim().substring(0, 1000)
                 $(this).text(add_elip);
             }
-
         });
-
 
         $("#bell-count").on('click', function (e) {
             e.preventDefault();
@@ -63,18 +58,11 @@ while ($rows = mysqli_fetch_assoc($result)) {
             let belvalue = $('#bell-count').attr('data-value');
 
             if (belvalue == '') {
-
                 console.log("inactive");
             } else {
                 $(".round").css('display', 'none');
                 $("#list").css('display', 'block');
 
-                // $('.message').each(function(){
-                // var i = $(this).attr("data-id");
-                // ids.push(i);
-
-                // });
-                //Ajax
                 $('.message').click(function (e) {
                     e.preventDefault();
                     $.ajax({
@@ -82,7 +70,6 @@ while ($rows = mysqli_fetch_assoc($result)) {
                         type: 'POST',
                         data: { "id": $(this).attr('data-id') },
                         success: function (data) {
-
                             console.log(data);
                             location.reload();
                         }
@@ -108,8 +95,6 @@ while ($rows = mysqli_fetch_assoc($result)) {
             } else {
                 alert("Please Fill All the fields");
             }
-
-
         });
     });
 </script>
@@ -137,7 +122,6 @@ while ($rows = mysqli_fetch_assoc($result)) {
     }
 
     #list {
-
         display: none;
         top: 33px;
         position: absolute;
@@ -146,11 +130,8 @@ while ($rows = mysqli_fetch_assoc($result)) {
         z-index: 100 !important;
         width: 25vw;
         margin-left: -37px;
-
         padding: 0 !important;
         margin: 0 auto !important;
-
-
     }
 
     .message>span {
@@ -164,16 +145,9 @@ while ($rows = mysqli_fetch_assoc($result)) {
         font-weight: bold;
         border-bottom: 1px solid white;
         font-size: 1.8rem !important;
-
     }
 
     .message {
-        /* background:#ff7f50;
-          margin:0.3rem 0.2rem !important;
-          padding:0.2rem 0 !important;
-          width:100%;
-          display:block; */
-
     }
 
     .message>.msg {
@@ -183,8 +157,6 @@ while ($rows = mysqli_fetch_assoc($result)) {
         text-align: justify;
         font-weight: bold;
         display: block;
-
-
     }
 </style>
 
@@ -197,12 +169,9 @@ $name = $data['name'];
 echo '<header class="header">
     <a href="#" class="logo">
         <img src="../../images/'.$logo.'" style="height: 50px; width:50px; float: left; margin-left: -10px;">
-        <!-- Add the class icon to your logo image or logo icon to add the margining -->
         <p style="font-size: 12px;"> '.$name.'</p>
     </a>
-    <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
-        <!-- Sidebar toggle button-->
         <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -240,51 +209,40 @@ if (!empty($count_active)) {
     echo '</div>';
 }
 echo '<ul>
-    <div class="navbar-right">
-        <ul class="nav navbar-nav" style="background-color:transparent;">
-            <!-- User Account: style can be found in dropdown.less -->
-            <li class="dropdown user user-menu">
-                <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="glyphicon glyphicon-user"></i>
-                    <span>
-                        <?php 
-                        if ($_SESSION['role'] == "Zone Leader") {
-                            echo 'Zone Leader of ' . $_SESSION['barangay'];
-                        } else {
-                            echo $_SESSION['role'];
-                        }
-                        ?>
-                        <i class="caret"></i>
-                    </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <!-- User image -->
-                    <li class="user-header bg-light-blue" style="background-color:#0000FF;">
-                        <p>
-                            <?php 
-                            if ($_SESSION['role'] == "Zone Leader") {
-                                echo 'Zone Leader of ' . $_SESSION['barangay'];
-                            } else {
-                                echo $_SESSION['role'];
-                            }
-                            ?>
-                        </p>
-                    </li>
-                    <!-- Menu Body -->
-                    <!-- Menu Footer-->
-                    <li class="user-footer">
-                        <div class="pull-left">
-                            <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style="background-color: #00BB27;">Change Account</a>
-                        </div>
-                        <div class="pull-right">
-                            <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</ul>
+        <div class="navbar-right">
+            <ul class="nav navbar-nav" style="background-color:transparent;">
+                <li class="dropdown user user-menu">
+                    <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-user"></i>
+                        <span>';
+if ($_SESSION['role'] == "Zone Leader") {
+    echo 'Zone Leader of ' . $_SESSION['barangay'];
+} else {
+    echo $_SESSION['role'];
+}
+echo '<i class="caret"></i></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="user-header bg-light-blue" style="background-color:#0000FF;">
+                            <p>';
+if ($_SESSION['role'] == "Zone Leader") {
+    echo 'Zone Leader of ' . $_SESSION['barangay'];
+} else {
+    echo $_SESSION['role'];
+}
+echo '</p>
+                        </li>
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background-color: #00BB27;">Change Account</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </nav>
 </header>';
@@ -329,7 +287,7 @@ echo '<ul>
                                         <input name="txt_password" id="txt_password" class="form-control input-sm" type="password"  value="' . $row['password'] . '"/>
                                     </div>';
                                 }
-                            } elseif ($_SESSION['staff'] == "Staff") {
+                            } elseif ($_SESSION['role'] == "Staff") {
                                 $user = mysqli_query($con, "SELECT * from tblstaff where id = '" . $_SESSION['userid'] . "' ");
                                 while ($row = mysqli_fetch_array($user)) {
                                     echo '
@@ -357,20 +315,17 @@ echo '<ul>
                                 }
                             }
                             ?>
-
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default btn-sm" data-dismiss="modal" value="Cancel" />
-                    <input type="submit" class="btn btn-primary btn-sm" id="btn_saveeditProfile"
-                        name="btn_saveeditProfile" value="Save" />
+                    <input type="submit" class="btn btn-primary btn-sm" id="btn_saveeditProfile" name="btn_saveeditProfile" value="Save" />
                 </div>
             </div>
         </div>
     </form>
 </div>
-
 
 <?php
 if (isset($_POST['btn_saveeditProfile'])) {
@@ -387,12 +342,11 @@ if (isset($_POST['btn_saveeditProfile'])) {
         if ($updzone == true) {
             header("location: " . $_SERVER['REQUEST_URI']);
         }
-    } elseif ($_SESSION['staff'] == "Staff") {
+    } elseif ($_SESSION['role'] == "Staff") {
         $updstaff = mysqli_query($con, "UPDATE tblstaff set username = '$username', password = '$password' where id = '" . $_SESSION['userid'] . "' ");
         if ($updstaff == true) {
             header("location: " . $_SERVER['REQUEST_URI']);
         }
     }
 }
-
 ?>
