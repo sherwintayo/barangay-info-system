@@ -53,3 +53,30 @@
         </ul>
     </section>
 </aside>
+
+<style>
+     .left-side.sidebar-offcanvas {
+            background-color: white !important;
+            border-right: 1px solid black !important;
+            box-shadow: 3px 0px 10px rgba(0, 0, 0, 0.6);
+        }
+        .user-panel h4 {
+            margin: 0;
+        }
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar-menu li {
+            padding: 10px;
+        }
+        .sidebar-menu a {
+            text-decoration: none;
+            color: black;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar-menu a i {
+            margin-right: 10px;
+        }
+</style>
