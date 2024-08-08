@@ -5,7 +5,7 @@
                 <h4>
                     <?php 
                     if ($_SESSION['role'] == "Zone Leader") {
-                        echo 'Hello, Barangay of ' . $_SESSION['barangay'];
+                        echo 'Hello, ' . $_SESSION['barangay'];
                     } else {
                         echo 'Hello, ' . $_SESSION['role'];
                     }
