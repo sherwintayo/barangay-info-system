@@ -14,7 +14,10 @@
                     </thead>
                     <tbody>
                         <?php
-                        $squery = mysqli_query($con, "SELECT *, CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname, p.id as pid FROM tblclearance p LEFT JOIN tblresident r ON r.id = p.residentid WHERE p.status = 'New'") or die('Error: ' . mysqli_error($con));
+                        // Assuming you have the barangay stored in the session
+                        $barangay = $_SESSION['barangay'];
+                        
+                        $squery = mysqli_query($con, "SELECT *, CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname, p.id as pid FROM tblclearance p LEFT JOIN tblresident r ON r.id = p.residentid WHERE p.status = 'New' AND r.barangay = '$barangay'") or die('Error: ' . mysqli_error($con));
                         while ($row = mysqli_fetch_array($squery)) {
                             echo '
                         <tr>
