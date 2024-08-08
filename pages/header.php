@@ -241,31 +241,48 @@ if (!empty($count_active)) {
 }
 echo '<ul>
         <div class="navbar-right">
-            <ul class="nav navbar-nav" style="background-color:transparent;">
-                <!-- User Account: style can be found in dropdown.less -->
-                <li class="dropdown user user-menu">
-                    <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="glyphicon glyphicon-user"></i><span>' . $_SESSION['role'] . '<i class="caret"></i></span>
-                    </a>
-                  
-                    <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <li class="user-header bg-light-blue" style="background-color:#0000FF;">
-                            <p>' . $_SESSION['role'] . '</p>
-                        </li>
-                        <!-- Menu Body -->
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background-color: #00BB27;">Change Account</a>
-                            </div>
-                            <div class="pull-right">
-                                <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+             <ul class="nav navbar-nav" style="background-color:transparent;">
+            <!-- User Account: style can be found in dropdown.less -->
+            <li class="dropdown user user-menu">
+                <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-user"></i>
+                    <span>
+                        <?php 
+                        if ($_SESSION['role'] == "Zone Leader") {
+                            echo 'Zone Leader of ' . $_SESSION['barangay'];
+                        } else {
+                            echo $_SESSION['role'];
+                        }
+                        ?>
+                        <i class="caret"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <!-- User image -->
+                    <li class="user-header bg-light-blue" style="background-color:#0000FF;">
+                        <p>
+                            <?php 
+                            if ($_SESSION['role'] == "Zone Leader") {
+                                echo 'Zone Leader of ' . $_SESSION['barangay'];
+                            } else {
+                                echo $_SESSION['role'];
+                            }
+                            ?>
+                        </p>
+                    </li>
+                    <!-- Menu Body -->
+                    <!-- Menu Footer-->
+                    <li class="user-footer">
+                        <div class="pull-left">
+                            <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style="background-color: #00BB27;">Change Account</a>
+                        </div>
+                        <div class="pull-right">
+                            <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
         </div>
     </nav>
 </header>';
