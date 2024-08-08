@@ -64,7 +64,7 @@ if (!isset($_SESSION['role'])) {
                                                 <label for="">Logo</label>
                                                 <br>
                                                 <img src="../../images/<?= $data['logo'] ?>" alt="image" style="width: 200px;margin: 10px 0;">
-                                                <input type="file" name="logo" class="form-control" style="margin: 10px 0;">
+                                                <input type="file" name="logo" accept="image/*" class="form-control" style="margin: 10px 0;">
 
                                                 <input type="submit" class="btn btn-primary btn-sm" name="btn_update" id="btn_update" value="Update" />
 
