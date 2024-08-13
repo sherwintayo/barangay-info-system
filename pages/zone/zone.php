@@ -74,7 +74,11 @@
                                         <tbody>
                                             <?php
                                             if(!isset($_SESSION['staff'])){
-                                                $squery = mysqli_query($con, "select * from tblzone ");
+                                                if ($isZoneLeader) {
+                                                    $squery = mysqli_query($con, "select * from tblzone WHERE barangay = '$zone_barangay' ");
+                                                }else{
+                                                    $squery = mysqli_query($con, "select * from tblzone ");
+                                                }
                                                 while($row = mysqli_fetch_array($squery))
                                                 {
                                                     echo '
@@ -90,7 +94,11 @@
                                                 }
                                             }
                                             else{
-                                                $squery = mysqli_query($con, "select * from tblzone ");
+                                                if ($isZoneLeader) {
+                                                    $squery = mysqli_query($con, "select * from tblzone WHERE barangay = '$zone_barangay' ");
+                                                }else{
+                                                    $squery = mysqli_query($con, "select * from tblzone ");
+                                                }
                                                 while($row = mysqli_fetch_array($squery))
                                                 {
                                                     echo '
