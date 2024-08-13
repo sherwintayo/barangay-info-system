@@ -5,63 +5,100 @@
 		data: [{
 			label: "No schooling completed",
 			value: <?php
-			$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'No schooling completed' ");
+			if ($isZoneLeader) {
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'No schooling completed' AND barangay = '$zone_barangay' ");
+			}else{
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'No schooling completed' ");
+			}
 			$numrow = mysqli_num_rows($q);
 			echo $numrow;
 			?>
 		}, {
 			label: "Elementary",
 			value: <?php
-			$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'Elementary' ");
+			if ($isZoneLeader) {
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'Elementary' AND barangay = '$zone_barangay' ");
+			}else{
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'Elementary' ");
+			}
+			
 			$numrow = mysqli_num_rows($q);
 			echo $numrow;
 			?>
 		}, {
 			label: "High school, undergrad",
 			value: <?php
-			$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'High school, undergrad' ");
+			if ($isZoneLeader) {
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'High school, undergrad' AND barangay = '$zone_barangay' ");
+			}else{
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'High school, undergrad' ");
+			}
 			$numrow = mysqli_num_rows($q);
 			echo $numrow;
 			?>
 		}, {
 			label: "High school graduate",
 			value: <?php
-			$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'High school graduate' ");
+			if ($isZoneLeader) {
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'High school graduate' AND barangay = '$zone_barangay' ");
+			}else{
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'High school graduate' ");
+			}
 			$numrow = mysqli_num_rows($q);
 			echo $numrow;
 			?>
 		}, {
 			label: "College, undergrad",
 			value: <?php
-			$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'College, undergrad' ");
+			if ($isZoneLeader) {
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'College, undergrad' AND barangay = '$zone_barangay' ");
+			}else{
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'College, undergrad' ");
+			}
 			$numrow = mysqli_num_rows($q);
 			echo $numrow;
 			?>
 		}, {
 			label: "Vocational",
 			value: <?php
-			$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'Vocational' ");
+			if ($isZoneLeader) {
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'Vocational' AND barangay = '$zone_barangay' ");
+			}else{
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'Vocational' ");
+			}
 			$numrow = mysqli_num_rows($q);
 			echo $numrow;
 			?>
 		}, {
 			label: "Bachelor's degree",
 			value: <?php
-			$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'Bachelor''s degree' ");
+			if ($isZoneLeader) {
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'Bachelor''s degree' AND barangay = '$zone_barangay' ");
+			}else{
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'Bachelor''s degree' ");
+			}
 			$numrow = mysqli_num_rows($q);
 			echo $numrow;
 			?>
 		}, {
 			label: "Master's degree",
 			value: <?php
-			$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'Master''s degree' ");
+			if ($isZoneLeader) {
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'Master''s degree' AND barangay = '$zone_barangay' ");
+			}else{
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'Master''s degree' ");
+			}
 			$numrow = mysqli_num_rows($q);
 			echo $numrow;
 			?>
 		}, {
 			label: "Doctorate degree",
 			value: <?php
-			$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'Doctorate degree' ");
+			if ($isZoneLeader) {
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'Doctorate degree' AND barangay = '$zone_barangay' ");
+			}else{
+				$q = mysqli_query($con, "SELECT * from tblresident where highestEducationalAttainment = 'Doctorate degree' ");
+			}
 			$numrow = mysqli_num_rows($q);
 			echo $numrow;
 			?>
