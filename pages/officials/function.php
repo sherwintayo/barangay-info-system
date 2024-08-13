@@ -6,19 +6,25 @@ if(isset($_POST['btn_add'])){
     $txt_address = $_POST['txt_address'];
     $txt_sterm = $_POST['txt_sterm'];
     $txt_eterm = $_POST['txt_eterm'];
+    $barangay = $zone_barangay;
 
     if(isset($_SESSION['role'])){
         $action = 'Added Official named '.$txt_cname;
         $iquery = mysqli_query($con,"INSERT INTO tbllogs (user,logdate,action) values ('".$_SESSION['role']."', NOW(), '".$action."')");
     }
 
-    $q = mysqli_query($con,"SELECT * from tblofficial where sPosition = '".$ddl_pos."' and termStart = '".$txt_sterm."' and termEnd = '".$txt_eterm."' ");
+    $q = mysqli_query($con,"SELECT * from tblofficial where sPosition = '".$ddl_pos."' and termStart = '".$txt_sterm."' and termEnd = '".$txt_eterm."' AND barangay = '$zone_barangay' ");
     $ct = mysqli_num_rows($q);
 
 
     if($ct != 0){
-        $query = mysqli_query($con,"INSERT INTO tblofficial (sPosition,completeName,pcontact,paddress,termStart,termEnd,status) 
+        if ($isZoneLeader) {
+            $query = mysqli_query($con,"INSERT INTO tblofficial (sPosition,completeName,pcontact,paddress,termStart,termEnd,status, barangay) 
+        values ('$ddl_pos', '$txt_cname', '$txt_contact', '$txt_address', '$txt_sterm', '$txt_eterm', 'Ongoing Term', '$zone_barangay')") or die('Error: ' . mysqli_error($con));
+        }else{
+            $query = mysqli_query($con,"INSERT INTO tblofficial (sPosition,completeName,pcontact,paddress,termStart,termEnd,status) 
         values ('$ddl_pos', '$txt_cname', '$txt_contact', '$txt_address', '$txt_sterm', '$txt_eterm', 'Ongoing Term')") or die('Error: ' . mysqli_error($con));
+        }
         if($query == true)
         {
             $_SESSION['added'] = 1;
