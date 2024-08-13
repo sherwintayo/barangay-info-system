@@ -7,6 +7,7 @@ if(isset($_POST['btn_add'])){
     $txt_ornum = $_POST['txt_ornum'];
     $txt_amount = $_POST['txt_amount'];
     $date = date('Y-m-d');
+    $barangay = $zone_barangay;
 
     $chkdup = mysqli_query($con,"SELECT * from tblclearance where clearanceNo = ".$txt_cnum." ");
     $num_rows = mysqli_num_rows($chkdup);
@@ -18,12 +19,12 @@ if(isset($_POST['btn_add'])){
 
     if($num_rows == 0){
         if($_SESSION['role'] == "Administrator"){
-        $query = mysqli_query($con,"INSERT INTO tblclearance (clearanceNo,residentid,findings,Clearance,orNo,samount,dateRecorded,recordedBy,status) 
+            $query = mysqli_query($con,"INSERT INTO tblclearance (clearanceNo,residentid,findings,Clearance,orNo,samount,dateRecorded,recordedBy,status) 
             values ('$txt_cnum','$ddl_resident', '$txt_findings','$txt_Clearance', '$txt_ornum', '$txt_amount', '$date', '".$_SESSION['username']."','Approved')") or die('Error: ' . mysqli_error($con));
         }
-        else{
-        $query = mysqli_query($con,"INSERT INTO tblclearance (clearanceNo,residentid,findings,Clearance,orNo,samount,dateRecorded,recordedBy,status) 
-            values ('$txt_cnum','$ddl_resident', '$txt_findings','$txt_Clearance', '$txt_ornum', '$txt_amount', '$date', '".$_SESSION['username']."','New')") or die('Error: ' . mysqli_error($con));
+        else if($isZoneLeader){
+            $query = mysqli_query($con,"INSERT INTO tblclearance (clearanceNo,residentid,findings,Clearance,orNo,samount,dateRecorded,recordedBy,status,barangay) 
+            values ('$txt_cnum','$ddl_resident', '$txt_findings','$txt_Clearance', '$txt_ornum', '$txt_amount', '$date', '".$_SESSION['username']."','Approved', '$barangay')") or die('Error: ' . mysqli_error($con));
         }
         if($query == true)
         {
