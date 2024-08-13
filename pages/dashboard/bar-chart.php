@@ -8,7 +8,11 @@
 		element: 'morris-bar-chart3',
 		data: [
 			<?php
-			$qry = mysqli_query($con, "SELECT *,count(*) as cnt FROM tblresident r group by r.zone ");
+			if ($isZoneLeader) {
+				$qry = mysqli_query($con, "SELECT *,count(*) as cnt FROM tblresident r WHERE r.barangay = '$zone_barangay' group by r.zone ");
+			}else{
+				$qry = mysqli_query($con, "SELECT *,count(*) as cnt FROM tblresident r group by r.zone ");
+			}
 			while ($row = mysqli_fetch_array($qry)) {
 				echo "{y:'" . $row['zone'] . "',a:'" . $row['cnt'] . "'},";
 			}
@@ -30,7 +34,11 @@
 		element: 'morris-bar-chart5',
 		data: [
 			<?php
-			$qry = mysqli_query($con, "SELECT *,count(*) as cnt FROM tblresident r group by r.householdnum ");
+			if ($isZoneLeader) {
+				$qry = mysqli_query($con, "SELECT *,count(*) as cnt FROM tblresident r WHERE r.barangay = '$zone_barangay' group by r.householdnum ");
+			}else{
+				$qry = mysqli_query($con, "SELECT *,count(*) as cnt FROM tblresident r group by r.householdnum ");
+			}
 			while ($row = mysqli_fetch_array($qry)) {
 				echo "{y:'" . $row['householdnum'] . "',a:'" . $row['cnt'] . "'},";
 			}
@@ -50,7 +58,11 @@
 		element: 'morris-bar-chart6',
 		data: [
 			<?php
-			$qry = mysqli_query($con, "SELECT *,count(*) as cnt FROM tblresident r group by r.gender ");
+			if ($isZoneLeader) {
+				$qry = mysqli_query($con, "SELECT *,count(*) as cnt FROM tblresident r WHERE r.barangay = '$zone_barangay' group by r.gender ");
+			}else{
+				$qry = mysqli_query($con, "SELECT *,count(*) as cnt FROM tblresident r group by r.gender ");
+			}
 			while ($row = mysqli_fetch_array($qry)) {
 				echo "{y:'" . $row['gender'] . "',a:'" . $row['cnt'] . "'},";
 			}
