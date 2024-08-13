@@ -120,7 +120,7 @@
                                                 }
                                             }
                                             else{
-                                                $squery = mysqli_query($con, "select * from tblsession");
+                                                $squery = mysqli_query($con, "select * from tblsession WHERE barangay = '$zone_barangay'");
                                                 while($row = mysqli_fetch_array($squery))
                                                 {
                                                     echo '
@@ -134,7 +134,7 @@
                                                     </tr>
                                                     ';
 
-                                                    include "edit_modal.php";
+                                                    // include "edit_modal.php";
                                                     include "view_modal.php";
                                                 }
                                             }
