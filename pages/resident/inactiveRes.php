@@ -65,7 +65,11 @@ if (!isset($_SESSION['role'])) {
                                         <span class="info-box-text">Total Resident</span>
                                         <span class="info-box-number" style="text-align: center;">
                                             <?php
-                                            $q = mysqli_query($con, "SELECT * from tblresident where statRes=0 AND status = 'InActive'");
+                                            if ($isZoneLeader) {
+                                                $q = mysqli_query($con, "SELECT * from tblresident where statRes=0 AND status = 'InActive' AND barangay = '$zone_barangay'");
+                                            }else{
+                                                $q = mysqli_query($con, "SELECT * from tblresident where statRes=0 AND status = 'InActive'");
+                                            }
                                             $num_rows = mysqli_num_rows($q);
                                             echo $num_rows;
                                             ?>
@@ -130,7 +134,12 @@ if (!isset($_SESSION['role'])) {
                                             <tbody>
                                                 <?php
                                                 if (!isset($_SESSION['staff'])) {
-                                                    $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where statRes=0 AND status = 'InActive' order by zone ");
+                                                    if ($isZoneLeader) {
+                                                        $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where statRes=0 AND status = 'InActive' AND barangay = '$zone_barangay' order by zone ");
+                                                    }else{
+                                                        $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where statRes=0 AND status = 'InActive' order by zone ");
+                                                    }
+                                                   
                                                     while ($row = mysqli_fetch_array($squery)) {
                                                         echo '
                                                     <tr>
