@@ -1,4 +1,4 @@
- <form class="form-inline" action="" method="GET">
+<form class="form-inline" action="" method="GET">
                     <div class="form-group">
                         <label for="from_date">From Date</label>
                         <input type="date" class="form-control" id="from_date_clearance" name="from_date"
@@ -30,7 +30,11 @@
                             $from_date = $_GET['from_date'];
                             $to_date = $_GET['to_date'];
 
+                           if ($isZoneLeader) {
+                            $query = "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid FROM tblclearance p left join tblresident r on r.id = p.residentid WHERE r.barangay = '$zone_barangay' AND dateRecorded BETWEEN '$from_date' AND '$to_date'";
+                           }else{
                             $query = "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid FROM tblclearance p left join tblresident r on r.id = p.residentid WHERE dateRecorded BETWEEN '$from_date' AND '$to_date'";
+                           }
                             $result = $con->query($query);
 
                             if($result->num_rows > 0)
