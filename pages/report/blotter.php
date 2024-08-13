@@ -33,7 +33,11 @@
                     $from_date = $_GET['from_date'];
                     $to_date = $_GET['to_date'];
     
+                   if ($isZoneLeader) {
+                    $query = "SELECT *,r.id as rid,b.id as bid,CONCAT(r.lname,', ', r.fname, ' ', r.mname) as rname from tblblotter b left join tblresident r on b.personToComplain = r.id WHERE r.barangay = '$zone_barangay' AND dateRecorded BETWEEN '$from_date' AND '$to_date'";
+                   }else{
                     $query = "SELECT *,r.id as rid,b.id as bid,CONCAT(r.lname,', ', r.fname, ' ', r.mname) as rname from tblblotter b left join tblresident r on b.personToComplain = r.id WHERE dateRecorded BETWEEN '$from_date' AND '$to_date'";
+                   }
                     $result = $con->query($query);
     
                     if ($result->num_rows > 0) {
