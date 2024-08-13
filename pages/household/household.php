@@ -57,7 +57,11 @@
                                       <span class="info-box-text">Total Household</span>
                                       <span class="info-box-number" style="text-align: center;">
                                         <?php
-                                            $q = mysqli_query($con,"SELECT * from tblhousehold");
+                                            if ($isZoneLeader) {
+                                                $q = mysqli_query($con,"SELECT * from tblhousehold WHERE barangay = '$zone_barangay'");
+                                            }else{
+                                                $q = mysqli_query($con,"SELECT * from tblhousehold");
+                                            }
                                             $num_rows = mysqli_num_rows($q);
                                             echo $num_rows;
                                         ?>
@@ -89,7 +93,11 @@
                                             if(!isset($_SESSION['staff']))
                                             {   
 
-                                                $squery = mysqli_query($con, "select *,h.id as hid,h.zone as hzone,CONCAT(r.lname, ', ', r.fname, ' ', r.mname) as hname from tblhousehold h left join tblresident r on r.id = h.headoffamily");
+                                               if ($isZoneLeader) {
+                                                 $squery = mysqli_query($con, "select *,h.id as hid,h.zone as hzone,CONCAT(r.lname, ', ', r.fname, ' ', r.mname) as hname from tblhousehold h left join tblresident r on r.id = h.headoffamily WHERE h.barangay = '$zone_barangay'");
+                                               }else{
+                                                 $squery = mysqli_query($con, "select *,h.id as hid,h.zone as hzone,CONCAT(r.lname, ', ', r.fname, ' ', r.mname) as hname from tblhousehold h left join tblresident r on r.id = h.headoffamily");
+                                               }
                                                 while($row = mysqli_fetch_array($squery))
                                                 {
                                                     echo '
@@ -108,7 +116,11 @@
 
                                             }
                                             else{
-                                                $squery = mysqli_query($con, "select *,h.id as hid,h.zone as hzone,CONCAT(r.lname, ', ', r.fname, ' ', r.mname) as hname from tblhousehold h left join tblresident r on r.id = h.headoffamily");
+                                               if ($isZoneLeader) {
+                                                 $squery = mysqli_query($con, "select *,h.id as hid,h.zone as hzone,CONCAT(r.lname, ', ', r.fname, ' ', r.mname) as hname from tblhousehold h left join tblresident r on r.id = h.headoffamily WHERE h.barangay = '$zone_barangay'");
+                                               }else{
+                                                 $squery = mysqli_query($con, "select *,h.id as hid,h.zone as hzone,CONCAT(r.lname, ', ', r.fname, ' ', r.mname) as hname from tblhousehold h left join tblresident r on r.id = h.headoffamily");
+                                               }
                                                 while($row = mysqli_fetch_array($squery))
                                                 {
                                                     echo '
