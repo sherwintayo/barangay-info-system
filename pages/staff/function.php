@@ -3,6 +3,7 @@ if(isset($_POST['btn_add'])){
     $txt_name = $_POST['txt_name'];
     $txt_uname = $_POST['txt_uname'];
     $txt_pass = $_POST['txt_pass'];
+    $barangay = $zone_barangay;
 
     if(isset($_SESSION['role']) && isset($_POST['txt_name'])) {
         // Escape user input for security
@@ -37,8 +38,13 @@ if(isset($_POST['btn_add'])){
     $ct = mysqli_num_rows($su);
     
     if($ct == 0){
-        $query = mysqli_query($con,"INSERT INTO tblstaff (name,username,password) 
+        if ($isZoneLeader) {
+            $query = mysqli_query($con,"INSERT INTO tblstaff (name,username,password,barangay) 
+            values ('$txt_name', '$txt_uname', '$txt_pass','$barangay')") or die('Error: ' . mysqli_error($con));
+        }else{
+            $query = mysqli_query($con,"INSERT INTO tblstaff (name,username,password) 
             values ('$txt_name', '$txt_uname', '$txt_pass')") or die('Error: ' . mysqli_error($con));
+        }
         if($query == true)
         {
             $_SESSION['added'] = 1;
