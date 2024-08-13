@@ -11,8 +11,8 @@ session_start();
     <!-- bootstrap 3.0.2 -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
-<!--     <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" /> -->
-    <link href="../css/style1.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" /> -->
+    <!-- <link href="../css/style1.css" rel="stylesheet" type="text/css" /> -->
     <!--/ icon link--->
     <link rel="icon" type="image/png" href="images/favicon_io/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="images/favicon_io/apple-touch-icon.png">
@@ -24,7 +24,7 @@ session_start();
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> -->
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
@@ -36,10 +36,10 @@ session_start();
             background-repeat: no-repeat;
         }
 
-        .container {
-            height: 100vh;
-            display: flex;
-            align-items: center;
+        .container{
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
         }
 
         .eye-icon {
@@ -54,12 +54,22 @@ session_start();
         .eye-icon:hover {
             color: #333;
         }
+
+        .card{
+            width: 400px !important;
+        }
+
+        @media (max-width: 400px) {
+            .card{
+                width: 100% !important;
+            }
+        }
     </style>
 </head>
 
-<body class="skin-black">
+<body>
     <div class="container">
-        <div class="col-md-4 col-md-offset-4">
+        <div class="card">
             <div class="panel panel-default">
                 <div class="panel-heading" style="text-align:center; ">
                     <img src="img/tugas_logo.png" style="height:150px;" />
@@ -114,7 +124,7 @@ session_start();
                     $_SESSION['role'] = "Administrator";
                     $_SESSION['userid'] = $row['id'];
                     $_SESSION['username'] = $row['username'];
-
+                    $_SESSION['barangay'] = $row['barangay'];
                     echo "<script>
                                 Swal.fire({
                                     title: 'Success!',
