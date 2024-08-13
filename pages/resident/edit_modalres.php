@@ -53,20 +53,35 @@ if(isset($row['id'])) {
 
                                     <select name="txt_brgy" class="form-control input-sm" required="">
                                         <option selected="" disabled="">-Select Barangay-</option>
-                                        <option value="Kangwayan" <?= $row['barangay'] == 'Kangwayan' ? 'selected' : '' ?>>Kangwayan</option>
-                                        <option value="Kodia" <?= $row['barangay'] == 'Kodia' ? 'selected' : '' ?>>Kodia</option>
-                                        <option value="Pili" <?= $row['barangay'] == 'Pili' ? 'selected' : '' ?>>Pili</option>
-                                        <option value="Bunakan" <?= $row['barangay'] == 'Bunakan' ? 'selected' : '' ?>>Bunakan</option>
-                                        <option value="Tabagak" <?= $row['barangay'] == 'Tabagak' ? 'selected' : '' ?>>Tabagak</option>
-                                        <option value="Maalat" <?= $row['barangay'] == 'Maalat' ? 'selected' : '' ?>>Maalat</option>
-                                        <option value="Tarong" <?= $row['barangay'] == 'Tarong' ? 'selected' : '' ?>>Tarong</option>
-                                        <option value="Malbago" <?= $row['barangay'] == 'Malbago' ? 'selected' : '' ?>>Malbago</option>
-                                        <option value="Mancilang" <?= $row['barangay'] == 'Mancilang' ? 'selected' : '' ?>>Mancilang</option>
-                                        <option value="Kaongkod" <?= $row['barangay'] == 'Kaongkod' ? 'selected' : '' ?>>Kaongkod</option>
-                                        <option value="San Agustin" <?= $row['barangay'] == 'San Agustin' ? 'selected' : '' ?>>San Agustin</option>
-                                        <option value="Poblacion" <?= $row['barangay'] == 'Poblacion' ? 'selected' : '' ?>>Poblacion</option>
-                                        <option value="Tugas" <?= $row['barangay'] == 'Tugas' ? 'selected' : '' ?>>Tugas</option>
-                                        <option value="Talangnan" <?= $row['barangay'] == 'Talangnan' ? 'selected' : '' ?>>Talangnan</option>
+                                        <?php 
+                                           if ($_SESSION['role'] == 'Zone Leader') {
+                                            foreach ($all_barangay as $brgy) {
+                                                if ($brgy == $zone_barangay) {
+                                                 ?>
+                                                 <option selected value="<?= $brgy ?>"><?= $brgy ?></option>
+                                                <?php 
+                                                }
+                                             }
+                                           }else{
+                                            ?>
+                                              <option value="Kangwayan" <?= $row['barangay'] == 'Kangwayan' ? 'selected' : '' ?>>Kangwayan</option>
+                                            <option value="Kodia" <?= $row['barangay'] == 'Kodia' ? 'selected' : '' ?>>Kodia</option>
+                                            <option value="Pili" <?= $row['barangay'] == 'Pili' ? 'selected' : '' ?>>Pili</option>
+                                            <option value="Bunakan" <?= $row['barangay'] == 'Bunakan' ? 'selected' : '' ?>>Bunakan</option>
+                                            <option value="Tabagak" <?= $row['barangay'] == 'Tabagak' ? 'selected' : '' ?>>Tabagak</option>
+                                            <option value="Maalat" <?= $row['barangay'] == 'Maalat' ? 'selected' : '' ?>>Maalat</option>
+                                            <option value="Tarong" <?= $row['barangay'] == 'Tarong' ? 'selected' : '' ?>>Tarong</option>
+                                            <option value="Malbago" <?= $row['barangay'] == 'Malbago' ? 'selected' : '' ?>>Malbago</option>
+                                            <option value="Mancilang" <?= $row['barangay'] == 'Mancilang' ? 'selected' : '' ?>>Mancilang</option>
+                                            <option value="Kaongkod" <?= $row['barangay'] == 'Kaongkod' ? 'selected' : '' ?>>Kaongkod</option>
+                                            <option value="San Agustin" <?= $row['barangay'] == 'San Agustin' ? 'selected' : '' ?>>San Agustin</option>
+                                            <option value="Poblacion" <?= $row['barangay'] == 'Poblacion' ? 'selected' : '' ?>>Poblacion</option>
+                                            <option value="Tugas" <?= $row['barangay'] == 'Tugas' ? 'selected' : '' ?>>Tugas</option>
+                                            <option value="Talangnan" <?= $row['barangay'] == 'Talangnan' ? 'selected' : '' ?>>Talangnan</option>
+                                            <?php 
+                                           }
+                                            ?>
+                                      
                                     </select>
                                 </div>
 
