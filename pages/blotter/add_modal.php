@@ -19,7 +19,11 @@
                                         <select name="txt_cname" class="form-control input-sm select2" style="width:100%" required=""/>
                                             <option disabled selected>-- Select Complainant --</option>
                                             <?php
+                                            if ($isZoneLeader) {
+                                                $qc = mysqli_query($con,"SELECT * from tblresident WHERE barangay = '$zone_barangay'");
+                                            }else{
                                                 $qc = mysqli_query($con,"SELECT * from tblresident");
+                                            }
                                                 while($rowc = mysqli_fetch_array($qc)){
                                                     echo '
                                                     <option>'.$rowc['lname'].', '.$rowc['fname'].' '.$rowc['mname'].'</option>
@@ -49,7 +53,7 @@
                                         <label class="control-label">Contact #:</label>
                                     </div>  
                                     <div class="col-sm-4" >
-                                        <input name="txt_ccontact" class="form-control input-sm" type="number" placeholder="Contact #" required="" />
+                                        <input name="txt_ccontact" class="form-control input-sm" type="tel" placeholder="Contact #" maxlength="11" minlength="11" pattern="[0-9]{11}" required="" />
                                     </div> 
 
                                 </div> 
@@ -62,7 +66,11 @@
                                         <select name="txt_pname" class="form-control input-sm select2" style="width:100%" required=""/>
                                             <option disabled selected>-- Select Complainee --</option>
                                             <?php
-                                                $qp = mysqli_query($con,"SELECT * from tblresident");
+                                                if ($isZoneLeader) {
+                                                    $qp = mysqli_query($con,"SELECT * from tblresident WHERE barangay = '$zone_barangay'");
+                                                }else{
+                                                    $qp = mysqli_query($con,"SELECT * from tblresident");
+                                                }
                                                 while($rowp = mysqli_fetch_array($qp)){
                                                     echo '
                                                     <option value="'.$rowp['id'].'">'.$rowp['lname'].', '.$rowp['fname'].' '.$rowp['mname'].'</option>
@@ -92,7 +100,7 @@
                                         <label class="control-label">Contact #:</label>
                                     </div>  
                                     <div class="col-sm-4" >
-                                        <input name="txt_pcontact" class="form-control input-sm" type="number" placeholder="Contact #" required="" />
+                                        <input name="txt_pcontact" class="form-control input-sm" type="tel" maxlength="11" minlength="11" pattern="[0-9]{11}" placeholder="Contact #" required="" />
                                     </div> 
 
                                 </div> 
