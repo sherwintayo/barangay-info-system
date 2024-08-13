@@ -81,7 +81,11 @@
                                                 if(!isset($_SESSION['staff']))
                                                 {
 
-                                                    $squery = mysqli_query($con, "select * from tblofficial ");
+                                                    if ($isZoneLeader) {
+                                                        $squery = mysqli_query($con, "select * from tblofficial WHERE barangay = '$zone_barangay' ");
+                                                    }else{
+                                                        $squery = mysqli_query($con, "select * from tblofficial ");
+                                                    }
                                                     while($row = mysqli_fetch_array($squery))
                                                     {
                                                         echo '
