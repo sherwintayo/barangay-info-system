@@ -56,7 +56,11 @@
                                       <span class="info-box-text">Blotter Issued</span>
                                       <span class="info-box-number" style="text-align: center;">
                                         <?php
-                                            $q = mysqli_query($con,"SELECT * from tblblotter WHERE sStatus='Unsolved'");
+                                            if ($isZoneLeader) {
+                                                $q = mysqli_query($con,"SELECT * from tblblotter WHERE sStatus='Unsolved' AND barangay = '$zone_barangay'");
+                                            }else{
+                                                $q = mysqli_query($con,"SELECT * from tblblotter WHERE sStatus='Unsolved'");
+                                            }
                                             $num_rows = mysqli_num_rows($q);
                                             echo $num_rows;
                                         ?>
@@ -96,7 +100,11 @@
                                             if(!isset($_SESSION['staff']))
                                             {
 
+                                               if ($isZoneLeader) {
+                                                $squery = mysqli_query($con, "SELECT *,r.id as rid,b.id as bid,CONCAT(r.lname,', ', r.fname, ' ', r.mname) as rname from tblblotter b left join tblresident r on b.personToComplain = r.id WHERE b.sStatus='Unsolved' AND b.barangay = '$zone_barangay' ") or die('Error: ' . mysqli_error($con));
+                                               }else{
                                                 $squery = mysqli_query($con, "SELECT *,r.id as rid,b.id as bid,CONCAT(r.lname,', ', r.fname, ' ', r.mname) as rname from tblblotter b left join tblresident r on b.personToComplain = r.id WHERE b.sStatus='Unsolved'") or die('Error: ' . mysqli_error($con));
+                                               }
                                                 while($row = mysqli_fetch_array($squery))
                                                 {
                                                     echo '
