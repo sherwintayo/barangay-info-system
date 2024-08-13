@@ -3,6 +3,7 @@ if (isset($_POST['btn_add'])) {
     $txt_doc = $_POST['txt_doc'];
     $txt_act = $_POST['txt_act'];
     $txt_desc = $_POST['txt_desc'];
+    $barangay = $zone_barangay;
 
 
     // $chkdup = mysqli_query($con, "SELECT * from tblproject where householdno = ".$txt_householdno." ");
@@ -15,8 +16,13 @@ if (isset($_POST['btn_add'])) {
 
 
     //if($num_rows == 0){
-    $query = mysqli_query($con, "INSERT INTO tblproject (date_of_project,project_name,description) 
+    if ($isZoneLeader) {
+        $query = mysqli_query($con, "INSERT INTO tblproject (date_of_project,project_name,description,barangay) 
+            values ('$txt_doc', '$txt_act', '$txt_desc', '$barangay')") or die('Error: ' . mysqli_error($con));
+    }else{
+        $query = mysqli_query($con, "INSERT INTO tblproject (date_of_project,project_name,description) 
             values ('$txt_doc', '$txt_act', '$txt_desc')") or die('Error: ' . mysqli_error($con));
+    }
     $id = mysqli_insert_id($con);
     if (isset($_FILES['files'])) {
         foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
