@@ -114,7 +114,7 @@ if (!isset($_SESSION['role'])) {
                                                     include "view_modal.php";
                                                 }
                                             } else {
-                                                $squery = mysqli_query($con, "select * from tblactivity");
+                                                $squery = mysqli_query($con, "select * from tblactivity WHERE barangay = '$zone_barangay'");
                                                 while ($row = mysqli_fetch_array($squery)) {
                                                     echo '
                                                     <tr>
