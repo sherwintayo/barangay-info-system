@@ -4,6 +4,7 @@ if (isset($_POST['btn_add'])) {
     $txt_act = $_POST['txt_act'];
     $txt_desc = $_POST['txt_desc'];
     $txt_actStat = $_POST['txt_actStat'];
+    $barangay = $zone_barangay;
 
     // $chkdup = mysqli_query($con, "SELECT * from tblactivity where householdno = ".$txt_householdno." ");
     //$num_rows = mysqli_num_rows($chkdup);
@@ -15,8 +16,13 @@ if (isset($_POST['btn_add'])) {
 
 
     //if($num_rows == 0){
+   if ($isZoneLeader) {
+    $query = mysqli_query($con, "INSERT INTO tblactivity (dateofactivity,activity,description,actStat,barangay) 
+    values ('$txt_doc', '$txt_act', '$txt_desc', '$txt_actStat', '$barangay')") or die('Error: ' . mysqli_error($con));
+   }else{
     $query = mysqli_query($con, "INSERT INTO tblactivity (dateofactivity,activity,description,actStat) 
-            values ('$txt_doc', '$txt_act', '$txt_desc', '$txt_actStat')") or die('Error: ' . mysqli_error($con));
+    values ('$txt_doc', '$txt_act', '$txt_desc', '$txt_actStat')") or die('Error: ' . mysqli_error($con));
+   }
     $id = mysqli_insert_id($con);
     if (isset($_FILES['files'])) {
         foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
