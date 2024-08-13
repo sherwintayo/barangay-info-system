@@ -68,7 +68,7 @@
 <?php 
     if (isset($_GET['from_date'])) {
         ?>
-        <a href="printClearance.php?from_date=<?= $_GET['from_date'] ?>&to_date=<?= $_GET['to_date'] ?>&blotter_filter" class="btn btn-primary btn-sm" style="margin-left: 20px;">Print</a>
+        <a href="printClearance.php?from_date=<?= $_GET['from_date'] ?>&to_date=<?= $_GET['to_date'] ?>&clearance_filter" class="btn btn-primary btn-sm" style="margin-left: 20px;">Print</a>
         <?php 
     }
 ?>
