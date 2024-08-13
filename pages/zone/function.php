@@ -1,86 +1,130 @@
 <?php
-if(isset($_POST['btn_add'])){
-    $txt_zone = $_POST['txt_zone'];
-    $txt_uname = $_POST['txt_uname'];
-    $txt_pass = $_POST['txt_pass'];
+if (isset($_POST['btn_add'])) {
+    $txt_doc = $_POST['txt_doc'];
+    $txt_act = $_POST['txt_act'];
     $barangay = $zone_barangay;
 
-    if(isset($_SESSION['role'])){
-        $action = 'Added Zone number '.$txt_zone;
-        $iquery = mysqli_query($con,"INSERT INTO tbllogs (user,logdate,action) values ('".$_SESSION['role']."', NOW(), '".$action."')");
+
+    // $chkdup = mysqli_query($con, "SELECT * from tblsession where householdno = ".$txt_householdno." ");
+    //$num_rows = mysqli_num_rows($chkdup);
+
+    if (isset($_SESSION['role'])) {
+        $action = 'Added session ' . $txt_act;
+        $iquery = mysqli_query($con, "INSERT INTO tbllogs (user,logdate,action) values ('" . $_SESSION['role'] . "', NOW(), '" . $action . "')");
     }
 
-    $su = mysqli_query($con,"SELECT * from tblzone where username = '".$txt_uname."' ");
-    $ct = mysqli_num_rows($su);
 
-    if($ct == 0){
-       if ($isZoneLeader) {
-        $query = mysqli_query($con,"INSERT INTO tblzone (zone,username,password,barangay) 
-        values ('$txt_zone', '$txt_uname', '$txt_pass', '$barangay')") or die('Error: ' . mysqli_error($con));
-       }else{
-        $query = mysqli_query($con,"INSERT INTO tblzone (zone,username,password) 
-        values ('$txt_zone', '$txt_uname', '$txt_pass')") or die('Error: ' . mysqli_error($con));
-       }
-        if($query == true)
-        {
-            $_SESSION['added'] = 1;
-            header ("location: ".$_SERVER['REQUEST_URI']);
-        } 
-    }
-    else{
-        $_SESSION['duplicateuser'] = 1;
-        header ("location: ".$_SERVER['REQUEST_URI']);
-    } 
-}
+    //if($num_rows == 0){
+   if ($isZoneLeader) {
+    $query = mysqli_query($con, "INSERT INTO tblsession (date_of_session,session,barangay) 
+    values ('$txt_doc', '$txt_act', '$barangay')") or die('Error: ' . mysqli_error($con));
+   }else{
+    $query = mysqli_query($con, "INSERT INTO tblsession (date_of_session,session) 
+    values ('$txt_doc', '$txt_act')") or die('Error: ' . mysqli_error($con));
+   }
+    $id = mysqli_insert_id($con);
+    if (isset($_FILES['files'])) {
+        foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
 
+            $target = "photo/";
+            $milliseconds = round(microtime(true) * 1000);
+            $name = $milliseconds . $_FILES['files']['name'][$key];
+            $target = $target . $name;
 
-if(isset($_POST['btn_save']))
-{
-    $txt_id = $_POST['hidden_id'];
-    $txt_edit_zone = $_POST['txt_edit_zone'];
-    $txt_edit_uname = $_POST['txt_edit_uname'];
-    $txt_edit_pass = $_POST['txt_edit_pass'];
+            if (move_uploaded_file($tmp_name, $target)) {
+                mysqli_query($con, "INSERT INTO tblsessionphoto (sessionid,filename) 
+                    values ('$id', '" . $name . "')") or die('Error: ' . mysqli_error($con));
+            }
 
-    if(isset($_SESSION['role'])){
-        $action = 'Update Zone number '.$txt_edit_zone;
-        $iquery = mysqli_query($con,"INSERT INTO tbllogs (user,logdate,action) values ('".$_SESSION['role']."', NOW(), '".$action."')");
-    }
-
-    // $su = mysqli_query($con,"SELECT * from tblzone where username = '".$txt_edit_uname."' ");
-    // $ct = mysqli_num_rows($su);
-    
-    // if($ct == 0){
-        $update_query = mysqli_query($con,"UPDATE tblzone set `zone` = '$txt_edit_zone', username = '$txt_edit_uname', password = '$txt_edit_pass' where id = '$txt_id' ");
-
-        var_dump($update_query);
-
-        if($update_query == true){
-            $_SESSION['edited'] = 1;
-            header("location: ".$_SERVER['REQUEST_URI']);
         }
-    // }
-    // else{
-    //     $_SESSION['duplicateuser'] = 1;
-    //     header ("location: ".$_SERVER['REQUEST_URI']);
-    // } 
+    }
+
+    if ($query == true) {
+        $_SESSION['added'] = 1;
+        header("location: " . $_SERVER['REQUEST_URI']);
+    }
+    //}
+    //else{
+    //    $_SESSION['duplicate'] = 1;
+    //    header ("location: ".$_SERVER['REQUEST_URI']);
+    //}
 }
 
-if(isset($_POST['btn_delete']))
-{
-    if(isset($_POST['chk_delete']))
-    {
-        foreach($_POST['chk_delete'] as $value)
-        {
-            $delete_query = mysqli_query($con,"DELETE from tblzone where id = '$value' ") or die('Error: ' . mysqli_error($con));
-                    
-            if($delete_query == true)
-            {
+
+if (isset($_POST['btn_save'])) {
+    $txt_id = $_POST['hidden_id'];
+    $txt_edit_doc = $_POST['txt_edit_doc'];
+    $txt_edit_act = $_POST['txt_edit_act'];
+    $txt_edit_desc = $_POST['txt_edit_desc'];
+    $txt_edit_actStat = $_POST['txt_edit_actStat'];
+
+    $update_query = mysqli_query($con, "UPDATE tblsession set dateofsession = '" . $txt_edit_doc . "', session = '" . $txt_edit_act . "', description = '" . $txt_edit_desc . "', actStat = '" . $txt_edit_actStat . "' where id = '" . $txt_id . "' ") or die('Error: ' . mysqli_error($con));
+
+    if (isset($_SESSION['role'])) {
+        $action = 'Update session ' . $txt_edit_act;
+        $iquery = mysqli_query($con, "INSERT INTO tbllogs (user,logdate,action) values ('" . $_SESSION['role'] . "', NOW(), '" . $action . "')");
+    }
+
+    if ($update_query == true) {
+        $_SESSION['edited'] = 1;
+        header("location: " . $_SERVER['REQUEST_URI']);
+    }
+}
+
+if (isset($_POST['btn_delete'])) {
+    if (isset($_POST['chk_delete'])) {
+        foreach ($_POST['chk_delete'] as $value) {
+            $delete_query = mysqli_query($con, "DELETE from tblsession where id = '$value' ") or die('Error: ' . mysqli_error($con));
+
+            if ($delete_query == true) {
                 $_SESSION['delete'] = 1;
-                header("location: ".$_SERVER['REQUEST_URI']);
+                header("location: " . $_SERVER['REQUEST_URI']);
             }
         }
     }
 }
+
+
+if (isset($_POST['btn_addimage'])) {
+    $id = $_POST['hidden_id'];
+
+    if (isset($_FILES['photos'])) {
+        foreach ($_FILES['photos']['tmp_name'] as $key => $tmp_name) {
+
+            $target = "photo/";
+            $milliseconds = round(microtime(true) * 1000);
+            $name = $milliseconds . $_FILES['photos']['name'][$key];
+            $target = $target . $name;
+
+            if (move_uploaded_file($tmp_name, $target)) {
+                $query = mysqli_query($con, "INSERT INTO tblsessionphoto (sessionid,filename) 
+                    values ('$id', '" . $name . "')") or die('Error: ' . mysqli_error($con));
+                if ($query == true) {
+                    $_SESSION['added'] = 1;
+                    header("location: " . $_SERVER['REQUEST_URI']);
+                }
+            }
+
+        }
+    }
+
+}
+
+
+
+if (isset($_POST['btn_remove'])) {
+    if (isset($_POST['chk_deletephoto'])) {
+        foreach ($_POST['chk_deletephoto'] as $value) {
+            $delete_query = mysqli_query($con, "DELETE from tblsessionphoto where id = '$value' ") or die('Error: ' . mysqli_error($con));
+
+            if ($delete_query == true) {
+                $_SESSION['delete'] = 1;
+                header("location: " . $_SERVER['REQUEST_URI']);
+            }
+        }
+    }
+}
+
 
 
 ?>
