@@ -5,6 +5,26 @@
 <script src="./assets/js/bootstrap.min.js"></script>
 
 <?php
+$isZoneLeader = $_SESSION['role'] == 'Zone Leader' ? true : false;
+$zone_barangay = isset($_SESSION['barangay']) ? $_SESSION['barangay'] : '';
+
+$all_barangay = [
+    "Kangwayan",
+    "Kodia",
+    "Pili",
+    "Bunakan",
+    "Tabagak",
+    "Maalat",
+    "Tarong",
+    "Malbago",
+    "Mancilang",
+    "Kaongkod",
+    "San Agustin",
+    "Poblacion",
+    "Tugas",
+    "Talangnan",
+];
+
 $today = date("Y-m-d");
 
 $count_tblactivity = $con->query("SELECT * FROM tblactivity WHERE DATE(date_created) = '$today'");
