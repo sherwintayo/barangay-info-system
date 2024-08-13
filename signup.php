@@ -38,8 +38,8 @@ session_start();
 
         .container{
             min-height: 100vh;
-            display: flex;
-            align-items: center;
+            display: grid;
+            place-items: center;
         }
 
         .eye-icon {
@@ -54,12 +54,23 @@ session_start();
         .eye-icon:hover {
             color: #333;
         }
+
+        .card{
+            width: 400px !important;
+        }
+
+        @media (max-width: 400px) {
+            .card{
+                width: 100% !important;
+            }
+        }
+        
     </style>
 </head>
 
-<body class="skin-black">
+<body>
     <div class="container">
-        <div class="col-md-4 col-md-offset-4">
+        <div class="card">
             <div class="panel panel-default">
                 <div class="panel-heading" style="text-align:center; ">
                     <!-- <img src="img/tugas_logo.png" style="height:150px;" />
@@ -105,6 +116,14 @@ session_start();
                                 <i class="fas fa-eye eye-icon" id="togglePassword"></i>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="txt_password">Confirm Password</label>
+                            <div style="position: relative;">
+                                <input type="password" class="form-control" style="border-radius:0px"
+                                    name="txt_confirm" id="txt_confirm" placeholder="Confirm Password" required="" />
+                                <i class="fas fa-eye eye-icon" id="toggleConfirm"></i>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-sm btn-primary" name="btn_signup"
                             style="background-color:#00BB27;">Sign Up</button>
                         <a href="pages/resetpassword.php" style="float: right;">Forgot password</a>
@@ -125,13 +144,26 @@ session_start();
         $barangay = $_POST['barangay'];
         $username = $_POST['txt_username'];
         $password = $_POST['txt_password'];
+        $confirm = $_POST['txt_confirm'];
         $type = "Zone Leader";
 
         $stmt = $con->prepare("INSERT INTO tbluser(username,password,barangay,type) VALUES(?,?,?,?)");
         $stmt->bind_param('ssss', $username, $password, $barangay, $type);
         
         $check = $con->query("SELECT * FROM tbluser WHERE username = '$username'");
+        
 
+       if ($password !== $confirm) {
+            echo "<script>
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Password don\'t match',
+                    icon: 'error',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            </script>";
+       }else{
         if ($check->num_rows > 0) {
             echo "<script>
                     Swal.fire({
@@ -157,6 +189,7 @@ session_start();
                         </script>";
             }
         }
+       }
         
        
     }
@@ -174,6 +207,19 @@ session_start();
                 }else{
                     passwordInp.setAttribute("type", "password")
                     showPass.classList.replace("fa-eye-slash","fa-eye")
+                }
+            }
+
+            let confirmInp = document.querySelector("input[name='txt_confirm']");
+            let showConfirmPass = document.getElementById("toggleConfirm");
+
+            showConfirmPass.onclick = () => {
+                if (confirmInp.getAttribute("type") == "password") {
+                    confirmInp.setAttribute("type", "text")
+                    showConfirmPass.classList.replace("fa-eye", "fa-eye-slash")
+                }else{
+                    confirmInp.setAttribute("type", "password")
+                    showConfirmPass.classList.replace("fa-eye-slash","fa-eye")
                 }
             }
 
