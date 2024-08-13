@@ -42,8 +42,13 @@ if (!isset($_SESSION['role'])) {
                     <span class="info-box-text">Total Household</span>
                     <span class="info-box-number">
                       <?php
+                     if ($isZoneLeader) {
+                      $q = mysqli_query($con, "SELECT * from tblhousehold WHERE barangay = '$zone_barangay'");
+                      $num_rows = mysqli_num_rows($q);
+                     }else{
                       $q = mysqli_query($con, "SELECT * from tblhousehold");
                       $num_rows = mysqli_num_rows($q);
+                     }
                       echo $num_rows;
                       ?>
                     </span>
@@ -60,7 +65,12 @@ if (!isset($_SESSION['role'])) {
                     <span class="info-box-text">Total Resident</span>
                     <span class="info-box-number">
                       <?php
-                      $q = mysqli_query($con, "SELECT * from tblresident");
+                      if ($isZoneLeader) {
+                        $q = mysqli_query($con, "SELECT * from tblresident WHERE barangay = '$zone_barangay'");
+                      }else{
+                        $q = mysqli_query($con, "SELECT * from tblresident");
+                      }
+                     
                       $num_rows = mysqli_num_rows($q);
                       echo $num_rows;
                       ?>
@@ -78,7 +88,11 @@ if (!isset($_SESSION['role'])) {
                     <span class="info-box-text">Total New Resident</span>
                     <span class="info-box-number">
                       <?php
-                      $q = mysqli_query($con, "SELECT * from tblnewresident");
+                      if ($isZoneLeader) {
+                        $q = mysqli_query($con, "SELECT * from tblresident WHERE barangay = '$zone_barangay' AND status = 'New Resident'");
+                      }else{
+                        $q = mysqli_query($con, "SELECT * from tblresident WHERE status = 'New Resident'");
+                      }
                       $num_rows = mysqli_num_rows($q);
                       echo $num_rows;
                       ?>
@@ -96,7 +110,11 @@ if (!isset($_SESSION['role'])) {
                     <span class="info-box-text">Clearance Issued</span>
                     <span class="info-box-number">
                       <?php
-                      $q = mysqli_query($con, "SELECT * from tblclearance where status = 'Approved' ");
+                      if ($isZoneLeader) {
+                        $q = mysqli_query($con, "SELECT * from tblclearance where status = 'Approved' AND barangay = '$zone_barangay' ");
+                      }else{
+                        $q = mysqli_query($con, "SELECT * from tblclearance where status = 'Approved'");
+                      }
                       $num_rows = mysqli_num_rows($q);
                       echo $num_rows;
                       ?>
@@ -114,7 +132,11 @@ if (!isset($_SESSION['role'])) {
                     <span class="info-box-text">Permit Issued</span>
                     <span class="info-box-number">
                       <?php
-                      $q = mysqli_query($con, "SELECT * from tblpermit where status = 'Approved' ");
+                     if ($isZoneLeader) {
+                      $q = mysqli_query($con, "SELECT * from tblpermit where status = 'Approved' AND businessAddress = '$zone_barangay' ");
+                     }else{
+                      $q = mysqli_query($con, "SELECT * from tblpermit where status = 'Approved'");
+                     }
                       $num_rows = mysqli_num_rows($q);
                       echo $num_rows;
                       ?>
@@ -132,7 +154,11 @@ if (!isset($_SESSION['role'])) {
                     <span class="info-box-text">Blotter Issued</span>
                     <span class="info-box-number">
                       <?php
-                      $q = mysqli_query($con, "SELECT * from tblblotter");
+                      if ($isZoneLeader) {
+                        $q = mysqli_query($con, "SELECT * from tblblotter WHERE barangay = '$zone_barangay'");
+                      }else{
+                        $q = mysqli_query($con, "SELECT * from tblblotter");
+                      }
                       $num_rows = mysqli_num_rows($q);
                       echo $num_rows;
                       ?>
