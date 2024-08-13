@@ -11,8 +11,8 @@ session_start();
     <!-- bootstrap 3.0.2 -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
-    <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
-    <link href="../css/style1.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" /> -->
+    <!-- <link href="../css/style1.css" rel="stylesheet" type="text/css" /> -->
     <!--/ icon link--->
     <link rel="icon" type="image/png" href="images/favicon_io/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="images/favicon_io/apple-touch-icon.png">
@@ -24,13 +24,13 @@ session_start();
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> -->
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
     <style>
-        body{
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(./images/bg-img.jpeg);
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(./images/bg-img.jpeg);
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -64,7 +64,6 @@ session_start();
                 width: 100% !important;
             }
         }
-        
     </style>
 </head>
 
