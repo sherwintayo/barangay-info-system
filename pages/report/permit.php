@@ -32,7 +32,11 @@
                             $from_date = $_GET['from_date'];
                             $to_date = $_GET['to_date'];
 
-                            $query = "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid FROM tblpermit p left join tblresident r on r.id = p.residentid WHERE dateRecorded BETWEEN '$from_date' AND '$to_date'";
+                            if ($isZoneLeader) {
+                                $query = "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid FROM tblpermit p left join tblresident r on r.id = p.residentid WHERE r.barangay = '$zone_barangay' AND dateRecorded BETWEEN '$from_date' AND '$to_date'";
+                            }else{
+                                $query = "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid FROM tblpermit p left join tblresident r on r.id = p.residentid WHERE dateRecorded BETWEEN '$from_date' AND '$to_date'";
+                            }
                             $result = $con->query($query);
 
                             if($result->num_rows > 0)
