@@ -58,7 +58,11 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $squery = mysqli_query($con, "select * from tblstaff");
+                                            if ($isZoneLeader) {
+                                                $squery = mysqli_query($con, "select * from tblstaff WHERE barangay = '$zone_barangay'");
+                                            }else{
+                                                $squery = mysqli_query($con, "select * from tblstaff");
+                                            }
                                             while($row = mysqli_fetch_array($squery))
                                             {
                                                 echo '
