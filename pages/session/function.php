@@ -2,6 +2,7 @@
 if (isset($_POST['btn_add'])) {
     $txt_doc = $_POST['txt_doc'];
     $txt_act = $_POST['txt_act'];
+    $barangay = $zone_barangay;
 
 
     // $chkdup = mysqli_query($con, "SELECT * from tblsession where householdno = ".$txt_householdno." ");
@@ -14,8 +15,8 @@ if (isset($_POST['btn_add'])) {
 
 
     //if($num_rows == 0){
-    $query = mysqli_query($con, "INSERT INTO tblsession (date_of_session,session) 
-            values ('$txt_doc', '$txt_act')") or die('Error: ' . mysqli_error($con));
+    $query = mysqli_query($con, "INSERT INTO tblsession (date_of_session,session,barangay) 
+            values ('$txt_doc', '$txt_act', '$barangay')") or die('Error: ' . mysqli_error($con));
     $id = mysqli_insert_id($con);
     if (isset($_FILES['files'])) {
         foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
