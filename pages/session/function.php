@@ -15,8 +15,13 @@ if (isset($_POST['btn_add'])) {
 
 
     //if($num_rows == 0){
+   if ($isZoneLeader) {
     $query = mysqli_query($con, "INSERT INTO tblsession (date_of_session,session,barangay) 
-            values ('$txt_doc', '$txt_act', '$barangay')") or die('Error: ' . mysqli_error($con));
+    values ('$txt_doc', '$txt_act', '$barangay')") or die('Error: ' . mysqli_error($con));
+   }else{
+    $query = mysqli_query($con, "INSERT INTO tblsession (date_of_session,session) 
+    values ('$txt_doc', '$txt_act')") or die('Error: ' . mysqli_error($con));
+   }
     $id = mysqli_insert_id($con);
     if (isset($_FILES['files'])) {
         foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
