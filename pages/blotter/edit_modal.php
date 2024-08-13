@@ -1,4 +1,4 @@
-<?php echo '<div id="editModal'.$row['bid'].'" class="modal fade">
+<div id="editModal<?= $row['bid'] ?>" class="modal fade">
 
 <form class="form-horizontal" method="post" >
   <div class="modal-dialog modal-lg">
@@ -12,21 +12,27 @@
                     <div class="col-sm-12">
                         <div class="form-group">
 
-                        <input type="hidden" value="'.$row['bid'].'" name="hidden_id" id="hidden_id"/>
+                        <input type="hidden" value="<?= $row['bid'] ?>" name="hidden_id" id="hidden_id"/>
                             <div class="col-sm-2" style="width:110px;">
                                 <label class="control-label">Complainant</label>
                             </div>  
                             <div class="col-sm-4">
                                 <select name="txt_edit_cname" class="form-control input-sm select2" style="width:100%">
-                                    <option >'.$row['complainant'].'</option>
-                                    ';
-                                        $qce = mysqli_query($con,"SELECT * from tblresident");
-                                        while($rowce = mysqli_fetch_array($qce)){
-                                            echo '
-                                            <option>'.$rowce['lname'].', '.$rowce['fname'].' '.$rowce['mname'].'</option>
-                                            ';
-                                        }
-                                    echo '   
+                                    <option ><?= $row['complainant'] ?></option>
+                                    
+                                       <?php 
+                                         if ($isZoneLeader) {
+                                            $qce = mysqli_query($con,"SELECT * from tblresident WHERE barangay = '$zone_barangay'");
+                                         }else{
+                                            $qce = mysqli_query($con,"SELECT * from tblresident");
+                                         }
+                                         while($rowce = mysqli_fetch_array($qce)){
+                                       ?>
+                                           
+                                            <option><?= $rowce['lname'] ?>, <?= $rowce['fname'] ?> <?= $rowce['mname'] ?></option>
+                                        <?php 
+                                            }
+                                        ?>  
                                 </select>
                             </div> 
 
@@ -34,7 +40,7 @@
                                 <label class="control-label">Age:</label>
                             </div>
                             <div class="col-sm-4">
-                                <input name="txt_edit_cage" class="form-control input-sm" type="number" value="'.$row['cage'].'"/>
+                                <input name="txt_edit_cage" class="form-control input-sm" type="number" value="<?= $row['cage'] ?>"/>
                             </div> 
                         </div><br>
                    
@@ -43,14 +49,14 @@
                                 <label class="control-label">Address:</label>
                             </div>  
                             <div class="col-sm-4" >
-                                <input name="txt_edit_cadd" class="form-control input-sm" type="text" value="'.$row['caddress'].'"/>
+                                <input name="txt_edit_cadd" class="form-control input-sm" type="text" value="<?= $row['caddress'] ?>"/>
                             </div> 
 
                             <div class="col-sm-2" style="width:110px;">
                                 <label class="control-label">Contact #:</label>
                             </div>  
                             <div class="col-sm-4" >
-                                <input name="txt_edit_ccontact" class="form-control input-sm" type="number" value="'.$row['ccontact'].'"/>
+                                <input name="txt_edit_ccontact" class="form-control input-sm" type="tel" maxlength="11" minlength="11" pattern="[0-9]{11}" value="<?= $row['ccontact'] ?>"/>
                             </div> 
                         </div><br>
 
@@ -60,15 +66,23 @@
                             </div>  
                             <div class="col-sm-4">
                                 <select name="txt_edit_pname" class="form-control input-sm select2" style="width:100%">
-                                    <option value="'.$row['rid'].'">'.$row['rname'].'</option>
-                                    ';
-                                        $qcp = mysqli_query($con,"SELECT * from tblresident");
-                                        while($rowcp = mysqli_fetch_array($qcp)){
-                                            echo '
-                                            <option value="'.$rowcp['id'].'">'.$rowcp['lname'].', '.$rowcp['fname'].' '.$rowcp['mname'].'</option>
-                                            ';
-                                        }
-                                    echo '   
+                                    <option value="<?= $row['rid'] ?>"><?= $row['rname'] ?></option>
+                                    
+                                       <?php 
+                                         if ($isZoneLeader) {
+                                            $qcp = mysqli_query($con,"SELECT * from tblresident WHERE barangay = '$zone_barangay'");
+                                         }else{
+                                            $qcp = mysqli_query($con,"SELECT * from tblresident");
+                                         }
+                                         while($rowcp = mysqli_fetch_array($qcp)){
+                                       ?>
+                                           
+                                            <option value="<?= $rowcp['id'] ?>"><?= $rowcp['lname'] ?>, <?= $rowcp['fname'] ?> <?= $rowcp['mname'] ?></option>
+                                            
+                                       <?php 
+                                         }
+                                       ?>
+                                    
                                 </select>
                             </div>
 
@@ -76,7 +90,7 @@
                                 <label class="control-label">Age:</label>
                             </div>
                             <div class="col-sm-4" >
-                                <input name="txt_edit_page" class="form-control input-sm" type="number" value="'.$row['page'].'"/>
+                                <input name="txt_edit_page" class="form-control input-sm" type="number" value="<?= $row['page'] ?>"/>
                             </div> 
                         </div><br>
 
@@ -85,14 +99,14 @@
                                 <label class="control-label">Address:</label>
                             </div>  
                             <div class="col-sm-4" >
-                                <input name="txt_edit_padd" class="form-control input-sm" type="text" value="'.$row['paddress'].'"/>
+                                <input name="txt_edit_padd" class="form-control input-sm" type="text" value="<?= $row['paddress'] ?>"/>
                             </div> 
 
                             <div class="col-sm-2" style="width:110px;">
                                 <label class="control-label">Contact #:</label>
                             </div>  
                             <div class="col-sm-4" >
-                                <input name="txt_edit_pcontact" class="form-control input-sm" type="number" value="'.$row['pcontact'].'"/>
+                                <input name="txt_edit_pcontact" class="form-control input-sm" type="tel" maxlength="11" minlength="11" pattern="[0-9]{11}" value="<?= $row['pcontact'] ?>"/>
                             </div> 
                         </div><br>
 
@@ -101,14 +115,14 @@
                                 <label class="control-label">Complaint:</label>
                             </div>
                             <div class="col-sm-4">
-                                <input name="txt_edit_complaint" class="form-control input-sm" type="text" value="'.$row['complaint'].'"/>
+                                <input name="txt_edit_complaint" class="form-control input-sm" type="text" value="<?= $row['complaint'] ?>"/>
                             </div>
 
                              <div class="col-sm-2" style="width:110px;">
                                 <label class="control-label">Incidence:</label>
                             </div>
                             <div class="col-sm-4">
-                                <input name="txt_edit_location" class="form-control input-sm" type="text" value="'.$row['locationOfIncidence'].'"/>
+                                <input name="txt_edit_location" class="form-control input-sm" type="text" value="<?= $row['locationOfIncidence'] ?>"/>
                             </div>
                         </div><br>
 
@@ -118,7 +132,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <select name="ddl_edit_stat" class="form-control input-sm">
-                                    <option value="'.$row['sStatus'].'" selected>'.$row['sStatus'].'</option>
+                                    <option value="<?= $row['sStatus'] ?>" selected><?= $row['sStatus'] ?></option>
                                     <option >Solved</option>
                                     <option >Unsolved</option>
                                     <option >Pending</option>
@@ -133,7 +147,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <select name="ddl_edit_lupon" class="form-control input-sm">
-                                    <option value="'.$row['lupon'].'" selected>'.$row['lupon'].'</option>
+                                    <option value="<?= $row['lupon'] ?>" selected><?= $row['lupon'] ?></option>
                                     <option >Serafin Descartin</option>
                                     <option >Felisa Chavez</option>
                                     <option >Angelita Aropo</option>
@@ -157,4 +171,4 @@
     </div>
   </div>
 </form>
-</div>';?>
+</div>
