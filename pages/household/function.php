@@ -4,8 +4,9 @@ if(isset($_POST['btn_add'])){
     $txt_zone = $_POST['txt_zone'];
     $txt_totalmembers = $_POST['txt_totalmembers'];
     $txt_hof = $_POST['txt_hof'];
+    $barangay = $zone_barangay;
 
-    $chkdup = mysqli_query($con, "SELECT * from tblhousehold where householdno = ".$txt_householdno." ");
+    $chkdup = mysqli_query($con, "SELECT * from tblhousehold where householdno = ".$txt_householdno." AND barangay = '$zone_barangay' ");
     $num_rows = mysqli_num_rows($chkdup);
 
     if(isset($_SESSION['role'])){
@@ -15,8 +16,13 @@ if(isset($_POST['btn_add'])){
 
 
     if($num_rows == 0){
-        $query = mysqli_query($con,"INSERT INTO tblhousehold (householdno,zone,totalhouseholdmembers,headoffamily) 
+        if ($isZoneLeader) {
+            $query = mysqli_query($con,"INSERT INTO tblhousehold (householdno,zone,totalhouseholdmembers,headoffamily,barangay) 
+            values ('$txt_householdno', '$txt_zone', '$txt_totalmembers', '$txt_hof', '$barangay')") or die('Error: ' . mysqli_error($con));
+        }else{
+            $query = mysqli_query($con,"INSERT INTO tblhousehold (householdno,zone,totalhouseholdmembers,headoffamily) 
             values ('$txt_householdno', '$txt_zone', '$txt_totalmembers', '$txt_hof')") or die('Error: ' . mysqli_error($con));
+        }
         if($query == true)
         {
             $_SESSION['added'] = 1;
