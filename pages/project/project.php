@@ -120,14 +120,14 @@
                                                 }
                                             }
                                             else{
-                                                $squery = mysqli_query($con, "select * from tblproject");
+                                                $squery = mysqli_query($con, "select * from tblproject WHERE barangay = '$zone_barangay'");
                                                 while($row = mysqli_fetch_array($squery))
                                                 {
                                                     echo '
                                                     <tr>
                                                         <td></td>
-                                                        <td>'.$row['dateofproject'].'</td>
-                                                        <td>'.$row['projectname'].'</td>
+                                                        <td>'.$row['date_of_project'].'</td>
+                                                        <td>'.$row['project_name'].'</td>
                                                         <td>'.$row['description'].'</td>
                                                        
                                                        
