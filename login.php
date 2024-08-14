@@ -83,7 +83,7 @@ session_start();
                 <div class="panel-body">
                     <form role="form" method="post">
                         <div class="form-group">
-                            <label for="txt_username">Username</label>
+                            <label for="txt_username">Email</label>
                             <input type="text" class="form-control" style="border-radius:0px" name="txt_username" placeholder="Enter Username" required="" />
                         </div>
                         <div class="form-group">
@@ -111,9 +111,10 @@ session_start();
     if (isset($_POST['btn_login'])) {
         $username = $_POST['txt_username'];
         $password = $_POST['txt_password'];
+        $status = 2;
 
-        $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ? AND password = ?");
-        $stmt->bind_param("ss", $username, $password);
+        $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ? AND password = ? AND status = ?");
+        $stmt->bind_param("ssi", $username, $password, $status);
         if ($stmt->execute()) {
             $result = $stmt->get_result();
             if ($result->num_rows > 0) {
