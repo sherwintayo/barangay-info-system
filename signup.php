@@ -36,7 +36,7 @@ session_start();
             background-repeat: no-repeat;
         }
 
-        .container{
+        .container {
             min-height: 100vh;
             display: grid;
             place-items: center;
@@ -55,12 +55,12 @@ session_start();
             color: #333;
         }
 
-        .card{
+        .card {
             width: 400px !important;
         }
 
         @media (max-width: 400px) {
-            .card{
+            .card {
                 width: 100% !important;
             }
         }
@@ -85,26 +85,26 @@ session_start();
                         <div class="form-group">
                             <label for="barangay">Barangay</label>
                             <select name="barangay" class="form-control input-sm" required="">
-                                        <option selected="" disabled="" value="">-Select Barangay-</option>
-                                        <option value="Kangwayan">Kangwayan</option>
-                                        <option value="Kodia">Kodia</option>
-                                        <option value="Pili">Pili</option>
-                                        <option value="Bunakan">Bunakan</option>
-                                        <option value="Tabagak">Tabagak</option>
-                                        <option value="Maalat">Maalat</option>
-                                        <option value="Tarong">Tarong</option>
-                                        <option value="Malbago">Malbago</option>
-                                        <option value="Mancilang">Mancilang</option>
-                                        <option value="Kaongkod">Kaongkod</option>
-                                        <option value="San Agustin">San Agustin</option>
-                                        <option value="Poblacion">Poblacion</option>
-                                        <option value="Tugas">Tugas</option>
-                                        <option value="Talangnan">Talangnan</option>
+                                <option selected="" disabled="" value="">-Select Barangay-</option>
+                                <option value="Kangwayan">Kangwayan</option>
+                                <option value="Kodia">Kodia</option>
+                                <option value="Pili">Pili</option>
+                                <option value="Bunakan">Bunakan</option>
+                                <option value="Tabagak">Tabagak</option>
+                                <option value="Maalat">Maalat</option>
+                                <option value="Tarong">Tarong</option>
+                                <option value="Malbago">Malbago</option>
+                                <option value="Mancilang">Mancilang</option>
+                                <option value="Kaongkod">Kaongkod</option>
+                                <option value="San Agustin">San Agustin</option>
+                                <option value="Poblacion">Poblacion</option>
+                                <option value="Tugas">Tugas</option>
+                                <option value="Talangnan">Talangnan</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="txt_username">Username</label>
-                            <input type="text" class="form-control" style="border-radius:0px" name="txt_username"
+                            <label for="txt_username">Email</label>
+                            <input type="email" class="form-control" style="border-radius:0px" name="txt_username"
                                 placeholder="Enter Username" required="" />
                         </div>
                         <div class="form-group">
@@ -138,6 +138,13 @@ session_start();
     <?php
     include "pages/connection.php";
 
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    use PHPMailer\PHPMailer\SMTP;
+
+    require "./include/Exception.php";
+    require "./include/PHPMailer.php";
+    require "./include/SMTP.php";
 
     if (isset($_POST['btn_signup'])) {
         $barangay = $_POST['barangay'];
@@ -145,14 +152,40 @@ session_start();
         $password = $_POST['txt_password'];
         $confirm = $_POST['txt_confirm'];
         $type = "Zone Leader";
+        $verification = uniqid() . rand(100, 999999999);
 
-        $stmt = $con->prepare("INSERT INTO tbluser(username,password,barangay,type) VALUES(?,?,?,?)");
-        $stmt->bind_param('ssss', $username, $password, $barangay, $type);
-        
+        $stmt = $con->prepare("INSERT INTO tbluser(username,password,barangay,type,verification) VALUES(?,?,?,?,?)");
+        $stmt->bind_param('sssss', $username, $password, $barangay, $type, $verification);
+
         $check = $con->query("SELECT * FROM tbluser WHERE username = '$username'");
-        
 
-       if ($password !== $confirm) {
+        $mail = new PHPMailer(true);
+        $mail->SMTPDebug = 0;
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'sshin8859@gmail.com';
+        $mail->Password = 'hhgwbzklpinejqjh';
+        $mail->Port = 587;
+
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+
+        $mail->setFrom('barangaymanagement@gmail.com', 'Barangay Management');
+
+        $mail->addAddress($username);
+        $mail->Subject = "Email Account Verification";
+        $mail->Body = "Click this link to verify account: http://localhost/bims_edit/verify-account.php?verification=" . $verification . "&email=" . $username;
+
+        $mail->send();
+
+
+        if ($password !== $confirm) {
             echo "<script>
                 Swal.fire({
                     title: 'Error!',
@@ -162,9 +195,9 @@ session_start();
                     showConfirmButton: false
                 });
             </script>";
-       }else{
-        if ($check->num_rows > 0) {
-            echo "<script>
+        } else {
+            if ($check->num_rows > 0) {
+                echo "<script>
                     Swal.fire({
                         title: 'Error!',
                         text: 'Username already exist',
@@ -173,29 +206,27 @@ session_start();
                         showConfirmButton: false
                     });
                 </script>";
-        }else{
-            if ($stmt->execute()) {
-                echo "<script>
+            } else {
+                if ($stmt->execute()) {
+                    echo "<script>
                             Swal.fire({
                                 title: 'Success!',
-                                text: 'Account created successfully',
+                                text: 'Account created successfully, We sent you a message to confirm your account.',
                                 icon: 'success',
-                                timer: 1500,
+                                timer: 2500,
                                 showConfirmButton: false
                             }).then(function(){
                                 window.location.href = 'login.php'
                             });
                         </script>";
+                }
             }
         }
-       }
-        
-       
     }
     ?>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function(){
+        document.addEventListener("DOMContentLoaded", function() {
             let passwordInp = document.querySelector("input[name='txt_password']");
             let showPass = document.getElementById("togglePassword");
 
@@ -203,9 +234,9 @@ session_start();
                 if (passwordInp.getAttribute("type") == "password") {
                     passwordInp.setAttribute("type", "text")
                     showPass.classList.replace("fa-eye", "fa-eye-slash")
-                }else{
+                } else {
                     passwordInp.setAttribute("type", "password")
-                    showPass.classList.replace("fa-eye-slash","fa-eye")
+                    showPass.classList.replace("fa-eye-slash", "fa-eye")
                 }
             }
 
@@ -216,9 +247,9 @@ session_start();
                 if (confirmInp.getAttribute("type") == "password") {
                     confirmInp.setAttribute("type", "text")
                     showConfirmPass.classList.replace("fa-eye", "fa-eye-slash")
-                }else{
+                } else {
                     confirmInp.setAttribute("type", "password")
-                    showConfirmPass.classList.replace("fa-eye-slash","fa-eye")
+                    showConfirmPass.classList.replace("fa-eye-slash", "fa-eye")
                 }
             }
 
