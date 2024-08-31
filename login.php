@@ -113,8 +113,8 @@ session_start();
         $password = $_POST['txt_password'];
         $status = 2;
 
-        $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ? AND password = ? AND status = ?");
-        $stmt->bind_param("ssi", $username, $password, $status);
+        $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ? AND password = ?");
+        $stmt->bind_param("ss", $username, $password);
         if ($stmt->execute()) {
             $result = $stmt->get_result();
             if ($result->num_rows > 0) {
@@ -138,7 +138,7 @@ session_start();
                                 });
                             </script>
                         ";
-                } else if ($row['type'] == 'Zone Leader') {
+                } else if ($row['type'] == 'Zone Leader' && $row['status'] == $status) {
                     $_SESSION['role'] = "Zone Leader";
                     $_SESSION['userid'] = $row['id'];
                     $_SESSION['username'] = $row['username'];
