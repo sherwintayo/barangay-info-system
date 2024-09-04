@@ -155,7 +155,10 @@ session_start();
         $verification = uniqid() . rand(100, 999999999);
 
         $stmt = $con->prepare("INSERT INTO tbluser(username,password,barangay,type,verification) VALUES(?,?,?,?,?)");
-        $stmt->bind_param('sssss', $username, $password, $barangay, $type, $verification);
+
+        $hashed = password_hash($password, PASSWORD_DEFAULT);
+
+        $stmt->bind_param('sssss', $username, $hashed, $barangay, $type, $verification);
 
         $check = $con->query("SELECT * FROM tbluser WHERE username = '$username'");
 
@@ -180,7 +183,7 @@ session_start();
 
         $mail->addAddress($username);
         $mail->Subject = "Email Account Verification";
-        $mail->Body = "Click this link to verify account: https://barangayportal.com/verify-account.php?verification=" . $verification . "&email=" . $username;
+        $mail->Body = "Click this link to verify account: http://localhost/bims_edit/verify-account.php?verification=" . $verification . "&email=" . $username;
 
         $mail->send();
 
