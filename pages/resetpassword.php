@@ -28,7 +28,10 @@ function resetpassword($data) {
         echo '<script>alert("Error preparing SQL statement: ' . $con->error . '");</script>';
         return;
     }
-    $stmt->bind_param("ss", $new_password, $username);
+
+    $hashed = password_hash($new_password, PASSWORD_DEFAULT);
+
+    $stmt->bind_param("ss", $hashed, $username);
     if (!$stmt->execute()) {
         echo '<script>alert("Error updating password in the database: ' . $stmt->error . '");</script>';
         return;
