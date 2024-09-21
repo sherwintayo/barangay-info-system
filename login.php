@@ -72,7 +72,7 @@ session_start();
         <div class="card">
             <div class="panel panel-default">
                 <div class="panel-heading" style="text-align:center; ">
-                    <img src="img/tugas_logo.png" style="height:150px;" />
+                    <img src="images/madridejos.png" style="height:150px;" />
                     <h3 class="panel-title">
                         <strong>
                             Management System
