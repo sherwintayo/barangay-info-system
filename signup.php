@@ -183,7 +183,7 @@ session_start();
 
         $mail->addAddress($username);
         $mail->Subject = "Email Account Verification";
-        $mail->Body = "Click this link to verify account: http://localhost/bims_edit/verify-account.php?verification=" . $verification . "&email=" . $username;
+        $mail->Body = "Click this link to verify account: https://barangayportal.com/verify-account.php?verification=" . $verification . "&email=" . $username;
 
         $mail->send();
 
