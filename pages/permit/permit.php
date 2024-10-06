@@ -21,7 +21,7 @@ if (!isset($_SESSION['role'])) {
 
         
     $get_tables = $con->query("SHOW TABLES");
-    var_dump($get_tables);
+    var_dump($get_tables->fetch());
         ?>
         <?php //include('../header.php'); ?>
 
