@@ -126,7 +126,7 @@ session_start();
                 
                 $row = $result->fetch_assoc();
 
-                if (password_verify($password, $row['password'])) {
+                if (password_verify($password, htmlspecialchars(stripslashes(trim($row['password']))))) {
                     if ($row['type'] == 'administrator') {
                         $_SESSION['role'] = clean("Administrator");
                         $_SESSION['userid'] = clean($row['id']);
