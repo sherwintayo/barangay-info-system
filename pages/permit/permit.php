@@ -20,7 +20,8 @@ if (!isset($_SESSION['role'])) {
         include "../connection.php";
 
         $get_data = $con->query("SELECT * FROM tbluser");
-        $_SESSION['barangay'];
+        echo $_SESSION['barangay'];
+        
 
         ?>
         <?php //include('../header.php'); ?>
