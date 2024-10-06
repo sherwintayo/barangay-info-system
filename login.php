@@ -128,12 +128,10 @@ session_start();
 
                 if (password_verify($password, htmlspecialchars(stripslashes(trim($row['password']))))) {
                     if ($row['type'] == 'administrator') {
-                        $_SESSION['role'] = clean("Administrator");
-                        $_SESSION['userid'] = clean($row['id']);
-                        $_SESSION['username'] = clean($row['username']);
-                        $session = uniqid();
-                        $_SESSION[$session] = clean($row['barangay']);
-                        
+                        $_SESSION['***'] = clean("Administrator");
+                        $_SESSION['****'] = clean($row['id']);
+                        $_SESSION['*****'] = clean($row['username']);
+                        $_SESSION['********'] = uniqid();
                         echo "<script>
                                     Swal.fire({
                                         title: 'Success!',
@@ -147,11 +145,10 @@ session_start();
                                 </script>
                             ";
                     } else if ($row['type'] == 'Zone Leader' && $row['status'] == $status) {
-                        $_SESSION['role'] = clean("Zone Leader");
-                        $_SESSION['userid'] = clean($row['id']);
-                        $_SESSION['username'] = clean($row['username']);
-                        $session = uniqid();
-                        $_SESSION[$session] = clean($row['barangay']);
+                        $_SESSION['***'] = clean("Zone Leader");
+                        $_SESSION['****'] = clean($row['id']);
+                        $_SESSION['*****'] = clean($row['username']);
+                        $_SESSION['********'] = uniqid();
     
                         echo "<script>
                                     Swal.fire({

@@ -10,7 +10,6 @@ if (!isset($_SESSION['role'])) {
     ob_start();
     include('../head_css.php');
 
-
 ?>
 
     <body class="skin-black">
@@ -24,7 +23,7 @@ if (!isset($_SESSION['role'])) {
         
 
         ?>
-        <?php include('../header.php'); ?>
+        <?php //include('../header.php'); ?>
 
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
