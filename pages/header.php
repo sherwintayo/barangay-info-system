@@ -10,25 +10,6 @@ function clean($data){
     return $data;
 }
 
-$isZoneLeader = $_SESSION['role'] == 'Zone Leader' ? true : false;
-$zone_barangay = isset($_SESSION['barangay']) ? $_SESSION['barangay'] : '';
-
-$all_barangay = [
-    "Kangwayan",
-    "Kodia",
-    "Pili",
-    "Bunakan",
-    "Tabagak",
-    "Maalat",
-    "Tarong",
-    "Malbago",
-    "Mancilang",
-    "Kaongkod",
-    "San Agustin",
-    "Poblacion",
-    "Tugas",
-    "Talangnan",
-];
 
 
 
