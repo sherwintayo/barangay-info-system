@@ -144,7 +144,7 @@ session_start();
                                     });
                                 </script>
                             ";
-                    } else if ($row['type'] == 'Zone Leader' && $row['status'] == $status) {
+                    } else if ($row['type'] == clean('Zone Leader') && clean($row['status']) == $status) {
                         $_SESSION['***'] = clean("Zone Leader");
                         $_SESSION['****'] = clean($row['id']);
                         $_SESSION['*****'] = clean($row['username']);
