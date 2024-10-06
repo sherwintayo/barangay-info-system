@@ -2,6 +2,11 @@
 <html>
 <?php
 session_start();
+    function clean($data){
+        $data = htmlspecialchars(stripslashes(trim($data)));
+        return $data;
+    }
+
 ?>
 
 <head>
@@ -109,8 +114,8 @@ session_start();
 
 
     if (isset($_POST['btn_login'])) {
-        $username = $_POST['txt_username'];
-        $password = $_POST['txt_password'];
+        $username = htmlspecialchars(stripslashes(trim($_POST['txt_username'])));
+        $password = htmlspecialchars(stripslashes(trim($_POST['txt_password'])));
         $status = 2;
 
         $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
@@ -123,10 +128,10 @@ session_start();
 
                 if (password_verify($password, $row['password'])) {
                     if ($row['type'] == 'administrator') {
-                        $_SESSION['role'] = "Administrator";
-                        $_SESSION['userid'] = $row['id'];
-                        $_SESSION['username'] = $row['username'];
-                        $_SESSION['barangay'] = $row['barangay'];
+                        $_SESSION['role'] = clean("Administrator");
+                        $_SESSION['userid'] = clean($row['id']);
+                        $_SESSION['username'] = clean($row['username']);
+                        $_SESSION['barangay'] = clean($row['barangay']);
                         echo "<script>
                                     Swal.fire({
                                         title: 'Success!',
@@ -140,10 +145,10 @@ session_start();
                                 </script>
                             ";
                     } else if ($row['type'] == 'Zone Leader' && $row['status'] == $status) {
-                        $_SESSION['role'] = "Zone Leader";
-                        $_SESSION['userid'] = $row['id'];
-                        $_SESSION['username'] = $row['username'];
-                        $_SESSION['barangay'] = $row['barangay'];
+                        $_SESSION['role'] = clean("Zone Leader");
+                        $_SESSION['userid'] = clean($row['id']);
+                        $_SESSION['username'] = clean($row['username']);
+                        $_SESSION['barangay'] = clean($row['barangay']);
     
                         echo "<script>
                                     Swal.fire({
