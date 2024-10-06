@@ -10,7 +10,7 @@ if (!isset($_SESSION['role'])) {
     ob_start();
     include('../head_css.php');
 
-    $zone_barangay = $_SESSION['barangay'];
+    $zon_barangay = $_SESSION['barangay'];
 
 ?>
 
