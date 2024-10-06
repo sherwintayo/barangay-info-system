@@ -36,7 +36,12 @@ if (!isset($_SESSION['role'])) {
         $today = clean(date("Y-m-d"));
             
         $isZoneLeader = clean($_SESSION['role']) == clean('Zone Leader') ? true : false;
-        $zone_barangay =  clean($_SESSION['barangay']);
+        // $zone_barangay = isset($_SESSION['barangay']) ? clean($_SESSION['barangay']) : '';
+        ?>
+        <script>
+            log(<?= $_SESSION['barangay'] ?>)
+            </script>
+        <?php
         $all_barangay = [
             "Kangwayan",
             "Kodia",
