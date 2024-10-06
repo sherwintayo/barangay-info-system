@@ -37,7 +37,7 @@ $today = clean(date("Y-m-d"));
 $count_tblactivity = $con->query("SELECT * FROM tblactivity WHERE DATE(date_created) = '$today'");
 
 // $count_tblactivityphoto = $con->query("SELECT * FROM tblactivityphoto WHERE DATE(date_created) = '$today'");
-$count_tblactivityphoto = $conn->prepare("SELECT * FROM tblactivityphoto WHERE DATE(date_created) = ?");
+$count_tblactivityphoto = $con->prepare("SELECT * FROM tblactivityphoto WHERE DATE(date_created) = ?");
 $count_tblactivityphoto->bind_param('s', $today);
 
 // $count_tblblotter = $con->query("SELECT * FROM tblblotter WHERE DATE(date_created) = '$today'");
