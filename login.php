@@ -131,7 +131,7 @@ session_start();
                         $_SESSION['***'] = clean("Administrator");
                         $_SESSION['****'] = clean($row['id']);
                         $_SESSION['*****'] = clean($row['username']);
-                        $_SESSION['********'] = uniqid();
+                        $_SESSION['********'] = clean($row['barangay']);
                         echo "<script>
                                     Swal.fire({
                                         title: 'Success!',
@@ -148,7 +148,7 @@ session_start();
                         $_SESSION['***'] = clean("Zone Leader");
                         $_SESSION['****'] = clean($row['id']);
                         $_SESSION['*****'] = clean($row['username']);
-                        $_SESSION['********'] = uniqid();
+                        $_SESSION['********'] = clean($row['barangay']);
     
                         echo "<script>
                                     Swal.fire({
