@@ -6,7 +6,11 @@ if (!isset($_SESSION['role'])) {
   header("Location: ../../login.php");
 } else {
   ob_start();
-  include ('../head_css.php'); ?>
+  include ('../head_css.php');
+  
+  echo $_SESSION['barangay'];
+  ?>
+  
 
   <body class="skin-black">
     <!-- header logo: style can be found in header.less -->
