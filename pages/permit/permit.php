@@ -1,4 +1,5 @@
-
+<!DOCTYPE html>
+<html>
 
 <?php
 error_reporting(E_ALL);
@@ -12,13 +13,13 @@ if (!isset($_SESSION['role'])) {
 
 ?>
 
-    <body <?= htmlspecialchars('class="skin-black"') ?>>
+    <body class="skin-black">
         <!-- header logo: style can be found in header.less -->
         <?php
 
         include "../connection.php";
         ?>
-        <?php include('../header.php'); ?>
+       
 
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
