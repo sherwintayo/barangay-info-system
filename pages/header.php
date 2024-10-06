@@ -199,7 +199,7 @@ $data = $squery->fetch_assoc();
 $logo = $data['logo'];
 $name = $data['name'];
 
-echo '<header class="header">
+echo htmlspecialchars(stripslashes(trim('<header class="header">
     <a href="#" class="logo">
         <img src="../../images/'.$logo.'" style="height: 50px; width:50px; float: left; margin-left: -10px;">
         <!-- Add the class icon to your logo image or logo icon to add the margining -->
@@ -215,22 +215,22 @@ echo '<header class="header">
             <span class="icon-bar"></span>
         </a>
         <ul class="nav navbar-nav navbar-right">
-        <li><i class="fa fa-bell" id="over" data-value="' . $total_count . '" style="z-index:-99 !important;font-size:20px;color:black;margin:1.5rem 0.4rem !important;"></i></li>';
+        <li><i class="fa fa-bell" id="over" data-value="' . $total_count . '" style="z-index:-99 !important;font-size:20px;color:black;margin:1.5rem 0.4rem !important;"></i></li>')));
 if (!empty($total_count)) {
-    echo '<div class="round" id="bell-count" data-value="' . $total_count . '"><span>' . $total_count . '</span></div>';
+    echo htmlspecialchars(stripslashes(trim('<div class="round" id="bell-count" data-value="' . $total_count . '"><span>' . $total_count . '</span></div>')));
 }
 if (!empty($count_active)) {
-    echo '<div id="list">';
+    echo htmlspecialchars('<div id="list">');
     foreach ($notifications_data as $list_rows) {
-        echo '<li id="message_items">
+        echo htmlspecialchars('<li id="message_items">
 <div class="message alert alert-warning" data-id="' . $list_rows['id'] . '">
 <div class="msg">
     <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
 </div>
 </div>
-</li>';
+</li>');
     }
-    echo '</div>';
+    echo htmlspecialchars('</div>');
 } else {
     echo '<div id="list">';
     foreach ($deactive_notifications_dump as $list_rows) {
