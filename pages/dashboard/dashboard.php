@@ -30,6 +30,9 @@ if (!isset($_SESSION['role'])) {
 
         <!-- Main content -->
         <section class="content">
+
+        <?= $zone_leader ?>
+
           <div class="row">
             <!-- left column -->
             <div class="box">
