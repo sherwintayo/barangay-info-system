@@ -131,7 +131,7 @@ session_start();
                         $_SESSION['role'] = clean("Administrator");
                         $_SESSION['userid'] = clean($row['id']);
                         $_SESSION['username'] = clean($row['username']);
-                        $_SESSION['barangay'] = clean($row['barangay']);
+                        $_SESSION['bgy_0101'] = clean($row['barangay']);
 
                     
                         echo "<script>
@@ -150,7 +150,7 @@ session_start();
                         $_SESSION['role'] = clean("Zone Leader");
                         $_SESSION['userid'] = clean($row['id']);
                         $_SESSION['username'] = clean($row['username']);
-                        $_SESSION['barangay'] = clean($row['barangay']);
+                        $_SESSION['bgy_0101'] = clean($row['barangay']);
     
                         echo "<script>
                                     Swal.fire({

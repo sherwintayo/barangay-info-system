@@ -11,7 +11,7 @@ function clean($data){
 }
 
 $isZoneLeader = $_SESSION['role'] == 'Zone Leader' ? true : false;
-$zone_barangay = isset($_SESSION['barangay']) ? $_SESSION['barangay'] : '';
+$zone_barangay = isset($_SESSION['bgy_0101']) ? $_SESSION['bgy_0101'] : '';
 
 $all_barangay = [
     "Kangwayan",
