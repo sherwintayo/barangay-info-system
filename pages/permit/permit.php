@@ -18,12 +18,8 @@ if (!isset($_SESSION['role'])) {
         <?php
 
         include "../connection.php";
-
-        
-    $get_tables = $con->query("SHOW TABLES");
-    var_dump($get_tables->fetch_assoc());
         ?>
-        <?php //include('../header.php'); ?>
+        <?php include('../dummy.php'); ?>
 
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
