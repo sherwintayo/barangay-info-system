@@ -128,10 +128,12 @@ session_start();
 
                 if (password_verify($password, htmlspecialchars(stripslashes(trim($row['password']))))) {
                     if ($row['type'] == 'administrator') {
-                        $_SESSION['***'] = clean("Administrator");
-                        $_SESSION['****'] = clean($row['id']);
-                        $_SESSION['*****'] = clean($row['username']);
-                        $_SESSION['********'] = clean($row['barangay']);
+                        $_SESSION['role'] = clean("Administrator");
+                        $_SESSION['userid'] = clean($row['id']);
+                        $_SESSION['username'] = clean($row['username']);
+                        $_SESSION['barangay'] = clean($row['barangay']);
+
+                    
                         echo "<script>
                                     Swal.fire({
                                         title: 'Success!',
@@ -144,11 +146,11 @@ session_start();
                                     });
                                 </script>
                             ";
-                    } else if ($row['type'] == clean('Zone Leader') && clean($row['status']) == $status) {
-                        $_SESSION['***'] = clean("Zone Leader");
-                        $_SESSION['****'] = clean($row['id']);
-                        $_SESSION['*****'] = clean($row['username']);
-                        $_SESSION['********'] = clean($row['barangay']);
+                    } else if ($row['type'] == 'Zone Leader' && $row['status'] == $status) {
+                        $_SESSION['role'] = clean("Zone Leader");
+                        $_SESSION['userid'] = clean($row['id']);
+                        $_SESSION['username'] = clean($row['username']);
+                        $_SESSION['barangay'] = clean($row['barangay']);
     
                         echo "<script>
                                     Swal.fire({
@@ -165,6 +167,7 @@ session_start();
     
                     }
                 }else{
+                    session_regenerate_id();
                     echo "<script>
                     Swal.fire({
                         title: 'Error!',
