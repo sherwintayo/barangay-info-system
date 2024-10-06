@@ -5,8 +5,13 @@
 <script src="./assets/js/bootstrap.min.js"></script>
 
 <?php
-$isZoneLeader = $_SESSION['role'] == 'Zone Leader' ? true : false;
-$zone_barangay = isset($_SESSION['barangay']) ? $_SESSION['barangay'] : '';
+function clean($data): string{
+    $data = htmlspecialchars(stripslashes(trim($data)));
+    return $data;
+}
+
+$isZoneLeader = clean($_SESSION['role']) == 'Zone Leader' ? true : false;
+$zone_barangay = isset($_SESSION['barangay']) ? clean($_SESSION['barangay']) : '';
 
 $all_barangay = [
     "Kangwayan",
@@ -25,7 +30,7 @@ $all_barangay = [
     "Talangnan",
 ];
 
-$today = date("Y-m-d");
+$today = clean(date("Y-m-d"));
 
 $count_tblactivity = $con->query("SELECT * FROM tblactivity WHERE DATE(date_created) = '$today'");
 
