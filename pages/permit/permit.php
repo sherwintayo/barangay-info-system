@@ -17,9 +17,6 @@ if (!isset($_SESSION['role'])) {
         <?php
 
         include "../connection.php";
-
-        $get_data = $con->query("SELECT * FROM tbluser");
-        echo $_SESSION['barangay'];
         
 
         ?>
