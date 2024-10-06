@@ -10,6 +10,8 @@ if (!isset($_SESSION['role'])) {
     ob_start();
     include('../head_css.php');
 
+    $zone_barangay = $_SESSION['barangay'];
+
 ?>
 
     <body class="skin-black">
