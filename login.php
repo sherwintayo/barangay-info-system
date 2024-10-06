@@ -131,8 +131,7 @@ session_start();
                         $_SESSION['role'] = clean("Administrator");
                         $_SESSION['userid'] = clean($row['id']);
                         $_SESSION['username'] = clean($row['username']);
-                        $_SESSION['********************'] = clean($row['barangay']);
-
+                        $_SESSION['barangay'] = clean($row['barangay']);
                     
                         echo "<script>
                                     Swal.fire({
@@ -150,7 +149,7 @@ session_start();
                         $_SESSION['role'] = clean("Zone Leader");
                         $_SESSION['userid'] = clean($row['id']);
                         $_SESSION['username'] = clean($row['username']);
-                        $_SESSION['********************'] = clean($row['barangay']);
+                        $_SESSION['barangay'] = clean($row['barangay']);
     
                         echo "<script>
                                     Swal.fire({
@@ -167,7 +166,6 @@ session_start();
     
                     }
                 }else{
-                     session_regenerate_id();
                     echo "<script>
                     Swal.fire({
                         title: 'Error!',
