@@ -31,7 +31,7 @@ if (!isset($_SESSION['role'])) {
         <!-- Main content -->
         <section class="content">
 
-        <?= $zone_leader ?>
+        <?= $zone_barangay ?>
 
           <div class="row">
             <!-- left column -->
