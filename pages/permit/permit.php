@@ -19,7 +19,7 @@ if (!isset($_SESSION['role'])) {
 
         include "../connection.php";
         ?>
-        
+        <?php include('../header.php'); ?>
 
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
