@@ -21,7 +21,7 @@
             <span class="info-box-text">Permit Issued</span>
             <span class="info-box-number" style="text-align: center;">
                 <?php
-                $q = mysqli_query($con, "SELECT * from tblpermit where status = 'Approved' AND businessAddress = '$zone_barangay' ");
+                $q = mysqli_query($con, "SELECT * from tblpermit where status = 'Approved' AND businessAddress = '$z_barangay' ");
                 $num_rows = mysqli_num_rows($q);
                 echo $num_rows;
                 ?>
@@ -38,7 +38,7 @@
             <li><a href="newApproved.php" class="notification">Issue Permit
             <span class="badge">
                 <?php
-                    $q = mysqli_query($con, "SELECT * from tblpermit where isRead = 1 AND businessAddress = '$zone_barangay' ");
+                    $q = mysqli_query($con, "SELECT * from tblpermit where isRead = 1 AND businessAddress = '$z_barangay' ");
                     $num_rows = mysqli_num_rows($q);
                     echo $num_rows;
                 ?>
@@ -76,7 +76,7 @@
 
                             if (!isset($_SESSION['staff'])) {
 
-                                $squery = mysqli_query($con, "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid, p.status AS pstatus FROM tblpermit p left join tblresident r on r.id = p.residentid where p.status = 'Approved' AND p.businessAddress = '$zone_barangay'") or die('Error: ' . mysqli_error($con));
+                                $squery = mysqli_query($con, "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid, p.status AS pstatus FROM tblpermit p left join tblresident r on r.id = p.residentid where p.status = 'Approved' AND p.businessAddress = '$z_barangay'") or die('Error: ' . mysqli_error($con));
                                 while ($row = mysqli_fetch_array($squery)) {
                                     echo '
                         <tr>
@@ -104,7 +104,7 @@
                                 }
 
                             } else {
-                                $squery = mysqli_query($con, "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid FROM tblpermit p left join tblresident r on r.id = p.residentid where status = 'Approved' and p.businessAddress = '$zone_barangay' ") or die('Error: ' . mysqli_error($con));
+                                $squery = mysqli_query($con, "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid FROM tblpermit p left join tblresident r on r.id = p.residentid where status = 'Approved' and p.businessAddress = '$z_barangay' ") or die('Error: ' . mysqli_error($con));
                                 while ($row = mysqli_fetch_array($squery)) {
                                     echo '
                         <tr>
@@ -151,7 +151,7 @@
 
                             if (!isset($_SESSION['staff'])) {
 
-                                $squery = mysqli_query($con, "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid FROM tblpermit p left join tblresident r on r.id = p.residentid where p.status = 'Disapproved' AND p.businessAddress = '$zone_barangay'  ") or die('Error: ' . mysqli_error($con));
+                                $squery = mysqli_query($con, "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid FROM tblpermit p left join tblresident r on r.id = p.residentid where p.status = 'Disapproved' AND p.businessAddress = '$z_barangay'  ") or die('Error: ' . mysqli_error($con));
                                if ($squery->num_rows > 0) {
                                  while ($row = mysqli_fetch_array($squery)) {
                                     echo '
