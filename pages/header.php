@@ -196,31 +196,31 @@ $count_tblactivityphoto->bind_param('s', $today);
 </style>
 
 <?php
-$squery = mysqli_query($con, "SELECT * FROM tblsettings");
-$data = $squery->fetch_assoc();
-$logo = clean($data['logo']);
-$name = clean($data['name']);
+// $squery = mysqli_query($con, "SELECT * FROM tblsettings");
+// $data = $squery->fetch_assoc();
+// $logo = clean($data['logo']);
+// $name = clean($data['name']);
 
-echo htmlspecialchars(stripslashes(trim('<header class="header">
-    <a href="#" class="logo">
-        <img src="../../images/'.$logo.'" style="height: 50px; width:50px; float: left; margin-left: -10px;">
-        <!-- Add the class icon to your logo image or logo icon to add the margining -->
-        <p style="font-size: 12px;"> '.$name.'</p>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top" role="navigation">
-        <!-- Sidebar toggle button-->
-        <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </a>
-        <ul class="nav navbar-nav navbar-right">
-        <li><i class="fa fa-bell" id="over" data-value="' . $total_count . '" style="z-index:-99 !important;font-size:20px;color:black;margin:1.5rem 0.4rem !important;"></i></li>')));
-if (!empty($total_count)) {
-    echo htmlspecialchars(stripslashes(trim('<div class="round" id="bell-count" data-value="' . $total_count . '"><span>' . $total_count . '</span></div>')));
-}
+// echo htmlspecialchars(stripslashes(trim('<header class="header">
+//     <a href="#" class="logo">
+//         <img src="../../images/'.$logo.'" style="height: 50px; width:50px; float: left; margin-left: -10px;">
+//         <!-- Add the class icon to your logo image or logo icon to add the margining -->
+//         <p style="font-size: 12px;"> '.$name.'</p>
+//     </a>
+//     <!-- Header Navbar: style can be found in header.less -->
+//     <nav class="navbar navbar-static-top" role="navigation">
+//         <!-- Sidebar toggle button-->
+//         <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+//             <span class="sr-only">Toggle navigation</span>
+//             <span class="icon-bar"></span>
+//             <span class="icon-bar"></span>
+//             <span class="icon-bar"></span>
+//         </a>
+//         <ul class="nav navbar-nav navbar-right">
+//         <li><i class="fa fa-bell" id="over" data-value="' . $total_count . '" style="z-index:-99 !important;font-size:20px;color:black;margin:1.5rem 0.4rem !important;"></i></li>')));
+// if (!empty($total_count)) {
+//     echo htmlspecialchars(stripslashes(trim('<div class="round" id="bell-count" data-value="' . $total_count . '"><span>' . $total_count . '</span></div>')));
+// }
 if (!empty($count_active)) {
     echo htmlspecialchars('<div id="list">');
     foreach ($notifications_data as $list_rows) {
@@ -361,27 +361,27 @@ echo htmlspecialchars(stripslashes(trim('<ul>
 
 
 <?php
-if (isset($_POST['btn_saveeditProfile'])) {
-    $username = $_POST['txt_username'];
-    $password = $_POST['txt_password'];
+// if (isset($_POST['btn_saveeditProfile'])) {
+//     $username = $_POST['txt_username'];
+//     $password = $_POST['txt_password'];
 
-    if ($_SESSION['role'] == "Administrator") {
-        $updadmin = mysqli_query($con, "UPDATE tbluser set username = '$username', password = '$password' where id = '" . $_SESSION['userid'] . "' ");
-        if ($updadmin == true) {
-            header("location: " . $_SERVER['REQUEST_URI']);
-        }
-    } elseif ($_SESSION['role'] == "Zone Leader") {
-        $updzone = mysqli_query($con, "UPDATE tblzone set username = '$username', password = '$password' where id = '" . $_SESSION['userid'] . "' ");
-        if ($updzone == true) {
-            header("location: " . $_SERVER['REQUEST_URI']);
-        }
-    } elseif ($_SESSION['staff'] == "Staff") {
-        $updstaff = mysqli_query($con, "UPDATE tblstaff set username = '$username', password = '$password' where id = '" . $_SESSION['userid'] . "' ");
-        if ($updstaff == true) {
-            header("location: " . $_SERVER['REQUEST_URI']);
-        }
-    }
-}
+//     if ($_SESSION['role'] == "Administrator") {
+//         $updadmin = mysqli_query($con, "UPDATE tbluser set username = '$username', password = '$password' where id = '" . $_SESSION['userid'] . "' ");
+//         if ($updadmin == true) {
+//             header("location: " . $_SERVER['REQUEST_URI']);
+//         }
+//     } elseif ($_SESSION['role'] == "Zone Leader") {
+//         $updzone = mysqli_query($con, "UPDATE tblzone set username = '$username', password = '$password' where id = '" . $_SESSION['userid'] . "' ");
+//         if ($updzone == true) {
+//             header("location: " . $_SERVER['REQUEST_URI']);
+//         }
+//     } elseif ($_SESSION['staff'] == "Staff") {
+//         $updstaff = mysqli_query($con, "UPDATE tblstaff set username = '$username', password = '$password' where id = '" . $_SESSION['userid'] . "' ");
+//         if ($updstaff == true) {
+//             header("location: " . $_SERVER['REQUEST_URI']);
+//         }
+//     }
+// }
 
 ?>
 
