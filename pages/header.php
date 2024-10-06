@@ -64,11 +64,11 @@ $deactive_notifications_dump = array();
 while ($rows = mysqli_fetch_assoc($result)) {
     $count_active = mysqli_num_rows($result);
     $notifications_data[] = array(
-        "id" => $rows['id'],
-        "fname" => $rows['fname'],
-        "lname" => $rows['lname'],
-        "mname" => $rows['mname'],
-        "datemove" => $rows['datemove']
+        "id" => clean($rows['id']),
+        "fname" => clean($rows['fname']),
+        "lname" => clean($rows['lname']),
+        "mname" => clean($rows['mname']),
+        "datemove" => clean($rows['datemove'])
 
 
 
@@ -100,11 +100,11 @@ $deactive_notifications = "Select * from tblresident where  DATE(date_created) =
 $result = mysqli_query($con, $deactive_notifications);
 while ($rows = mysqli_fetch_assoc($result)) {
     $deactive_notifications_dump[] = array(
-        "id" => $rows['id'],
-        "fname" => $rows['fname'],
-        "lname" => $rows['lname'],
-        "mname" => $rows['mname'],
-        "datemove" => $rows['datemove']
+        "id" => clean($rows['id']),
+        "fname" => clean($rows['fname']),
+        "lname" => clean($rows['lname']),
+        "mname" => clean($rows['mname']),
+        "datemove" => clean($rows['datemove'])
     );
 }
 
@@ -196,8 +196,8 @@ while ($rows = mysqli_fetch_assoc($result)) {
 <?php
 $squery = mysqli_query($con, "SELECT * FROM tblsettings");
 $data = $squery->fetch_assoc();
-$logo = $data['logo'];
-$name = $data['name'];
+$logo = clean($data['logo']);
+$name = clean($data['name']);
 
 echo htmlspecialchars(stripslashes(trim('<header class="header">
     <a href="#" class="logo">
