@@ -221,61 +221,61 @@ $count_tblactivityphoto->bind_param('s', $today);
 // if (!empty($total_count)) {
 //     echo htmlspecialchars(stripslashes(trim('<div class="round" id="bell-count" data-value="' . $total_count . '"><span>' . $total_count . '</span></div>')));
 // }
-if (!empty($count_active)) {
-    echo htmlspecialchars('<div id="list">');
-    foreach ($notifications_data as $list_rows) {
-        echo htmlspecialchars('<li id="message_items">
-<div class="message alert alert-warning" data-id="' . $list_rows['id'] . '">
-<div class="msg">
-    <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
-</div>
-</div>
-</li>');
-    }
-    echo htmlspecialchars('</div>');
-} else {
-    echo htmlspecialchars(stripslashes(trim('<div id="list">')));
-    foreach ($deactive_notifications_dump as $list_rows) {
-        echo htmlspecialchars(stripslashes(trim('<li id="message_items">
-<div class="message alert alert-danger" data-id="' . $list_rows['id'] . '">
-<div class="msg">
-    <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
-</div>
-</div>
-</li>')));
-    }
-    echo '</div>';
-}
-echo htmlspecialchars(stripslashes(trim('<ul>
-        <div class="navbar-right">
-            <ul class="nav navbar-nav" style="background-color:transparent;">
-                <!-- User Account: style can be found in dropdown.less -->
-                <li class="dropdown user user-menu">
-                    <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="glyphicon glyphicon-user"></i><span>' . $_SESSION['role'] . '<i class="caret"></i></span>
-                    </a>
+// if (!empty($count_active)) {
+//     echo htmlspecialchars('<div id="list">');
+//     foreach ($notifications_data as $list_rows) {
+//         echo htmlspecialchars('<li id="message_items">
+// <div class="message alert alert-warning" data-id="' . $list_rows['id'] . '">
+// <div class="msg">
+//     <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
+// </div>
+// </div>
+// </li>');
+//     }
+//     echo htmlspecialchars('</div>');
+// } else {
+//     echo htmlspecialchars(stripslashes(trim('<div id="list">')));
+//     foreach ($deactive_notifications_dump as $list_rows) {
+//         echo htmlspecialchars(stripslashes(trim('<li id="message_items">
+// <div class="message alert alert-danger" data-id="' . $list_rows['id'] . '">
+// <div class="msg">
+//     <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
+// </div>
+// </div>
+// </li>')));
+//     }
+//     echo '</div>';
+// }
+// echo htmlspecialchars(stripslashes(trim('<ul>
+//         <div class="navbar-right">
+//             <ul class="nav navbar-nav" style="background-color:transparent;">
+//                 <!-- User Account: style can be found in dropdown.less -->
+//                 <li class="dropdown user user-menu">
+//                     <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
+//                         <i class="glyphicon glyphicon-user"></i><span>' . $_SESSION['role'] . '<i class="caret"></i></span>
+//                     </a>
                   
-                    <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <li class="user-header bg-light-blue" style="background-color:#0000FF;">
-                            <p>' . $_SESSION['role'] . '</p>
-                        </li>
-                        <!-- Menu Body -->
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background-color: #00BB27;">Change Account</a>
-                            </div>
-                            <div class="pull-right">
-                                <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>')));
+//                     <ul class="dropdown-menu">
+//                         <!-- User image -->
+//                         <li class="user-header bg-light-blue" style="background-color:#0000FF;">
+//                             <p>' . $_SESSION['role'] . '</p>
+//                         </li>
+//                         <!-- Menu Body -->
+//                         <!-- Menu Footer-->
+//                         <li class="user-footer">
+//                             <div class="pull-left">
+//                                 <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background-color: #00BB27;">Change Account</a>
+//                             </div>
+//                             <div class="pull-right">
+//                                 <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
+//                             </div>
+//                         </li>
+//                     </ul>
+//                 </li>
+//             </ul>
+//         </div>
+//     </nav>
+// </header>')));
 
 ?>
 
