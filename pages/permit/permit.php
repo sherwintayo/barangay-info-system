@@ -13,7 +13,7 @@ if (!isset($_SESSION['role'])) {
 
 ?>
 
-    <body class="skin-black">
+    <body <?= htmlspecialchars('class="skin-black"') ?>>
         <!-- header logo: style can be found in header.less -->
         <?php
 
