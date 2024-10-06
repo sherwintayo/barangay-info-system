@@ -34,7 +34,7 @@ $all_barangay = [
 
 $today = clean(date("Y-m-d"));
 
-$count_tblactivity = $con->query("SELECT * FROM tblactivity WHERE DATE(date_created) = '$today'");
+// $count_tblactivity = $con->query("SELECT * FROM tblactivity WHERE DATE(date_created) = '$today'");
 
 // $count_tblactivityphoto = $con->query("SELECT * FROM tblactivityphoto WHERE DATE(date_created) = '$today'");
 $count_tblactivityphoto = $con->prepare("SELECT * FROM tblactivityphoto WHERE DATE(date_created) = ?");
@@ -279,7 +279,85 @@ $count_tblactivityphoto->bind_param('s', $today);
 
 ?>
 
+<div id="editProfileModal" class="modal fade">
+    <form method="post">
+        <div class="modal-dialog modal-sm" style="width:300px !important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Change Account</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php
+                            if ($_SESSION['role'] == "Administrator") {
+                                $user = mysqli_query($con, "SELECT * from tbluser where id = '" . $_SESSION['userid'] . "' ");
+                                while ($row = mysqli_fetch_array($user)) {
+                                    echo '
+                                    <div class="form-group">
+                                        <label>Username:</label>
+                                        <input name="txt_username" id="txt_username" class="form-control input-sm" type="text" value="' . $row['username'] . '" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password:</label>
+                                        <input name="txt_password" id="txt_password" class="form-control input-sm" type="password"  value="' . $row['password'] . '"/>
+                                    </div>';
+                                }
+                            } elseif ($_SESSION['role'] == "Zone Leader") {
+                                $user = mysqli_query($con, "SELECT * from tblzone where id = '" . $_SESSION['userid'] . "' ");
+                                while ($row = mysqli_fetch_array($user)) {
+                                    echo '
+                                    <div class="form-group">
+                                        <label>Username:</label>
+                                        <input name="txt_username" id="txt_username" class="form-control input-sm" type="text" value="' . $row['username'] . '" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password:</label>
+                                        <input name="txt_password" id="txt_password" class="form-control input-sm" type="password"  value="' . $row['password'] . '"/>
+                                    </div>';
+                                }
+                            } elseif ($_SESSION['staff'] == "Staff") {
+                                $user = mysqli_query($con, "SELECT * from tblstaff where id = '" . $_SESSION['userid'] . "' ");
+                                while ($row = mysqli_fetch_array($user)) {
+                                    echo '
+                                    <div class="form-group">
+                                        <label>Username:</label>
+                                        <input name="txt_username" id="txt_username" class="form-control input-sm" type="text" value="' . $row['username'] . '" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password:</label>
+                                        <input name="txt_password" id="txt_password" class="form-control input-sm" type="password"  value="' . $row['password'] . '"/>
+                                    </div>';
+                                }
+                            } else {
+                                $user = mysqli_query($con, "SELECT * from tblresident where id = '" . $_SESSION['userid'] . "' ");
+                                while ($row = mysqli_fetch_array($user)) {
+                                    echo '
+                                    <div class="form-group">
+                                        <label>Username:</label>
+                                        <input name="txt_username" id="txt_username" class="form-control input-sm" type="text" value="' . $row['username'] . '" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password:</label>
+                                        <input name="txt_password" id="txt_password" class="form-control input-sm" type="password"  value="' . $row['password'] . '"/>
+                                    </div>';
+                                }
+                            }
+                            ?>
 
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default btn-sm" data-dismiss="modal" value="Cancel" />
+                    <input type="submit" class="btn btn-primary btn-sm" id="btn_saveeditProfile"
+                        name="btn_saveeditProfile" value="Save" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 
 
 <?php
@@ -307,4 +385,77 @@ $count_tblactivityphoto->bind_param('s', $today);
 
 ?>
 
+<script>
+    $(document).ready(function () {
+        var ids = new Array();
+        $('#over').on('click', function () {
+            $('#list').toggle();
+        });
 
+        //Message with Ellipsis
+        $('div.msg').each(function () {
+            var len = $(this).text().trim(" ").split(" ");
+            if (len.length > 12) {
+                var add_elip = $(this).text().trim().substring(0, 1000)
+                $(this).text(add_elip);
+            }
+
+        });
+
+
+        $("#bell-count").on('click', function (e) {
+            e.preventDefault();
+
+            let belvalue = $('#bell-count').attr('data-value');
+
+            if (belvalue == '') {
+
+                console.log("inactive");
+            } else {
+                $(".round").css('display', 'none');
+                $("#list").css('display', 'block');
+
+                // $('.message').each(function(){
+                // var i = $(this).attr("data-id");
+                // ids.push(i);
+
+                // });
+                //Ajax
+                $('.message').click(function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: '../connection/deactive.php',
+                        type: 'POST',
+                        data: { "id": $(this).attr('data-id') },
+                        success: function (data) {
+
+                            console.log(data);
+                            location.reload();
+                        }
+                    });
+                });
+            }
+        });
+
+        $('#notify').on('click', function (e) {
+            e.preventDefault();
+            var name = $('#notifications_name').val();
+            var ins_msg = $('#message').val();
+            if ($.trim(name).length > 0 && $.trim(ins_msg).length > 0) {
+                var form_data = $('#frm_data').serialize();
+                $.ajax({
+                    url: './connection/insert.php',
+                    type: 'POST',
+                    data: form_data,
+                    success: function (data) {
+                        location.reload();
+                    }
+                });
+            } else {
+                alert("Please Fill All the fields");
+            }
+
+
+        });
+    });
+</script>
