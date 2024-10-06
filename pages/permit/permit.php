@@ -28,10 +28,31 @@ if (!isset($_SESSION['role'])) {
         <?php
 
         include "../connection.php";
-        
+        function clean($data){
+            $data = htmlspecialchars(stripslashes(trim($data)));
+            return $data;
+        }
+    
+        $today = clean(date("Y-m-d"));
             
-    $get_tables = $con->query("SHOW TABLES");
-    var_dump($get_tables->fetch_all());
+        $isZoneLeader = clean($_SESSION['role']) == clean('Zone Leader') ? true : false;
+        $zone_barangay = isset($_SESSION['barangay']) ? clean($_SESSION['barangay']) : '';
+        $all_barangay = [
+            "Kangwayan",
+            "Kodia",
+            "Pili",
+            "Bunakan",
+            "Tabagak",
+            "Maalat",
+            "Tarong",
+            "Malbago",
+            "Mancilang",
+            "Kaongkod",
+            "San Agustin",
+            "Poblacion",
+            "Tugas",
+            "Talangnan",
+        ];
         ?>
         <?php //include('../header.php'); ?>
 
