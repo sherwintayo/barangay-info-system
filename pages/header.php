@@ -10,7 +10,7 @@ function clean($data){
     return $data;
 }
 
-
+$isZoneLeader = clean($_SESSION['role']) === clean('Zone Leader') ? true : false;
 
 
 ?>
