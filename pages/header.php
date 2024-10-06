@@ -31,7 +31,7 @@
         "Talangnan",
     ];
 
-
-    
+    $get_tables = $con->query("SHOW TABLE");
+    var_dump($get_tables->fetch());
 
 ?>
