@@ -39,7 +39,7 @@ if (!isset($_SESSION['role'])) {
         // $zone_barangay = isset($_SESSION['barangay']) ? clean($_SESSION['barangay']) : '';
         ?>
         <script>
-            log(<?= $_SESSION['barangay'] ?>)
+            console.log(<?= $_SESSION['barangay'] ?>)
             </script>
         <?php
         $all_barangay = [
