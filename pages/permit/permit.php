@@ -37,22 +37,7 @@ if (!isset($_SESSION['role'])) {
             
         $isZoneLeader = clean($_SESSION['role']) == clean('Zone Leader') ? true : false;
         $zone_barangay = isset($_SESSION['barangay']) ? clean($_SESSION['barangay']) : '';
-        $all_barangay = [
-            htmlspecialchars("Kangwayan"),
-            htmlspecialchars("Kodia"),
-            htmlspecialchars("Pili"),
-            htmlspecialchars("Bunakan"),
-            htmlspecialchars("Tabagak"),
-            htmlspecialchars("Maalat"),
-            htmlspecialchars("Tarong"),
-            htmlspecialchars("Malbago"),
-            htmlspecialchars("Mancilang"),
-            htmlspecialchars("Kaongkod"),
-            htmlspecialchars("San Agustin"),
-            htmlspecialchars("Poblacion"),
-            htmlspecialchars("Tugas"),
-            htmlspecialchars("Talangnan")
-        ];
+        
         ?>
         <?php //include('../header.php'); ?>
 
