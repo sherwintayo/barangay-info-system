@@ -58,57 +58,57 @@ $count_tblactivityphoto->bind_param('s', $today);
 
 
 
-$find_notifications = "Select * from tblresident where  DATE(date_created) = '$today'";
-$result = mysqli_query($con, $find_notifications);
-$count_active = '';
-$notifications_data = array();
-$deactive_notifications_dump = array();
-while ($rows = mysqli_fetch_assoc($result)) {
-    $count_active = mysqli_num_rows($result);
-    $notifications_data[] = array(
-        "id" => clean($rows['id']),
-        "fname" => clean($rows['fname']),
-        "lname" => clean($rows['lname']),
-        "mname" => clean($rows['mname']),
-        "datemove" => clean($rows['datemove'])
+// $find_notifications = "Select * from tblresident where  DATE(date_created) = '$today'";
+// $result = mysqli_query($con, $find_notifications);
+// $count_active = '';
+// $notifications_data = array();
+// $deactive_notifications_dump = array();
+// while ($rows = mysqli_fetch_assoc($result)) {
+//     $count_active = mysqli_num_rows($result);
+//     $notifications_data[] = array(
+//         "id" => clean($rows['id']),
+//         "fname" => clean($rows['fname']),
+//         "lname" => clean($rows['lname']),
+//         "mname" => clean($rows['mname']),
+//         "datemove" => clean($rows['datemove'])
 
 
 
-    );
-}
+//     );
+// }
 
 
-$total_count = 
-            $count_tblactivity->num_rows + 
-            $count_tblactivityphoto->num_rows +
-            $count_tblblotter->num_rows + 
-            $count_tblclearance->num_rows + 
-            $count_tblhousehold->num_rows + 
-            $count_tbllogs->num_rows + 
-            $count_tblofficial->num_rows + 
-            $count_tblpermit->num_rows + 
-            $count_tblproject->num_rows +
-            $count_tblsession->num_rows + 
-            $count_tblsettings->num_rows + 
-            $count_tblstaff->num_rows +
-            $count_tbluser->num_rows +
-            $count_tblvisitor->num_rows + 
-            $count_tblzone->num_rows + 
-            $result->num_rows
-            ;
+// $total_count = 
+//             $count_tblactivity->num_rows + 
+//             $count_tblactivityphoto->num_rows +
+//             $count_tblblotter->num_rows + 
+//             $count_tblclearance->num_rows + 
+//             $count_tblhousehold->num_rows + 
+//             $count_tbllogs->num_rows + 
+//             $count_tblofficial->num_rows + 
+//             $count_tblpermit->num_rows + 
+//             $count_tblproject->num_rows +
+//             $count_tblsession->num_rows + 
+//             $count_tblsettings->num_rows + 
+//             $count_tblstaff->num_rows +
+//             $count_tbluser->num_rows +
+//             $count_tblvisitor->num_rows + 
+//             $count_tblzone->num_rows + 
+//             $result->num_rows
+//             ;
 
-//only five specific posts
-$deactive_notifications = "Select * from tblresident where  DATE(date_created) = '$today' ORDER BY id DESC LIMIT 0,5";
-$result = mysqli_query($con, $deactive_notifications);
-while ($rows = mysqli_fetch_assoc($result)) {
-    $deactive_notifications_dump[] = array(
-        "id" => clean($rows['id']),
-        "fname" => clean($rows['fname']),
-        "lname" => clean($rows['lname']),
-        "mname" => clean($rows['mname']),
-        "datemove" => clean($rows['datemove'])
-    );
-}
+// //only five specific posts
+// $deactive_notifications = "Select * from tblresident where  DATE(date_created) = '$today' ORDER BY id DESC LIMIT 0,5";
+// $result = mysqli_query($con, $deactive_notifications);
+// while ($rows = mysqli_fetch_assoc($result)) {
+//     $deactive_notifications_dump[] = array(
+//         "id" => clean($rows['id']),
+//         "fname" => clean($rows['fname']),
+//         "lname" => clean($rows['lname']),
+//         "mname" => clean($rows['mname']),
+//         "datemove" => clean($rows['datemove'])
+//     );
+// }
 
 ?>
 
