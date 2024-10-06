@@ -32,11 +32,6 @@
     ];
 
 
-    $count_tblactivity = $con->query("SELECT * FROM tblactivity WHERE DATE(date_created) = '$today'");
-
-    $count_tblactivity = $con->prepare("SELECT * FROM tblactivity WHERE DATE(date_created) = ?");
-    $count_tblactivity->bind_param('s', $today);
-
-    var_dump($count_tblactivity);
+    
 
 ?>
