@@ -80,7 +80,7 @@ session_start();
                     <img src="images/madridejos.png" style="height:150px;" />
                     <h3 class="panel-title">
                         <strong>
-                            Management System the dog
+                            Management System
                         </strong>
                     </h3>
                     <p>Login</p>
