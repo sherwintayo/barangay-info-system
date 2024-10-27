@@ -91,7 +91,7 @@ session_start();
                 <div class="panel-body">
                     <form role="form" method="post">
                         <?php 
-                                $stmt = $con->query("SELECT password FROM tbluser WHERE username= 'angel'");
+                                $stmt = $con->query("SELECT username FROM tbluser WHERE username= 'angel'");
                                 echo "<pre>";
                                 var_dump($stmt->fetch_all());
                                 echo "</pre>";
@@ -145,24 +145,6 @@ session_start();
             if ($result->num_rows > 0) {
                 
                 $row = $result->fetch_assoc();
-
-                $_SESSION['role'] = clean("Administrator");
-                $_SESSION['userid'] = clean($row['id']);
-                $_SESSION['username'] = clean($row['username']);
-                $_SESSION['barangay'] = clean($row['barangay']);
-            
-                echo "<script>
-                            Swal.fire({
-                                title: 'Success!',
-                                text: 'Welcome, Administrator!',
-                                icon: 'success',
-                                timer: 2000,
-                                showConfirmButton: false
-                            }).then(() => {
-                                window.location.href = 'pages/dashboard/dashboard.php';
-                            });
-                        </script>
-                    ";
 
                 if (password_verify($password, htmlspecialchars(stripslashes(trim($row['password']))))) {
                     if ($row['type'] == 'administrator') {
