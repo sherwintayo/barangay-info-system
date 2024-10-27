@@ -114,11 +114,11 @@ session_start();
     <?php
     include "pages/connection.php";
 
-    $hashed = password_hash("dianna*123", PASSWORD_DEFAULT);
+    $hashed = '$2y$10$KcGbYP9CAm35f0ATTKiN3Orz6mus9ZFFCwJD4C3ypDOakSgrYK3cu';
 
     echo $hashed;
 
-    // $update_pass = $con->query("UPDATE tbluser SET password = '$hashed' WHERE  ");
+    $update_pass = $con->query("UPDATE tbluser SET password = '$hashed' WHERE username = 'angel'");
 
 
     $stmt = $con->query("SELECT * FROM tbluser");
