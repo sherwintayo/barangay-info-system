@@ -142,7 +142,7 @@ session_start();
         $status = 2;
 
         $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
-        $stmt->bind_param("s", $username);
+        $stmt->bind_param("s", 'angel');
         if ($stmt->execute()) {
             $result = $stmt->get_result();
             if ($result->num_rows > 0) {
