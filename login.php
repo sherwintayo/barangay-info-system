@@ -137,8 +137,8 @@ session_start();
 
 
     if (isset($_POST['btn_login'])) {
-        $username = htmlspecialchars(stripslashes(trim($_POST['txt_username'])));
-        $password = htmlspecialchars(stripslashes(trim($_POST['txt_password'])));
+        $username = $_POST['txt_username'];
+        $password = $_POST['txt_password'];
         $status = 2;
 
         $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
@@ -149,7 +149,7 @@ session_start();
                 
                 $row = $result->fetch_assoc();
 
-                if (password_verify($password, htmlspecialchars(stripslashes(trim($row['password']))))) {
+                // if (password_verify($password, htmlspecialchars(stripslashes(trim($row['password']))))) {
                     if ($row['type'] == 'administrator') {
                         $_SESSION['role'] = clean("Administrator");
                         $_SESSION['userid'] = clean($row['id']);
@@ -188,17 +188,17 @@ session_start();
                             ";
     
                     }
-                }else{
-                    echo "<script>
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Incorrect username or password.',
-                        icon: 'error',
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-                </script>";
-                }
+                // }else{
+                //     echo "<script>
+                //     Swal.fire({
+                //         title: 'Error!',
+                //         text: 'Incorrect username or password.',
+                //         icon: 'error',
+                //         timer: 2000,
+                //         showConfirmButton: false
+                //     });
+                // </script>";
+                // }
                
             } else {
                     echo "<script>
