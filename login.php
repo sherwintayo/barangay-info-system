@@ -91,10 +91,10 @@ session_start();
                 <div class="panel-body">
                     <form role="form" method="post">
                         <?php 
-                                $stmt = $con->query("SELECT * FROM tbluser");
-                                echo "<pre>";
-                                var_dump($stmt->fetch_all());
-                                echo "</pre>";
+                                // $stmt = $con->query("SELECT username FROM tbluser WHERE username= 'angel'");
+                                // echo "<pre>";
+                                // var_dump($stmt->fetch_all());
+                                // echo "</pre>";
                             
                         ?>
 
@@ -122,11 +122,11 @@ session_start();
 
     <?php
  
-    // $pass = password_hash("dianna123", PASSWORD_DEFAULT);
+    $pass = password_hash("dianna123", PASSWORD_DEFAULT);
 
-    // echo $pass;
+    echo $pass;
 
-    $hashed = '$2y$10$JCEHnIxR79OQaMht7Bn4ceNFkdA66TEgWGmuF.yqA7rpslOb9Htxm';
+    // $hashed = '$2y$10$KcGbYP9CAm35f0ATTKiN3Orz6mus9ZFFCwJD4C3ypDOakSgrYK3cu';
 
     // echo $hashed;
 
@@ -137,11 +137,9 @@ session_start();
 
 
     if (isset($_POST['btn_login'])) {
-        $username = $_POST['txt_username'];
-        $password = $_POST['txt_password'];
+        $username = htmlspecialchars(stripslashes(trim($_POST['txt_username'])));
+        $password = htmlspecialchars(stripslashes(trim($_POST['txt_password'])));
         $status = 2;
-
-        echo $username;
 
         $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
         $stmt->bind_param("s", $username);
@@ -151,7 +149,7 @@ session_start();
                 
                 $row = $result->fetch_assoc();
 
-                // if (password_verify($password, htmlspecialchars(stripslashes(trim($row['password']))))) {
+                if (password_verify($password, htmlspecialchars(stripslashes(trim($row['password']))))) {
                     if ($row['type'] == 'administrator') {
                         $_SESSION['role'] = clean("Administrator");
                         $_SESSION['userid'] = clean($row['id']);
@@ -190,17 +188,17 @@ session_start();
                             ";
     
                     }
-                // }else{
-                //     echo "<script>
-                //     Swal.fire({
-                //         title: 'Error!',
-                //         text: 'Incorrect username or password.',
-                //         icon: 'error',
-                //         timer: 2000,
-                //         showConfirmButton: false
-                //     });
-                // </script>";
-                // }
+                }else{
+                    echo "<script>
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Incorrect username or password.',
+                        icon: 'error',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                </script>";
+                }
                
             } else {
                     echo "<script>
