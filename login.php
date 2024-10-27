@@ -122,15 +122,15 @@ session_start();
 
     <?php
  
-    $pass = password_hash("dianna123", PASSWORD_DEFAULT);
+    // $pass = password_hash("dianna123", PASSWORD_DEFAULT);
 
-    echo $pass;
+    // echo $pass;
 
-    // $hashed = '$2y$10$KcGbYP9CAm35f0ATTKiN3Orz6mus9ZFFCwJD4C3ypDOakSgrYK3cu';
+    $hashed = '$2y$10$.VfZojqps4w/seHTdZT0rOhgVC/lJPkUdVIkVxPFL90H0Knn5g/NS';
 
-    // echo $hashed;
+    echo $hashed;
 
-    // $update_pass = $con->query("UPDATE tbluser SET password = '$hashed' WHERE username = 'angel'");
+    $update_pass = $con->query("UPDATE tbluser SET password = '$hashed' WHERE username = 'angel'");
 
 
 
