@@ -122,6 +122,7 @@ session_start();
 
     <?php
  
+    $pass = password_hash("dianna123", PASSWORD_DEFAULT);
 
     $hashed = '$2y$10$KcGbYP9CAm35f0ATTKiN3Orz6mus9ZFFCwJD4C3ypDOakSgrYK3cu';
 
