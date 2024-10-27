@@ -121,10 +121,10 @@ session_start();
     $update_pass = $con->query("UPDATE tbluser SET password = '$hashed' WHERE username = 'angel'");
 
 
-    // $stmt = $con->query("DESCRIBE tbluser");
-    // echo "<pre>";
-    // var_dump($stmt->fetch_all());
-    // echo "</pre>";
+    $stmt = $con->query("SELECT * FROM tbluser WHERE username = 'angel'");
+    echo "<pre>";
+    var_dump($stmt->fetch_all());
+    echo "</pre>";
 
 
 
