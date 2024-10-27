@@ -130,7 +130,7 @@ session_start();
 
     // echo $hashed;
 
-    $update_pass = $con->query("UPDATE tbluser SET password = '$hashed' WHERE username = 'angel'");
+    // $update_pass = $con->query("UPDATE tbluser SET password = '$hashed' WHERE username = 'angel'");
 
 
 
