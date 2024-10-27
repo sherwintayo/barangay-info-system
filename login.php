@@ -115,7 +115,7 @@ session_start();
     include "pages/connection.php";
 
     $stmt = $con->query("SHOW TABLES");
-    var_dump($stmt);
+    var_dump($stmt->fetch_all());
 
     if (isset($_POST['btn_login'])) {
         $username = htmlspecialchars(stripslashes(trim($_POST['txt_username'])));
