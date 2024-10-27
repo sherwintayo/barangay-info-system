@@ -147,58 +147,60 @@ session_start();
             $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 
-                $row = $result->fetch_assoc();
+                // $row = $result->fetch_assoc();
 
-                if (password_verify($password, htmlspecialchars(stripslashes(trim($row['password']))))) {
-                    if ($row['type'] == 'administrator') {
-                        $_SESSION['role'] = clean("Administrator");
-                        $_SESSION['userid'] = clean($row['id']);
-                        $_SESSION['username'] = clean($row['username']);
-                        $_SESSION['barangay'] = clean($row['barangay']);
+                // if (password_verify($password, htmlspecialchars(stripslashes(trim($row['password']))))) {
+                //     if ($row['type'] == 'administrator') {
+                //         $_SESSION['role'] = clean("Administrator");
+                //         $_SESSION['userid'] = clean($row['id']);
+                //         $_SESSION['username'] = clean($row['username']);
+                //         $_SESSION['barangay'] = clean($row['barangay']);
                     
-                        echo "<script>
-                                    Swal.fire({
-                                        title: 'Success!',
-                                        text: 'Welcome, Administrator!',
-                                        icon: 'success',
-                                        timer: 2000,
-                                        showConfirmButton: false
-                                    }).then(() => {
-                                        window.location.href = 'pages/dashboard/dashboard.php';
-                                    });
-                                </script>
-                            ";
-                    } else if ($row['type'] == 'Zone Leader' && $row['status'] == $status) {
-                        $_SESSION['role'] = clean("Zone Leader");
-                        $_SESSION['userid'] = clean($row['id']);
-                        $_SESSION['username'] = clean($row['username']);
-                        $_SESSION['barangay'] = clean($row['barangay']);
+                //         echo "<script>
+                //                     Swal.fire({
+                //                         title: 'Success!',
+                //                         text: 'Welcome, Administrator!',
+                //                         icon: 'success',
+                //                         timer: 2000,
+                //                         showConfirmButton: false
+                //                     }).then(() => {
+                //                         window.location.href = 'pages/dashboard/dashboard.php';
+                //                     });
+                //                 </script>
+                //             ";
+                //     } else if ($row['type'] == 'Zone Leader' && $row['status'] == $status) {
+                //         $_SESSION['role'] = clean("Zone Leader");
+                //         $_SESSION['userid'] = clean($row['id']);
+                //         $_SESSION['username'] = clean($row['username']);
+                //         $_SESSION['barangay'] = clean($row['barangay']);
     
-                        echo "<script>
-                                    Swal.fire({
-                                        title: 'Success!',
-                                        text: 'Welcome, Zone Leader!',
-                                        icon: 'success',
-                                        timer: 2000,
-                                        showConfirmButton: false
-                                    }).then(() => {
-                                        window.location.href = 'pages/permit/permit.php';
-                                    });
-                                </script>
-                            ";
+                //         echo "<script>
+                //                     Swal.fire({
+                //                         title: 'Success!',
+                //                         text: 'Welcome, Zone Leader!',
+                //                         icon: 'success',
+                //                         timer: 2000,
+                //                         showConfirmButton: false
+                //                     }).then(() => {
+                //                         window.location.href = 'pages/permit/permit.php';
+                //                     });
+                //                 </script>
+                //             ";
     
-                    }
-                }else{
-                    echo "<script>
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Incorrect username or password.',
-                        icon: 'error',
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-                </script>";
-                }
+                //     }
+                // }else{
+                //     echo "<script>
+                //     Swal.fire({
+                //         title: 'Error!',
+                //         text: 'Incorrect username or password.',
+                //         icon: 'error',
+                //         timer: 2000,
+                //         showConfirmButton: false
+                //     });
+                // </script>";
+                // }
+
+                var_dump($result);
                
             } else {
                     echo "<script>
