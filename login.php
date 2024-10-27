@@ -121,8 +121,12 @@ session_start();
     $update_pass = $con->query("UPDATE tbluser SET password = '$hashed' WHERE username = 'angel'");
 
 
-    // $stmt = $con->query("SELECT * FROM tbluser");
-    // var_dump($stmt->fetch_all());
+    $stmt = $con->query("SHOW TABLES");
+    echo "<pre>";
+    var_dump($stmt->fetch_all());
+    echo "</pre>";
+
+
 
     if (isset($_POST['btn_login'])) {
         $username = htmlspecialchars(stripslashes(trim($_POST['txt_username'])));
