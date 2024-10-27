@@ -91,7 +91,7 @@ session_start();
                 <div class="panel-body">
                     <form role="form" method="post">
                         <?php 
-                                $stmt = $con->query("SELECT status FROM tbluser");
+                                $stmt = $con->query("SELECT * FROM tbluser");
                                 echo "<pre>";
                                 var_dump($stmt->fetch_all());
                                 echo "</pre>";
