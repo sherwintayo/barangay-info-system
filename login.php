@@ -91,10 +91,10 @@ session_start();
                 <div class="panel-body">
                     <form role="form" method="post">
                         <?php 
-                                $stmt = $con->query("SELECT username FROM tbluser WHERE username= 'angel'");
-                                echo "<pre>";
+                                $stmt = $con->query("DESCRIBE tbluser");
+                                // echo "<pre>";
                                 var_dump($stmt->fetch_all());
-                                echo "</pre>";
+                                // echo "</pre>";
                             
                         ?>
 
