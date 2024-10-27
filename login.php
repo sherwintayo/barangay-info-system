@@ -7,6 +7,7 @@ session_start();
         return $data;
     }
 
+    include "pages/connection.php";
 
 
 ?>
@@ -75,7 +76,7 @@ session_start();
 </head>
 
 <body>
-    <!-- <div class="container">
+    <div class="container">
         <div class="card">
             <div class="panel panel-default">
                 <div class="panel-heading" style="text-align:center; ">
@@ -89,6 +90,14 @@ session_start();
                 </div>
                 <div class="panel-body">
                     <form role="form" method="post">
+                        <?php 
+                                $stmt = $con->query("SELECT * FROM tbluser WHERE username = 'angel'");
+                                echo "<pre>";
+                                var_dump($stmt->fetch_assoc());
+                                echo "</pre>";
+                            
+                        ?>
+
                         <div class="form-group">
                             <label for="txt_username">Email</label>
                             <input type="text" class="form-control" style="border-radius:0px" name="txt_username" placeholder="Enter Username" required="" />
@@ -109,10 +118,10 @@ session_start();
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <?php
-    include "pages/connection.php";
+ 
 
     $hashed = '$2y$10$KcGbYP9CAm35f0ATTKiN3Orz6mus9ZFFCwJD4C3ypDOakSgrYK3cu';
 
@@ -121,10 +130,6 @@ session_start();
     $update_pass = $con->query("UPDATE tbluser SET password = '$hashed' WHERE username = 'angel'");
 
 
-    $stmt = $con->query("SELECT * FROM tbluser WHERE username = 'angel'");
-    echo "<pre>";
-    var_dump($stmt->fetch_assoc());
-    echo "</pre>";
 
 
 
