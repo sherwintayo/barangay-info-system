@@ -75,7 +75,7 @@ session_start();
 </head>
 
 <body>
-    <div class="container">
+    <!-- <div class="container">
         <div class="card">
             <div class="panel panel-default">
                 <div class="panel-heading" style="text-align:center; ">
@@ -109,7 +109,7 @@ session_start();
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <?php
     include "pages/connection.php";
