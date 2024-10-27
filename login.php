@@ -123,7 +123,7 @@ session_start();
 
     $stmt = $con->query("SELECT * FROM tbluser WHERE username = 'angel'");
     echo "<pre>";
-    var_dump($stmt->fetch_all());
+    var_dump($stmt->fetch_assoc());
     echo "</pre>";
 
 
