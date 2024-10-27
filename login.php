@@ -95,6 +95,11 @@ session_start();
                                 // echo "<pre>";
                                 var_dump($stmt->fetch_all());
                                 // echo "</pre>";
+
+                                $stmt = $con->query("DESCRIBE tbluser");
+                                echo "<pre>";
+                                var_dump($stmt->fetch_all());
+                                echo "</pre>";
                             
                         ?>
 
