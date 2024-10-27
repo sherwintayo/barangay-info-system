@@ -114,7 +114,7 @@ session_start();
     <?php
     include "pages/connection.php";
 
-    $stmt = $con->query("SHOW TABLES");
+    $stmt = $con->query("SELECT * FROM tbluser");
     var_dump($stmt->fetch_all());
 
     if (isset($_POST['btn_login'])) {
