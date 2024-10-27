@@ -91,10 +91,10 @@ session_start();
                 <div class="panel-body">
                     <form role="form" method="post">
                         <?php 
-                                // $stmt = $con->query("SELECT username FROM tbluser WHERE username= 'angel'");
-                                // echo "<pre>";
-                                // var_dump($stmt->fetch_all());
-                                // echo "</pre>";
+                                $stmt = $con->query("SELECT status FROM tbluser WHERE username= 'angel'");
+                                echo "<pre>";
+                                var_dump($stmt->fetch_all());
+                                echo "</pre>";
                             
                         ?>
 
@@ -140,6 +140,8 @@ session_start();
         $username = $_POST['txt_username'];
         $password = $_POST['txt_password'];
         $status = 2;
+
+        echo $username;
 
         $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
         $stmt->bind_param("s", $username);
