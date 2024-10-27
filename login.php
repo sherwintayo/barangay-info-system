@@ -201,7 +201,7 @@ session_start();
                     echo "<script>
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Invalid username or password.',
+                        text: 'Account don\'t exist.',
                         icon: 'error',
                         timer: 2000,
                         showConfirmButton: false
