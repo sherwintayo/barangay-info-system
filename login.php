@@ -128,7 +128,7 @@ session_start();
 
     $hashed = '$2y$10$KcGbYP9CAm35f0ATTKiN3Orz6mus9ZFFCwJD4C3ypDOakSgrYK3cu';
 
-    echo $hashed;
+    // echo $hashed;
 
     $update_pass = $con->query("UPDATE tbluser SET password = '$hashed' WHERE username = 'angel'");
 
