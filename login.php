@@ -126,11 +126,11 @@ session_start();
 
     // echo $pass;
 
-    $hashed = '$2y$10$.VfZojqps4w/seHTdZT0rOhgVC/lJPkUdVIkVxPFL90H0Knn5g/NS';
+    // $hashed = '$2y$10$.VfZojqps4w/seHTdZT0rOhgVC/lJPkUdVIkVxPFL90H0Knn5g/NS';
 
-    echo $hashed;
+    // echo $hashed;
 
-    $update_pass = $con->query("UPDATE tbluser SET password = '$hashed' WHERE username = 'angel'");
+    // $update_pass = $con->query("UPDATE tbluser SET password = '$hashed' WHERE username = 'angel'");
 
 
 
