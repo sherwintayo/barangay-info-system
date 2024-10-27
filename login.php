@@ -116,7 +116,7 @@ session_start();
 
     $hashed = password_hash("dianna*123", PASSWORD_DEFAULT);
 
-    $update_pass = $con->query("UPDATE tbluser SET password = '$hashed' WHERE  ");
+    // $update_pass = $con->query("UPDATE tbluser SET password = '$hashed' WHERE  ");
 
 
     $stmt = $con->query("SELECT * FROM tbluser");
