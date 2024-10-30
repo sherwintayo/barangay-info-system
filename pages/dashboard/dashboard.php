@@ -8,7 +8,8 @@ if (!isset($_SESSION['role'])) {
   ob_start();
   include ('../head_css.php');
   
-  echo $_SESSION['barangay'];
+  $barangayByZoneLeader = htmlspecialchars(stripslashes(trim($_SESSION['barangay'])));
+  
   ?>
   
 
@@ -35,7 +36,7 @@ if (!isset($_SESSION['role'])) {
         <!-- Main content -->
         <section class="content">
 
-        <?= $zone_barangay ?>
+        <?= $barangayByZoneLeader ?>
 
           <div class="row">
             <!-- left column -->
@@ -50,7 +51,7 @@ if (!isset($_SESSION['role'])) {
                     <span class="info-box-number">
                       <?php
                      if ($isZoneLeader) {
-                      $q = mysqli_query($con, "SELECT * from tblhousehold WHERE barangay = '$zone_barangay'");
+                      $q = mysqli_query($con, "SELECT * from tblhousehold WHERE barangay = '$barangayByZoneLeader'");
                       $num_rows = mysqli_num_rows($q);
                      }else{
                       $q = mysqli_query($con, "SELECT * from tblhousehold");
@@ -73,7 +74,7 @@ if (!isset($_SESSION['role'])) {
                     <span class="info-box-number">
                       <?php
                       if ($isZoneLeader) {
-                        $q = mysqli_query($con, "SELECT * from tblresident WHERE barangay = '$zone_barangay'");
+                        $q = mysqli_query($con, "SELECT * from tblresident WHERE barangay = '$barangayByZoneLeader'");
                       }else{
                         $q = mysqli_query($con, "SELECT * from tblresident");
                       }
@@ -96,7 +97,7 @@ if (!isset($_SESSION['role'])) {
                     <span class="info-box-number">
                       <?php
                       if ($isZoneLeader) {
-                        $q = mysqli_query($con, "SELECT * from tblresident WHERE barangay = '$zone_barangay' AND status = 'New Resident'");
+                        $q = mysqli_query($con, "SELECT * from tblresident WHERE barangay = '$barangayByZoneLeader' AND status = 'New Resident'");
                       }else{
                         $q = mysqli_query($con, "SELECT * from tblresident WHERE status = 'New Resident'");
                       }
@@ -118,7 +119,7 @@ if (!isset($_SESSION['role'])) {
                     <span class="info-box-number">
                       <?php
                       if ($isZoneLeader) {
-                        $q = mysqli_query($con, "SELECT * from tblclearance where status = 'Approved' AND barangay = '$zone_barangay' ");
+                        $q = mysqli_query($con, "SELECT * from tblclearance where status = 'Approved' AND barangay = '$barangayByZoneLeader' ");
                       }else{
                         $q = mysqli_query($con, "SELECT * from tblclearance where status = 'Approved'");
                       }
@@ -140,7 +141,7 @@ if (!isset($_SESSION['role'])) {
                     <span class="info-box-number">
                       <?php
                      if ($isZoneLeader) {
-                      $q = mysqli_query($con, "SELECT * from tblpermit where status = 'Approved' AND businessAddress = '$zone_barangay' ");
+                      $q = mysqli_query($con, "SELECT * from tblpermit where status = 'Approved' AND businessAddress = '$barangayByZoneLeader' ");
                      }else{
                       $q = mysqli_query($con, "SELECT * from tblpermit where status = 'Approved'");
                      }
@@ -162,7 +163,7 @@ if (!isset($_SESSION['role'])) {
                     <span class="info-box-number">
                       <?php
                       if ($isZoneLeader) {
-                        $q = mysqli_query($con, "SELECT * from tblblotter WHERE barangay = '$zone_barangay'");
+                        $q = mysqli_query($con, "SELECT * from tblblotter WHERE barangay = '$barangayByZoneLeader'");
                       }else{
                         $q = mysqli_query($con, "SELECT * from tblblotter");
                       }

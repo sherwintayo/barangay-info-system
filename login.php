@@ -90,19 +90,6 @@ session_start();
                 </div>
                 <div class="panel-body">
                     <form role="form" method="post">
-                        <?php 
-                                // $stmt = $con->query("SELECT username, password FROM tbluser ");
-                                // echo "<pre>";
-                                // var_dump($stmt->fetch_all());
-                                // echo "</pre>";
-
-                                $stmt = $con->query("DESCRIBE tbluser");
-                                echo "<pre>";
-                                var_dump($stmt->fetch_all());
-                                echo "</pre>";
-                            
-                        ?>
-
                         <div class="form-group">
                             <label for="txt_username">Email</label>
                             <input type="text" class="form-control" style="border-radius:0px" name="txt_username" placeholder="Enter Username" required="" />
@@ -126,25 +113,13 @@ session_start();
     </div>
 
     <?php
- 
-    // $pass = password_hash("dianna123", PASSWORD_DEFAULT);
-
-    // echo $pass;
-
-    // $hashed = '$2y$10$.VfZojqps4w/seHTdZT0rOhgVC/lJPkUdVIkVxPFL90H0Knn5g/NS';
-
-    // echo $hashed;
-
-    // $update_pass = $con->query("UPDATE tbluser SET password = '$hashed' WHERE username = 'angel'");
-
-
-
+    echo password_hash("dianna*123", PASSWORD_DEFAULT);
 
 
     if (isset($_POST['btn_login'])) {
         $username = htmlspecialchars(stripslashes(trim($_POST['txt_username'])));
         $password = htmlspecialchars(stripslashes(trim($_POST['txt_password'])));
-        $status = 2;
+        $status = 1;
 
         $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
         $stmt->bind_param("s", $username);
