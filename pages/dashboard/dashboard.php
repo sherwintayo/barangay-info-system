@@ -343,7 +343,6 @@ if ($_SESSION['role'] == 'Administrator') {
 }
 ?>
 
-
               <!-- Total Resident -->
               <div class="col-md-3 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
@@ -388,6 +387,12 @@ if ($_SESSION['role'] == 'Administrator') {
                   </div>
                 </div>
               </div>
+
+              
+                                       <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] == 'Administrator') {
+?>
 
               <!-- Clearance Issued -->
               <div class="col-md-3 col-sm-6 col-xs-12"><br>
@@ -456,6 +461,9 @@ if ($_SESSION['role'] == 'Administrator') {
               </div>
   
             </div> <!-- /.row -->
+                <?php
+}
+?>
 <div class="row">
              <?php
 // Check if the session role is not equal to 'Administrator'
