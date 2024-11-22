@@ -44,7 +44,7 @@ if (!isset($_SESSION['role'])) {
               <!-- Total Household -->
                            <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] != 'Administrator') {
+if ($_SESSION['role'] == 'Administrator') {
 ?>
               <div class="col-md-3 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
