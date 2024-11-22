@@ -391,7 +391,7 @@ if ($_SESSION['role'] == 'Administrator') {
               
                                        <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] == 'Administrator') {
+if ($_SESSION['role'] != 'Administrator') {
 ?>
 
               <!-- Clearance Issued -->
