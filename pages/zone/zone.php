@@ -66,6 +66,7 @@ include('../head_css.php'); ?>
     }
     echo '</td>';
     echo '</tr>';
+                                            include "edit_modal.php";
 }
 
                                         ?>
