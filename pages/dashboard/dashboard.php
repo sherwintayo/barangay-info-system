@@ -459,11 +459,12 @@ if ($_SESSION['role'] != 'Administrator') {
                   </div>
                 </div>
               </div>
-  
-            </div> <!-- /.row -->
-                <?php
+                              <?php
 }
 ?>
+  
+            </div> <!-- /.row -->
+
 <div class="row">
              <?php
 // Check if the session role is not equal to 'Administrator'
