@@ -98,7 +98,7 @@ if ($_SESSION['role'] == 'Administrator') {
         <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                 class="fa fa-home"></i></span></a>
         <div class="info-box-content">
-            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-text">Total Household of Talangnan</span>
             <span class="info-box-number">
                 <?php
                 // Ensure connection variable $con is properly established
@@ -117,7 +117,7 @@ if ($_SESSION['role'] == 'Administrator') {
         <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                 class="fa fa-home"></i></span></a>
         <div class="info-box-content">
-            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-text">Total Household of Mancilang</span>
             <span class="info-box-number">
                 <?php
                 // Ensure connection variable $con is properly established
@@ -136,7 +136,7 @@ if ($_SESSION['role'] == 'Administrator') {
         <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                 class="fa fa-home"></i></span></a>
         <div class="info-box-content">
-            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-text">Total Household of Tarong</span>
             <span class="info-box-number">
                 <?php
                 // Ensure connection variable $con is properly established
@@ -155,7 +155,7 @@ if ($_SESSION['role'] == 'Administrator') {
         <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                 class="fa fa-home"></i></span></a>
         <div class="info-box-content">
-            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-text">Total Household of Malbago</span>
             <span class="info-box-number">
                 <?php
                 // Ensure connection variable $con is properly established
@@ -174,7 +174,7 @@ if ($_SESSION['role'] == 'Administrator') {
         <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                 class="fa fa-home"></i></span></a>
         <div class="info-box-content">
-            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-text">Total Household of Tugas</span>
             <span class="info-box-number">
                 <?php
                 // Ensure connection variable $con is properly established
@@ -193,7 +193,7 @@ if ($_SESSION['role'] == 'Administrator') {
         <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                 class="fa fa-home"></i></span></a>
         <div class="info-box-content">
-            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-text">Total Household of Maalat</span>
             <span class="info-box-number">
                 <?php
                 // Ensure connection variable $con is properly established
@@ -212,7 +212,7 @@ if ($_SESSION['role'] == 'Administrator') {
         <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                 class="fa fa-home"></i></span></a>
         <div class="info-box-content">
-            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-text">Total Household of Pili</span>
             <span class="info-box-number">
                 <?php
                 // Ensure connection variable $con is properly established
@@ -231,7 +231,7 @@ if ($_SESSION['role'] == 'Administrator') {
         <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                 class="fa fa-home"></i></span></a>
         <div class="info-box-content">
-            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-text">Total Household of Kaongkod</span>
             <span class="info-box-number">
                 <?php
                 // Ensure connection variable $con is properly established
@@ -250,7 +250,7 @@ if ($_SESSION['role'] == 'Administrator') {
         <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                 class="fa fa-home"></i></span></a>
         <div class="info-box-content">
-            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-text">Total Household of Bunakan</span>
             <span class="info-box-number">
                 <?php
                 // Ensure connection variable $con is properly established
@@ -269,7 +269,7 @@ if ($_SESSION['role'] == 'Administrator') {
         <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                 class="fa fa-home"></i></span></a>
         <div class="info-box-content">
-            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-text">Total Household of Tabagak</span>
             <span class="info-box-number">
                 <?php
                 // Ensure connection variable $con is properly established
@@ -288,7 +288,7 @@ if ($_SESSION['role'] == 'Administrator') {
         <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                 class="fa fa-home"></i></span></a>
         <div class="info-box-content">
-            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-text">Total Household of Kodia</span>
             <span class="info-box-number">
                 <?php
                 // Ensure connection variable $con is properly established
@@ -307,7 +307,7 @@ if ($_SESSION['role'] == 'Administrator') {
         <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                 class="fa fa-home"></i></span></a>
         <div class="info-box-content">
-            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-text">Total Household of Kangwayan</span>
             <span class="info-box-number">
                 <?php
                 // Ensure connection variable $con is properly established
@@ -326,7 +326,7 @@ if ($_SESSION['role'] == 'Administrator') {
         <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                 class="fa fa-home"></i></span></a>
         <div class="info-box-content">
-            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-text">Total Household of San Agustin</span>
             <span class="info-box-number">
                 <?php
                 // Ensure connection variable $con is properly established
