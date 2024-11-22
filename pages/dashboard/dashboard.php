@@ -93,7 +93,252 @@ if ($_SESSION['role'] == 'Administrator') {
         </div>
     </div>
 </div>
+               <div class="col-md-4 col-sm-6 col-xs-12"><br>
+    <div class="info-box">
+        <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
+                class="fa fa-home"></i></span></a>
+        <div class="info-box-content">
+            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-number">
+                <?php
+                // Ensure connection variable $con is properly established
+                    // Get households only for the 'Poblacion' barangay
+                    $q = mysqli_query($con, "SELECT * FROM tblhousehold WHERE barangay = 'Talangnan'");
+                $num_rows = mysqli_num_rows($q);
+                echo $num_rows;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+              
+   <div class="col-md-4 col-sm-6 col-xs-12"><br>
+    <div class="info-box">
+        <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
+                class="fa fa-home"></i></span></a>
+        <div class="info-box-content">
+            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-number">
+                <?php
+                // Ensure connection variable $con is properly established
+                    // Get households only for the 'Poblacion' barangay
+                    $q = mysqli_query($con, "SELECT * FROM tblhousehold WHERE barangay = 'Mancilang'");
+                $num_rows = mysqli_num_rows($q);
+                echo $num_rows;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
 
+   <div class="col-md-4 col-sm-6 col-xs-12"><br>
+    <div class="info-box">
+        <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
+                class="fa fa-home"></i></span></a>
+        <div class="info-box-content">
+            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-number">
+                <?php
+                // Ensure connection variable $con is properly established
+                    // Get households only for the 'Poblacion' barangay
+                    $q = mysqli_query($con, "SELECT * FROM tblhousehold WHERE barangay = 'Tarong'");
+                $num_rows = mysqli_num_rows($q);
+                echo $num_rows;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+               <div class="col-md-4 col-sm-6 col-xs-12"><br>
+    <div class="info-box">
+        <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
+                class="fa fa-home"></i></span></a>
+        <div class="info-box-content">
+            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-number">
+                <?php
+                // Ensure connection variable $con is properly established
+                    // Get households only for the 'Poblacion' barangay
+                    $q = mysqli_query($con, "SELECT * FROM tblhousehold WHERE barangay = 'Malbago'");
+                $num_rows = mysqli_num_rows($q);
+                echo $num_rows;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+               <div class="col-md-4 col-sm-6 col-xs-12"><br>
+    <div class="info-box">
+        <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
+                class="fa fa-home"></i></span></a>
+        <div class="info-box-content">
+            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-number">
+                <?php
+                // Ensure connection variable $con is properly established
+                    // Get households only for the 'Poblacion' barangay
+                    $q = mysqli_query($con, "SELECT * FROM tblhousehold WHERE barangay = 'Tugas'");
+                $num_rows = mysqli_num_rows($q);
+                echo $num_rows;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+               <div class="col-md-4 col-sm-6 col-xs-12"><br>
+    <div class="info-box">
+        <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
+                class="fa fa-home"></i></span></a>
+        <div class="info-box-content">
+            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-number">
+                <?php
+                // Ensure connection variable $con is properly established
+                    // Get households only for the 'Poblacion' barangay
+                    $q = mysqli_query($con, "SELECT * FROM tblhousehold WHERE barangay = 'Maalat'");
+                $num_rows = mysqli_num_rows($q);
+                echo $num_rows;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+               <div class="col-md-4 col-sm-6 col-xs-12"><br>
+    <div class="info-box">
+        <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
+                class="fa fa-home"></i></span></a>
+        <div class="info-box-content">
+            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-number">
+                <?php
+                // Ensure connection variable $con is properly established
+                    // Get households only for the 'Poblacion' barangay
+                    $q = mysqli_query($con, "SELECT * FROM tblhousehold WHERE barangay = 'Pili'");
+                $num_rows = mysqli_num_rows($q);
+                echo $num_rows;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+               <div class="col-md-4 col-sm-6 col-xs-12"><br>
+    <div class="info-box">
+        <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
+                class="fa fa-home"></i></span></a>
+        <div class="info-box-content">
+            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-number">
+                <?php
+                // Ensure connection variable $con is properly established
+                    // Get households only for the 'Poblacion' barangay
+                    $q = mysqli_query($con, "SELECT * FROM tblhousehold WHERE barangay = 'Kaongkod'");
+                $num_rows = mysqli_num_rows($q);
+                echo $num_rows;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+               <div class="col-md-4 col-sm-6 col-xs-12"><br>
+    <div class="info-box">
+        <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
+                class="fa fa-home"></i></span></a>
+        <div class="info-box-content">
+            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-number">
+                <?php
+                // Ensure connection variable $con is properly established
+                    // Get households only for the 'Poblacion' barangay
+                    $q = mysqli_query($con, "SELECT * FROM tblhousehold WHERE barangay = 'Bunakan'");
+                $num_rows = mysqli_num_rows($q);
+                echo $num_rows;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+               <div class="col-md-4 col-sm-6 col-xs-12"><br>
+    <div class="info-box">
+        <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
+                class="fa fa-home"></i></span></a>
+        <div class="info-box-content">
+            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-number">
+                <?php
+                // Ensure connection variable $con is properly established
+                    // Get households only for the 'Poblacion' barangay
+                    $q = mysqli_query($con, "SELECT * FROM tblhousehold WHERE barangay = 'Tabagak'");
+                $num_rows = mysqli_num_rows($q);
+                echo $num_rows;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+               <div class="col-md-4 col-sm-6 col-xs-12"><br>
+    <div class="info-box">
+        <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
+                class="fa fa-home"></i></span></a>
+        <div class="info-box-content">
+            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-number">
+                <?php
+                // Ensure connection variable $con is properly established
+                    // Get households only for the 'Poblacion' barangay
+                    $q = mysqli_query($con, "SELECT * FROM tblhousehold WHERE barangay = 'Kodia'");
+                $num_rows = mysqli_num_rows($q);
+                echo $num_rows;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+               <div class="col-md-4 col-sm-6 col-xs-12"><br>
+    <div class="info-box">
+        <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
+                class="fa fa-home"></i></span></a>
+        <div class="info-box-content">
+            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-number">
+                <?php
+                // Ensure connection variable $con is properly established
+                    // Get households only for the 'Poblacion' barangay
+                    $q = mysqli_query($con, "SELECT * FROM tblhousehold WHERE barangay = 'Kangwayan'");
+                $num_rows = mysqli_num_rows($q);
+                echo $num_rows;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+               <div class="col-md-4 col-sm-6 col-xs-12"><br>
+    <div class="info-box">
+        <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
+                class="fa fa-home"></i></span></a>
+        <div class="info-box-content">
+            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-number">
+                <?php
+                // Ensure connection variable $con is properly established
+                    // Get households only for the 'Poblacion' barangay
+                    $q = mysqli_query($con, "SELECT * FROM tblhousehold WHERE barangay = 'San Agustin'");
+                $num_rows = mysqli_num_rows($q);
+                echo $num_rows;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
               <?php
 }
 ?>
