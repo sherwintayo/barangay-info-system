@@ -42,6 +42,10 @@ if (!isset($_SESSION['role'])) {
             <!-- left column -->
             <div class="box">
               <!-- Total Household -->
+                           <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] != 'Administrator') {
+?>
               <div class="col-md-3 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
                   <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
@@ -63,6 +67,30 @@ if (!isset($_SESSION['role'])) {
                   </div>
                 </div>
               </div>
+              
+  <div class="col-md-3 col-sm-6 col-xs-12"><br>
+    <div class="info-box">
+        <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
+                class="fa fa-home"></i></span></a>
+        <div class="info-box-content">
+            <span class="info-box-text">Total Household of Poblacion</span>
+            <span class="info-box-number">
+                <?php
+                // Ensure connection variable $con is properly established
+                    // Get households only for the 'Poblacion' barangay
+                    $q = mysqli_query($con, "SELECT * FROM tblhousehold WHERE barangay = 'Poblacion'");
+                $num_rows = mysqli_num_rows($q);
+                echo $num_rows;
+                ?>
+            </span>
+        </div>
+    </div>
+</div>
+
+              <?php
+}
+?>
+
 
               <!-- Total Resident -->
               <div class="col-md-3 col-sm-6 col-xs-12"><br>
@@ -174,6 +202,7 @@ if (!isset($_SESSION['role'])) {
                   </div>
                 </div>
               </div>
+  
             </div> <!-- /.row -->
 <div class="row">
              <?php
