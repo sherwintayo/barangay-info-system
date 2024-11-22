@@ -174,7 +174,8 @@ if (!isset($_SESSION['role'])) {
                   </div>
                 </div>
               </div>
-
+            </div> <!-- /.row -->
+<div class="row">
              <?php
 // Check if the session role is not equal to 'Administrator'
 if ($_SESSION['role'] != 'Administrator') {
@@ -229,9 +230,9 @@ if ($_SESSION['role'] != 'Administrator') {
                   </div>
                 </div>
               </div>
-
+ </div> <!-- /.row -->
             </div><!-- /.box -->
-          </div> <!-- /.row -->
+
         </section><!-- /.content -->
       </aside><!-- /.right-side -->
     </div><!-- ./wrapper -->
