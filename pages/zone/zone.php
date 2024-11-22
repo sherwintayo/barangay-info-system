@@ -51,22 +51,23 @@ include('../head_css.php'); ?>
                                         $query = "SELECT * FROM tblzone";
                                         $squery = mysqli_query($con, $query);
                                         while ($row = mysqli_fetch_array($squery)) {
-                                            $isApproved = $row['isApproved'] == 1;
-                                            echo '<tr>';
-                                            if (!isset($_SESSION['staff'])) {
-                                                echo '<td><input type="checkbox" name="chk_delete[]" class="chk_delete" value="' . $row['id'] . '" /></td>';
-                                            }
-                                            echo '<td>' . $row['zone'] . '</td>';
-                                            echo '<td>' . $row['username'] . '</td>';
-                                            echo '<td>';
-                                            if ($isApproved) {
-                                                echo '<span class="badge badge-success">Approved</span>';
-                                            } else {
-                                                echo '<button class="btn btn-success btn-sm approve-btn" data-id="' . $row['id'] . '"><i class="fa fa-check" aria-hidden="true"></i> Approve</button>';
-                                            }
-                                            echo '</td>';
-                                            echo '</tr>';
-                                        }
+    $isApproved = isset($row['isApproved']) && $row['isApproved'] == 1;
+    echo '<tr>';
+    if (!isset($_SESSION['staff'])) {
+        echo '<td><input type="checkbox" name="chk_delete[]" class="chk_delete" value="' . $row['id'] . '" /></td>';
+    }
+    echo '<td>' . $row['zone'] . '</td>';
+    echo '<td>' . $row['username'] . '</td>';
+    echo '<td>';
+    if ($isApproved) {
+        echo '<span class="badge badge-success">Approved</span>';
+    } else {
+        echo '<button class="btn btn-success btn-sm approve-btn" data-id="' . $row['id'] . '"><i class="fa fa-check" aria-hidden="true"></i> Approve</button>';
+    }
+    echo '</td>';
+    echo '</tr>';
+}
+
                                         ?>
                                     </tbody>
                                 </table>
