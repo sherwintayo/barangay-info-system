@@ -198,7 +198,6 @@ session_start();
                       </script>";
             }
         }
-    }
 
 
         // Prepare and bind parameters
