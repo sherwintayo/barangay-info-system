@@ -44,7 +44,6 @@ include('../head_css.php'); ?>
                                             <th>Barangay</th>
                                             <th>Username</th>
                                             <th style="width: 40px !important;">Approval</th>
-                                            <th style="width: 40px !important;">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
