@@ -6,10 +6,21 @@ echo '
         <section class="sidebar">
             <div class="user-panel">
                 <div class="pull-left info">
-                    <h4>Hello, ' . $_SESSION['barangay'] . '</h4>
+';
+
+if ($_SESSION['role'] === 'Administrator') {
+    echo '<h4>Hello, ' . $_SESSION['role'] . '</h4>';
+} else {
+    echo '<h4>Barangay ' . $_SESSION['barangay'] . '</h4>';
+}
+
+echo '
                 </div>
             </div>
+        </section>
+    </aside>
 ';
+
 if ($_SESSION['role'] == "Administrator") {
     $today = date('Y-m-d');
 
