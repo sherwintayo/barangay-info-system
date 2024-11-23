@@ -17,8 +17,6 @@ if ($_SESSION['role'] === 'Administrator') {
 echo '
                 </div>
             </div>
-        </section>
-    </aside>
 ';
 
 if ($_SESSION['role'] == "Administrator") {
