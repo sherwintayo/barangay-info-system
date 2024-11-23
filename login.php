@@ -199,7 +199,6 @@ session_start();
             }
         }
     }
-?>
 
 
         // Prepare and bind parameters
