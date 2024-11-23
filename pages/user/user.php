@@ -18,7 +18,7 @@ include('../head_css.php'); ?>
 
         <aside class="right-side">
             <section class="content-header">
-                <h1>Zone/Purok Leader</h1>
+                <h1>User</h1>
             </section>
 
             <section class="content">
@@ -49,7 +49,7 @@ include('../head_css.php'); ?>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = "SELECT * FROM tblzone";
+                                        $query = "SELECT * FROM tbluser";
                                         $squery = mysqli_query($con, $query);
                                         while ($row = mysqli_fetch_array($squery)) {
     $isApproved = isset($row['isApproved']) && $row['isApproved'] == 1;
@@ -57,7 +57,7 @@ include('../head_css.php'); ?>
     if (!isset($_SESSION['staff'])) {
         echo '<td><input type="checkbox" name="chk_delete[]" class="chk_delete" value="' . $row['id'] . '" /></td>';
     }
-    echo '<td>' . $row['zone'] . '</td>';
+    echo '<td>' . $row['barangay'] . '</td>';
     echo '<td>' . $row['username'] . '</td>';
     echo '<td>';
     if ($isApproved) {
@@ -66,11 +66,7 @@ include('../head_css.php'); ?>
         echo '<button class="btn btn-success btn-sm approve-btn" data-id="' . $row['id'] . '"><i class="fa fa-check" aria-hidden="true"></i> Approve</button>';
     }
     echo '</td>';
-                                            echo '<td>';
-                                            echo '<button class="btn btn-primary btn-sm" data-target="#editModal'.$row['id'].'" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>';
-                                            echo '</td>';
     echo '</tr>';
-                                            include "edit_modal.php";
 }
 
                                         ?>
@@ -102,7 +98,7 @@ include('../head_css.php'); ?>
             const id = $(this).data('id');
             if (confirm('Are you sure you want to approve this zone?')) {
                 $.ajax({
-                    url: 'approve_zone.php',
+                    url: 'approve_user.php',
                     type: 'POST',
                     data: { id: id },
                     success: function(response) {
