@@ -48,7 +48,7 @@ if ($_SESSION['role'] == "Administrator") {
             </li>
                                    <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] != 'Administrator') {
+if ($_SESSION['role'] == 'Administrator') {
 ?>
              <li>
                 <a href="../user/user.php">
