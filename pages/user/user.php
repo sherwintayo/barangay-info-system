@@ -41,7 +41,7 @@ include('../head_css.php'); ?>
                                             <?php if (!isset($_SESSION['staff'])) { ?>
                                                 <th style="width: 20px !important;"><input type="checkbox" class="cbxMain" onchange="checkMain(this)" /></th>
                                             <?php } ?>
-                                            <th>Zone/Purok</th>
+                                            <th>Barangay</th>
                                             <th>Username</th>
                                             <th style="width: 40px !important;">Approval</th>
                                             <th style="width: 40px !important;">Option</th>
