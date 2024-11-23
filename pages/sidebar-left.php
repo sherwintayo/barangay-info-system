@@ -46,6 +46,11 @@ if ($_SESSION['role'] == "Administrator") {
                     <i class="fa fa-user"></i> <span>Zone/Purok Leader</span>
                 </a>
             </li>
+             <li>
+                <a href="../user/user.php">
+                    <i class="fa fa-user"></i> <span>Users</span>
+                </a>
+            </li>
             <li>
                 <a href="../household/household.php">
                     <i class="fa fa-home"></i> <span>Household</span>
