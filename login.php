@@ -115,7 +115,6 @@ session_start();
     <?php
     echo password_hash("dianna*123", PASSWORD_DEFAULT);
 
-
     if (isset($_POST['btn_login'])) {
         $username = htmlspecialchars(stripslashes(trim($_POST['txt_username'])));
         $password = htmlspecialchars(stripslashes(trim($_POST['txt_password'])));
@@ -126,7 +125,6 @@ session_start();
         if ($stmt->execute()) {
             $result = $stmt->get_result();
             if ($result->num_rows > 0) {
-                
                 $row = $result->fetch_assoc();
 
                 if (password_verify($password, htmlspecialchars(stripslashes(trim($row['password']))))) {
@@ -137,24 +135,24 @@ session_start();
                         $_SESSION['barangay'] = clean($row['barangay']);
                     
                         echo "<script>
-                                    Swal.fire({
-                                        title: 'Success!',
-                                        text: 'Welcome, Administrator!',
-                                        icon: 'success',
-                                        timer: 2000,
-                                        showConfirmButton: false
-                                    }).then(() => {
-                                        window.location.href = 'pages/dashboard/dashboard.php';
-                                    });
-                                </script>
-                            ";
-                    } else if ($row['type'] == 'Zone Leader' && $row['status'] == $status) {
-                        $_SESSION['role'] = clean("Zone Leader");
-                        $_SESSION['userid'] = clean($row['id']);
-                        $_SESSION['username'] = clean($row['username']);
-                        $_SESSION['barangay'] = clean($row['barangay']);
-    
-                        echo "<script>
+                                Swal.fire({
+                                    title: 'Success!',
+                                    text: 'Welcome, Administrator!',
+                                    icon: 'success',
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                }).then(() => {
+                                    window.location.href = 'pages/dashboard/dashboard.php';
+                                });
+                              </script>";
+                    } else if ($row['type'] == 'Zone Leader') {
+                        if ($row['isApproved'] == $status) {
+                            $_SESSION['role'] = clean("Zone Leader");
+                            $_SESSION['userid'] = clean($row['id']);
+                            $_SESSION['username'] = clean($row['username']);
+                            $_SESSION['barangay'] = clean($row['barangay']);
+                            
+                            echo "<script>
                                     Swal.fire({
                                         title: 'Success!',
                                         text: 'Welcome, Zone Leader!',
@@ -164,36 +162,44 @@ session_start();
                                     }).then(() => {
                                         window.location.href = 'pages/permit/permit.php';
                                     });
-                                </script>
-                            ";
-    
+                                  </script>";
+                        } else {
+                            echo "<script>
+                                    Swal.fire({
+                                        title: 'Account Pending Approval!',
+                                        text: 'Your account has not been approved yet. Please contact the administrator.',
+                                        icon: 'warning',
+                                        timer: 3000,
+                                        showConfirmButton: false
+                                    });
+                                  </script>";
+                        }
                     }
-                }else{
+                } else {
                     echo "<script>
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Incorrect username or password.',
-                        icon: 'error',
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-                </script>";
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Incorrect username or password.',
+                                icon: 'error',
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
+                          </script>";
                 }
-
-                var_dump($result);
-               
             } else {
-                    echo "<script>
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Account don\'t exist.',
-                        icon: 'error',
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-                </script>";
+                echo "<script>
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Account doesn\'t exist.',
+                            icon: 'error',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                      </script>";
             }
         }
+    }
+?>
 
 
         // Prepare and bind parameters
