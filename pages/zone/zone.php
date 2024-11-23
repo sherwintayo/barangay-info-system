@@ -43,7 +43,6 @@ include('../head_css.php'); ?>
                                             <?php } ?>
                                             <th>Zone/Purok</th>
                                             <th>Username</th>
-                                            <th style="width: 40px !important;">Approval</th>
                                             <th style="width: 40px !important;">Option</th>
                                         </tr>
                                     </thead>
@@ -59,13 +58,6 @@ include('../head_css.php'); ?>
     }
     echo '<td>' . $row['zone'] . '</td>';
     echo '<td>' . $row['username'] . '</td>';
-    echo '<td>';
-    if ($isApproved) {
-        echo '<span class="badge badge-success">Approved</span>';
-    } else {
-        echo '<button class="btn btn-success btn-sm approve-btn" data-id="' . $row['id'] . '"><i class="fa fa-check" aria-hidden="true"></i> Approve</button>';
-    }
-    echo '</td>';
                                             echo '<td>';
                                             echo '<button class="btn btn-primary btn-sm" data-target="#editModal'.$row['id'].'" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>';
                                             echo '</td>';
@@ -96,25 +88,6 @@ include('../head_css.php'); ?>
                 }],
                 "aaSorting": []
             });
-        });
-
-        $(document).on('click', '.approve-btn', function() {
-            const id = $(this).data('id');
-            if (confirm('Are you sure you want to approve this zone?')) {
-                $.ajax({
-                    url: 'approve_zone.php',
-                    type: 'POST',
-                    data: { id: id },
-                    success: function(response) {
-                        if (response === 'success') {
-                            alert('Zone approved successfully!');
-                            location.reload(); // Reload the page to reflect the changes
-                        } else {
-                            alert('Failed to approve the zone.');
-                        }
-                    }
-                });
-            }
         });
     </script>
 </body>
