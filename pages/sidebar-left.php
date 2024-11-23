@@ -6,7 +6,7 @@ echo '
         <section class="sidebar">
             <div class="user-panel">
                 <div class="pull-left info">
-                    <h4>Hello, ' . $_SESSION['role'] . '</h4>
+                    <h4>Hello, ' . $_SESSION['barangay'] . '</h4>
                 </div>
             </div>
 ';
