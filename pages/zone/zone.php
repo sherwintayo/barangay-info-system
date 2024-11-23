@@ -65,6 +65,9 @@ include('../head_css.php'); ?>
         echo '<button class="btn btn-success btn-sm approve-btn" data-id="' . $row['id'] . '"><i class="fa fa-check" aria-hidden="true"></i> Approve</button>';
     }
     echo '</td>';
+                                            echo '<td>';
+                                            echo '<button class="btn btn-primary btn-sm" data-target="#editModal'.$row['id'].'" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>';
+                                            echo '</td>';
     echo '</tr>';
                                             include "edit_modal.php";
 }
