@@ -49,7 +49,7 @@ include('../head_css.php'); ?>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = "SELECT * FROM tbluser";
+                                        $query = "SELECT * FROM tbluser WHERE type = 'Zone Leader'";
                                         $squery = mysqli_query($con, $query);
                                         while ($row = mysqli_fetch_array($squery)) {
     $isApproved = isset($row['isApproved']) && $row['isApproved'] == 1;
