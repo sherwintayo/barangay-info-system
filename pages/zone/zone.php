@@ -43,6 +43,7 @@ include('../head_css.php'); ?>
                                             <?php } ?>
                                             <th>Zone/Purok</th>
                                             <th>Username</th>
+                                            <th style="width: 40px !important;">Approval</th>
                                             <th style="width: 40px !important;">Option</th>
                                         </tr>
                                     </thead>
