@@ -81,6 +81,9 @@ $selectedBarangay = $_SESSION['barangay'] ?? null;
                                         <label class="control-label">Age:</label>
                                         <input name="txt_age" class="form-control input-sm input-size" type="number" placeholder="Age"/>
                                     </div> -->
+                                
+<pre><?php print_r($barangays); ?></pre>
+
 
                            <div class="form-group">
         <select name="txt_brgy" class="form-control input-sm" required="">
