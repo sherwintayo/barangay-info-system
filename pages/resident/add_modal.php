@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="form-group">
                                     <!--<label class="control-label">Municipality:</label>-->
-                                    <input name="txt_Municipality" class="form-control input-sm input-size" type="text" placeholder="Municipality" required="" />
+                                    <input value="Madridejos" name="txt_Municipality" class="form-control input-sm input-size" type="text" placeholder="Municipality" required="" />
                                 </div>
 
                                 <div class="form-group">
