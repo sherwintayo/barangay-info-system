@@ -70,7 +70,9 @@
 
 
 
-                            <?php
+                           <?php
+// Start the session
+session_start();
 
 // Example: Set a barangay in session (remove this line if session is already set elsewhere)
 $_SESSION['barangay'] = $_SESSION['barangay'] ?? null;
@@ -97,7 +99,6 @@ $barangays = [
         ?>
     </select>
 </div>
-
 
 
                                 <div class="form-group">
