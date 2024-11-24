@@ -38,30 +38,35 @@
 
 
                                 <div class="form-group">
-                                    <!-- <label class="control-label">Barangay:</label>-->
-                                    <!-- <input name="txt_brgy" class="form-control input-sm input-size" type="text" placeholder="Barangay" required="" /> -->
-                                    <select name="txt_brgy" class="form-control input-sm" required="">
-    <option selected="" disabled="">-Select Barangay-</option>
-    <?php 
-       if ($isZoneLeader) {
-           if (!empty($all_barangay)) {
-               foreach ($all_barangay as $brgy) {
-                   echo "<option value=\"$brgy\" " . ($brgy == $zone_barangay ? 'selected' : '') . ">$brgy</option>";
+    <select name="txt_brgy" class="form-control input-sm" required="">
+        <option selected="" disabled="">-Select Barangay-</option>
+        <?php 
+           if ($isZoneLeader) {
+               // Assuming the session variable contains an array of barangays
+               if (!empty($_SESSION['barangay'])) {
+                   $selected_barangay = $_SESSION['barangay'];
+                   foreach ($all_barangay as $brgy) {
+                       echo "<option value=\"$brgy\" " . ($brgy == $selected_barangay ? 'selected' : '') . ">$brgy</option>";
+                   }
+               } else {
+                   echo "<option disabled>No barangays available</option>";
                }
            } else {
-               echo "<option disabled>No barangays available</option>";
+               // Static barangays
+               $barangays = [
+                   "Kangwayan", "Kodia", "Pili", "Bunakan", "Tabagak", "Maalat",
+                   "Tarong", "Malbago", "Mancilang", "Kaongkod", "San Agustin",
+                   "Poblacion", "Tugas", "Talangnan"
+               ];
+               foreach ($barangays as $brgy) {
+                   // Check if the barangay from session matches and select it
+                   echo "<option value=\"$brgy\" " . (isset($_SESSION['barangay']) && $_SESSION['barangay'] == $brgy ? 'selected' : '') . ">$brgy</option>";
+               }
            }
-       } else {
-           // Static barangays
-           $barangays = ["Kangwayan", "Kodia", "Pili", "Bunakan", "Tabagak", "Maalat", "Tarong", "Malbago", "Mancilang", "Kaongkod", "San Agustin", "Poblacion", "Tugas", "Talangnan"];
-           foreach ($barangays as $brgy) {
-               echo "<option value=\"$brgy\">$brgy</option>";
-           }
-       }
-    ?>
-</select>
+        ?>
+    </select>
+</div>
 
-                                </div>
 
                                 <div class="form-group">
                                     <!--  <label class="control-label">Household #:</label>-->
