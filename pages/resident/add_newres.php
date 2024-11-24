@@ -69,28 +69,30 @@
                                     </div> -->
 
 
-                                <div class="form-group">
-                                    <!-- <label class="control-label">Barangay:</label>-->
-<!--                                     <input name="txt_brgy" class="form-control input-sm input-size" type="text"
-                                        placeholder="Barangay" required="" /> -->
-                                      <select name="txt_brgy" class="form-control input-sm" required="">
-                                        <option selected="" disabled="">-Select Barangay-</option>
-                                        <option value="Kangwayan">Kangwayan</option>
-                                        <option value="Kodia">Kodia</option>
-                                        <option value="Pili">Pili</option>
-                                        <option value="Bunakan">Bunakan</option>
-                                        <option value="Tabagak">Tabagak</option>
-                                        <option value="Maalat">Maalat</option>
-                                        <option value="Tarong">Tarong</option>
-                                        <option value="Malbago">Malbago</option>
-                                        <option value="Mancilang">Mancilang</option>
-                                        <option value="Kaongkod">Kaongkod</option>
-                                        <option value="San Agustin">San Agustin</option>
-                                        <option value="Poblacion">Poblacion</option>
-                                        <option value="Tugas">Tugas</option>
-                                        <option value="Talangnan">Talangnan</option>
-                                    </select>
-                                </div>
+<?php
+
+$selectedBarangay = isset($_SESSION['barangay']) ? $_SESSION['barangay'] : null;
+?>
+<div class="form-group">
+    <select name="txt_brgy" class="form-control input-sm" required="">
+        <option disabled <?php echo is_null($selectedBarangay) ? 'selected' : ''; ?>>-Select Barangay-</option>
+        <?php
+        // List of barangays
+        $barangays = [
+            "Kangwayan", "Kodia", "Pili", "Bunakan", "Tabagak",
+            "Maalat", "Tarong", "Malbago", "Mancilang", "Kaongkod",
+            "San Agustin", "Poblacion", "Tugas", "Talangnan"
+        ];
+
+        // Generate options dynamically
+        foreach ($barangays as $barangay) {
+            $isSelected = ($barangay === $selectedBarangay) ? 'selected' : '';
+            echo "<option value=\"$barangay\" $isSelected>$barangay</option>";
+        }
+        ?>
+    </select>
+</div>
+
 
                                 <div class="form-group">
                                     <!--  <label class="control-label">Household #:</label>-->
