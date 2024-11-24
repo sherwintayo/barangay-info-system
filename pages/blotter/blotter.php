@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <?php
 session_start();
 if (!isset($_SESSION['role'])) {
@@ -160,13 +159,8 @@ if (!isset($_SESSION['role'])) {
         <?php }
         include "../footer.php"; ?>
         
+        <!-- JavaScript code -->
         <script type="text/javascript">
-            <?php include "../edit_notif.php"; ?>
-            <?php include "../added_notif.php"; ?>
-            <?php include "../delete_notif.php"; ?>
-            <?php include "add_modal.php"; ?>
-            <?php include "function.php"; ?>
-
             $(function() {
                 var options = {
                     "aoColumnDefs": [
@@ -174,10 +168,6 @@ if (!isset($_SESSION['role'])) {
                     ],
                     "aaSorting": []
                 };
-
-                <?php if (isset($_SESSION['staff'])) { ?>
-                    options["aoColumnDefs"] = [{ "bSortable": false, "aTargets": [7] }];
-                <?php } ?>
 
                 $('#table').DataTable(options);
             });
