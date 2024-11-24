@@ -272,7 +272,7 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $squery = mysqli_query($con, "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid FROM tblpermit p left join tblresident r on r.id = p.residentid where status = 'New'") or die('Error: ' . mysqli_error($con));
+                                            $squery = mysqli_query($con, "SELECT *,CONCAT(r.lname, ', ' ,r.fname, ' ' ,r.mname) as residentname,p.id as pid FROM tblpermit p LEFT JOIN tblresident r ON r.id = p.residentid WHERE status = 'Approved'");
                                             while($row = mysqli_fetch_array($squery))
                                             {
                                                 echo '
