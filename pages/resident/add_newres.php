@@ -1,4 +1,18 @@
 <!-- ========================= MODAL ======================= -->
+<?php
+// Start the session
+session_start();
+
+// Define the barangay list
+$barangays = [
+    "Kangwayan", "Kodia", "Pili", "Bunakan", "Tabagak",
+    "Maalat", "Tarong", "Malbago", "Mancilang", "Kaongkod",
+    "San Agustin", "Poblacion", "Tugas", "Talangnan"
+];
+
+// Optional: Get the selected barangay from the session (for persistence)
+$selectedBarangay = $_SESSION['barangay'] ?? null;
+?>
 <div id="addCourseModal" class="modal fade">
     <form class="form-horizontal" method="post" enctype="multipart/form-data">
         <div class="modal-dialog modal-lg">
@@ -68,17 +82,16 @@
                                         <input name="txt_age" class="form-control input-sm input-size" type="number" placeholder="Age"/>
                                     </div> -->
 
-
-
-                          <div class="form-group">
-    <select name="txt_brgy" class="form-control input-sm" required="">
-        <option selected disabled>-Select Barangay-</option>
-        <option value="Kangwayan">Kangwayan</option>
-        <option value="Kodia">Kodia</option>
-    </select>
-</div>
-
-
+                           <div class="form-group">
+        <select name="txt_brgy" class="form-control input-sm" required="">
+            <option selected disabled>-Select Barangay-</option>
+            <?php foreach ($barangays as $barangay): ?>
+                <option value="<?= htmlspecialchars($barangay); ?>" <?= $barangay === $selectedBarangay ? 'selected' : ''; ?>>
+                    <?= htmlspecialchars($barangay); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
                                 <div class="form-group">
                                     <!--  <label class="control-label">Household #:</label>-->
