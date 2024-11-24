@@ -192,25 +192,8 @@ if ($_SESSION['role'] != 'Administrator') {
   
             </div> <!-- /.row -->
 
-<!-- <div class="row">
-             <?php
-// Check if the session role is not equal to 'Administrator'
-// if ($_SESSION['role'] != 'Administrator') {
-?>
-<!--   <!-- Population per Zone/Purok -->
-  <div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        Population per Zone/Purok
-      </div>
-      <div class="panel-body">
-        <div id="morris-bar-chart3"></div>
-      </div>
-    </div>
-  </div> -->
-<?php
-// }
-?> -->
+<div class="row">
+
 
               <!-- Males and Females in Barangay -->
               <div class="col-md-6 col-sm-12 col-xs-12">
