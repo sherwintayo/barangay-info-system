@@ -70,35 +70,14 @@
 
 
 
-                           <?php
-// Start the session
-session_start();
-
-// Example: Set a barangay in session (remove this line if session is already set elsewhere)
-$_SESSION['barangay'] = $_SESSION['barangay'] ?? null;
-
-// Retrieve the barangay from the session
-$selectedBarangay = $_SESSION['barangay'];
-
-// List of barangays
-$barangays = [
-    "Kangwayan", "Kodia", "Pili", "Bunakan", "Tabagak",
-    "Maalat", "Tarong", "Malbago", "Mancilang", "Kaongkod",
-    "San Agustin", "Poblacion", "Tugas", "Talangnan"
-];
-?>
-<div class="form-group">
+                          <div class="form-group">
     <select name="txt_brgy" class="form-control input-sm" required="">
-        <option value="" disabled <?php echo is_null($selectedBarangay) ? 'selected' : ''; ?>>-Select Barangay-</option>
-        <?php
-        // Generate options dynamically
-        foreach ($barangays as $barangay) {
-            $isSelected = ($barangay === $selectedBarangay) ? 'selected' : '';
-            echo "<option value=\"$barangay\" $isSelected>$barangay</option>";
-        }
-        ?>
+        <option selected disabled>-Select Barangay-</option>
+        <option value="Kangwayan">Kangwayan</option>
+        <option value="Kodia">Kodia</option>
     </select>
 </div>
+
 
 
                                 <div class="form-group">
