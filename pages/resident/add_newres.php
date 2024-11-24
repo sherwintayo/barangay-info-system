@@ -82,20 +82,17 @@ $selectedBarangay = $_SESSION['barangay'] ?? null;
                                         <input name="txt_age" class="form-control input-sm input-size" type="number" placeholder="Age"/>
                                     </div> -->
                                 
-<pre><?php print_r($barangays); ?></pre>
 
-
-                           <div class="form-group">
-        <select name="txt_brgy" class="form-control input-sm" required="">
-            <option selected disabled>-Select Barangay-</option>
-            <?php foreach ($barangays as $barangay): ?>
-                <option value="<?= htmlspecialchars($barangay); ?>" <?= $barangay === $selectedBarangay ? 'selected' : ''; ?>>
-                    <?= htmlspecialchars($barangay); ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-
+<div class="form-group">
+    <input 
+        name="txt_brgy" 
+        class="form-control input-sm" 
+        type="text" 
+        placeholder="Barangay" 
+        value="<?= htmlspecialchars($selectedBarangay); ?>" 
+        required="" 
+    />
+</div>
                                 <div class="form-group">
                                     <!--  <label class="control-label">Household #:</label>-->
                                     <input name="txt_householdnum" class="form-control input-sm input-size"
