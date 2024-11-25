@@ -59,17 +59,17 @@
                                         <tbody>
                                             <?php
                                             if ($isZoneLeader) {
-                                                $squery = mysqli_query($con, "select * from tblstaff WHERE barangay = '$zone_barangay'");
+                                                $squery = mysqli_query($con, "select * from tblpurok WHERE barangay = '$zone_barangay'");
                                             }else{
-                                                $squery = mysqli_query($con, "select * from tblstaff");
+                                                $squery = mysqli_query($con, "select * from tblpurok");
                                             }
                                             while($row = mysqli_fetch_array($squery))
                                             {
                                                 echo '
                                                 <tr>
                                                     <td><input type="checkbox" name="chk_delete[]" class="chk_delete" value="'.$row['id'].'" /></td>
-                                                    <td>'.$row['name'].'</td>
-                                                    <td>'.$row['username'].'</td>
+                                                    <td>'.$row['barangay'].'</td>
+                                                    <td>'.$row['purok'].'</td>
                                                     <td><button class="btn btn-primary btn-sm" data-target="#editModal'.$row['id'].'" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>
                                                 </tr>
                                                 ';
