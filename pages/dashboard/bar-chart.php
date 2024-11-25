@@ -58,7 +58,7 @@
         element: 'morris-bar-chart6',
         data: [
             <?php
-            // Check if the user is a Zone Leader and filter by barangay accordingly
+            // Query to fetch data grouped by barangay and gender
             if ($isZoneLeader) {
                 $qry = mysqli_query($con, "
                     SELECT barangay,
@@ -78,17 +78,22 @@
                 ");
             }
 
-            // Fetch and format data for Morris.js
+            // Format data for Morris.js
             while ($row = mysqli_fetch_array($qry)) {
                 echo "{y: '" . $row['barangay'] . "', male: " . $row['male_count'] . ", female: " . $row['female_count'] . "},";
             }
             ?>
         ],
-        xkey: 'y',
-        ykeys: ['male', 'female'],
-        labels: ['Male', 'Female'],
+        xkey: 'y', // Barangay name
+        ykeys: ['male', 'female'], // Separate bars for male and female
+        labels: ['Male', 'Female'], // Legend labels
         hideHover: 'auto',
-        barColors: ['#1E90FF', '#FF69B4'], // Assign unique colors for male and female
+        barColors: function (row, series, type) {
+            // Assign unique colors based on the barangay (row index)
+            const colors = ['#1E90FF', '#FF4500', '#32CD32', '#FFD700', '#6A5ACD']; // Add more colors if needed
+            return colors[row.x % colors.length];
+        },
+        stacked: false // Ensure bars are grouped, not stacked
     });
 </script>
 
