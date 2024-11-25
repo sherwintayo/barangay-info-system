@@ -120,7 +120,7 @@ while ($rows = mysqli_fetch_assoc($result)) {
     padding: 0;
     margin: 0;
     left: 16px; /* Adjust horizontal positioning */
-    top: -3px; /* Adjust vertical positioning */
+    top: -1px; /* Adjust vertical positioning */
     z-index: 99; /* Ensure it appears above other elements */
 }
 
