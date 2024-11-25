@@ -108,120 +108,6 @@ while ($rows = mysqli_fetch_assoc($result)) {
 ?>
 
 
-<style>
-    /* Notification Count Badge */
-    .round {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    position: absolute; /* Keep it positioned relative to parent */
-    background: red;
-    display: flex; /* Use flexbox for centering */
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-    left: 10px; /* Adjust horizontal positioning */
-    top: 0px; /* Adjust vertical positioning */
-    z-index: 99; /* Ensure it appears above other elements */
-}
-
-.round > span {
-    color: white;
-    font-size: 12px; /* Keep consistent font size */
-    font-weight: bold;
-    line-height: 1;
-}
-    
-    /* Notification Dropdown */
-    #list {
-        display: none; /* Hidden by default */
-        position: absolute; /* Position relative to bell icon */
-        top: 40px; /* Adjust below the bell */
-        right: 0; /* Align to the right edge */
-        background: #ffffff; /* White background for visibility */
-        z-index: 100; /* Keep above other elements */
-        width: 300px; /* Fixed width for consistency */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-        border: 1px solid #ddd; /* Light border */
-        border-radius: 5px; /* Optional rounded corners */
-        padding: 10px; /* Add padding inside */
-    }
-
-    .message {
-        margin: 10px 0; /* Space between messages */
-        padding: 10px; /* Padding inside each message */
-        border-bottom: 1px solid #f0f0f0; /* Separate messages */
-    }
-
-    .message > .msg {
-        color: #333; /* Neutral text color */
-        font-size: 14px; /* Readable font size */
-        line-height: 1.5; /* Comfortable line height */
-    }
-
-    /* Navbar and User Menu Styling */
-    .navbar-right {
-        display: flex; /* Align items horizontally */
-        align-items: center; /* Vertically align items */
-    }
-
-    .user-menu {
-        margin-left: 1rem; /* Add space between notification and user menu */
-    }
-
-    .user-menu a {
-        color: black; /* Neutral link color */
-        text-decoration: none; /* Remove underline */
-    }
-
-    .user-menu ul {
-        list-style: none; /* Remove bullet points */
-        padding: 0;
-        margin: 0;
-    }
-
-    .user-menu ul li {
-        padding: 10px;
-        background: #f9f9f9;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .user-menu ul li a {
-        color: #333;
-        text-decoration: none;
-    }
-
-    .user-menu ul li a:hover {
-        background: #007bff;
-        color: white;
-    }
-
-    /* Media Query for Responsiveness */
-    @media (max-width: 768px) {
-        #list {
-            width: 90%; /* Adjust dropdown width for smaller screens */
-            right: 5%; /* Center it more */
-        }
-
-        .navbar-right {
-            flex-direction: column; /* Stack items vertically */
-        }
-
-        .user-menu {
-            margin-left: 0; /* Remove unnecessary margin */
-        }
-    }
-
-    /* Print-Specific Styles */
-    @media print {
-        .dont-print {
-            display: none !important;
-        }
-    }
-</style>
-
-
 <?php
 $squery = mysqli_query($con, "SELECT * FROM tblsettings");
 $data = $squery->fetch_assoc();
@@ -244,67 +130,190 @@ echo '<header class="header">
             <span class="icon-bar"></span>
         </a>
         <ul class="nav navbar-nav navbar-right">
-        <li><i class="fa fa-bell" id="over" data-value="' . $total_count . '" style="z-index:-99 !important;font-size:20px;color:black;margin:1.5rem 0.4rem !important;"></i></li>';
-if (!empty($total_count)) {
-    echo '<div class="round" id="bell-count" data-value="' . $total_count . '"><span>' . $total_count . '</span></div>';
-}
-if (!empty($count_active)) {
-    echo '<div id="list">';
-    foreach ($notifications_data as $list_rows) {
-        echo '<li id="message_items">
-<div class="message alert alert-warning" data-id="' . $list_rows['id'] . '">
-<div class="msg">
-    <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
-</div>
-</div>
-</li>';
-    }
-    echo '</div>';
-} else {
-    echo '<div id="list">';
-    foreach ($deactive_notifications_dump as $list_rows) {
-        echo '<li id="message_items">
-<div class="message alert alert-danger" data-id="' . $list_rows['id'] . '">
-<div class="msg">
-    <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
-</div>
-</div>
-</li>';
-    }
-    echo '</div>';
-}
-echo '<ul>
-        <div class="navbar-right">
-            <ul class="nav navbar-nav" style="background-color:transparent;">
-                <!-- User Account: style can be found in dropdown.less -->
-                <li class="dropdown user user-menu">
-                    <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="glyphicon glyphicon-user"></i><span>' . $_SESSION['role'] . '<i class="caret"></i></span>
-                    </a>
-                  
-                    <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <li class="user-header bg-light-blue" style="background-color:#0000FF;">
-                            <p>' . $_SESSION['role'] . '</p>
-                        </li>
-                        <!-- Menu Body -->
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background-color: #00BB27;">Change Account</a>
-                            </div>
-                            <div class="pull-right">
-                                <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>';
-
+            <li style="position: relative;">
+                <i class="fa fa-bell" id="over" data-value="' . $total_count . '" style="z-index:-99 !important;font-size:20px;color:black;margin:1.5rem 0.4rem !important;"></i>';
+                if (!empty($total_count)) {
+                    echo '<div class="round" id="bell-count" data-value="' . $total_count . '"><span>' . $total_count . '</span></div>';
+                }
+            echo '</li>';
+            if (!empty($count_active)) {
+                echo '<div id="list">';
+                foreach ($notifications_data as $list_rows) {
+                    echo '<li id="message_items">
+                    <div class="message alert alert-warning" data-id="' . $list_rows['id'] . '">
+                        <div class="msg">
+                            <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
+                        </div>
+                    </div>
+                </li>';
+                }
+                echo '</div>';
+            } else {
+                echo '<div id="list">';
+                foreach ($deactive_notifications_dump as $list_rows) {
+                    echo '<li id="message_items">
+                    <div class="message alert alert-danger" data-id="' . $list_rows['id'] . '">
+                        <div class="msg">
+                            <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
+                        </div>
+                    </div>
+                </li>';
+                }
+                echo '</div>';
+            }
+            echo '<ul>
+            <div class="navbar-right">
+                <ul class="nav navbar-nav" style="background-color:transparent;">
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-user"></i><span>' . $_SESSION['role'] . '<i class="caret"></i></span>
+                        </a>
+                      
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header bg-light-blue" style="background-color:#0000FF;">
+                                <p>' . $_SESSION['role'] . '</p>
+                            </li>
+                            <!-- Menu Body -->
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background-color: #00BB27;">Change Account</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>';
 ?>
+
+<style>
+/* Notification Count Badge */
+.round {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute;
+    background: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    left: 16px; /* Adjust horizontal positioning */
+    top: -6px; /* Adjust vertical positioning */
+    z-index: 99; /* Ensure it appears above other elements */
+}
+
+.round > span {
+    color: white;
+    font-size: 12px; /* Consistent font size */
+    font-weight: bold;
+    line-height: 1;
+}
+
+/* Notification Bell Icon */
+.fa-bell {
+    position: relative; /* Allow badge to position relative to the bell */
+    font-size: 20px;
+    color: black;
+    margin: 1.5rem 0.4rem !important;
+}
+
+/* Notification Dropdown */
+#list {
+    display: none; /* Hidden by default */
+    position: absolute; /* Position relative to bell icon */
+    top: 40px; /* Adjust below the bell */
+    right: 0; /* Align to the right edge */
+    background: #ffffff; /* White background for visibility */
+    z-index: 100; /* Keep above other elements */
+    width: 300px; /* Fixed width for consistency */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 5px; /* Optional rounded corners */
+    padding: 10px; /* Add padding inside */
+}
+
+.message {
+    margin: 10px 0; /* Space between messages */
+    padding: 10px; /* Padding inside each message */
+    border-bottom: 1px solid #f0f0f0; /* Separate messages */
+}
+
+.message > .msg {
+    color: #333; /* Neutral text color */
+    font-size: 14px; /* Readable font size */
+    line-height: 1.5; /* Comfortable line height */
+}
+
+/* Navbar and User Menu Styling */
+.navbar-right {
+    display: flex; /* Align items horizontally */
+    align-items: center; /* Vertically align items */
+}
+
+.user-menu {
+    margin-left: 1rem; /* Add space between notification and user menu */
+}
+
+.user-menu a {
+    color: black; /* Neutral link color */
+    text-decoration: none; /* Remove underline */
+}
+
+.user-menu ul {
+    list-style: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0;
+}
+
+.user-menu ul li {
+    padding: 10px;
+    background: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-menu ul li a {
+    color: #333;
+    text-decoration: none;
+}
+
+.user-menu ul li a:hover {
+    background: #007bff;
+    color: white;
+}
+
+/* Media Query for Responsiveness */
+@media (max-width: 768px) {
+    #list {
+        width: 90%; /* Adjust dropdown width for smaller screens */
+        right: 5%; /* Center it more */
+    }
+
+    .navbar-right {
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    .user-menu {
+        margin-left: 0; /* Remove unnecessary margin */
+    }
+}
+
+/* Print-Specific Styles */
+@media print {
+    .dont-print {
+        display: none !important;
+    }
+}
+</style>
+
 
 <div id="editProfileModal" class="modal fade">
     <form method="post">
