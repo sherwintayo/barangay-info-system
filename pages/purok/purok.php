@@ -51,8 +51,8 @@
                                         <thead>
                                             <tr>
                                                 <th style="width: 20px !important;"><input type="checkbox" name="chk_delete[]" class="cbxMain" onchange="checkMain(this)"/></th>
-                                                <th>Name</th>
-                                                <th>Username</th>
+                                                <th>Barangay</th>
+                                                <th>Purok</th>
                                                 <th style="width: 40px !important;">Option</th>
                                             </tr>
                                         </thead>
