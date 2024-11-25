@@ -80,7 +80,7 @@ if ($_SESSION['role'] == 'Administrator') {
                   <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                         class="fa fa-home"></i></span></a>
                   <div class="info-box-content">
-                    <span class="info-box-text">Total number of Municipal household</span>
+                    <span class="info-box-text">Total number of households</span>
                     <span class="info-box-number">
                       <?php
                      if ($isZoneLeader) {
