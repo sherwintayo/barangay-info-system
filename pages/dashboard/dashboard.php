@@ -124,7 +124,7 @@ if ($_SESSION['role'] != 'Administrator') {
               </div>
                            <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] == 'Administrator') {
+if ($_SESSION['role'] != 'Administrator') {
 ?>
               <!-- Total New Resident -->
               <div class="col-md-3 col-sm-6 col-xs-12"><br>
