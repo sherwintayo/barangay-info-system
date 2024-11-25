@@ -51,7 +51,7 @@ if ($_SESSION['role'] == 'Administrator') {
                   <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                         class="fa fa-home"></i></span></a>
                   <div class="info-box-content">
-                    <span class="info-box-text">Total Household</span>
+                    <span class="info-box-text">Total number of Municipal household</span>
                     <span class="info-box-number">
                       <?php
                      if ($isZoneLeader) {
@@ -70,13 +70,43 @@ if ($_SESSION['role'] == 'Administrator') {
                 <?php
 }
 ?>
+  
+                             <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] == 'Administrator') {
+?>
+   <div class="col-md-4 col-sm-6 col-xs-12"><br>
+                <div class="info-box">
+                  <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
+                        class="fa fa-home"></i></span></a>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Total number of Municipal household</span>
+                    <span class="info-box-number">
+                      <?php
+                     if ($isZoneLeader) {
+                      $q = mysqli_query($con, "SELECT * from tblhousehold WHERE barangay = '$barangayByZoneLeader'");
+                      $num_rows = mysqli_num_rows($q);
+                     }else{
+                      $q = mysqli_query($con, "SELECT * from tblhousehold");
+                      $num_rows = mysqli_num_rows($q);
+                     }
+                      echo $num_rows;
+                      ?>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+                              <?php
+}
+?>
               <!-- Total Resident -->
               <div class="col-md-3 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
                   <a href="../resident/resident.php"><span class="info-box-icon" style="background-color: transparent;"><i
                         class="fa fa-users"></i></span></a>
                   <div class="info-box-content">
-                    <span class="info-box-text">Total Resident</span>
+                    <span class="info-box-text">Total number of Municipal residents</span>
                     <span class="info-box-number">
                       <?php
                       if ($isZoneLeader) {
@@ -92,7 +122,10 @@ if ($_SESSION['role'] == 'Administrator') {
                   </div>
                 </div>
               </div>
-
+                           <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] == 'Administrator') {
+?>
               <!-- Total New Resident -->
               <div class="col-md-3 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
@@ -114,7 +147,9 @@ if ($_SESSION['role'] == 'Administrator') {
                   </div>
                 </div>
               </div>
-
+                <?php
+}
+?>
               
                                        <?php
 // Check if the session role is not equal to 'Administrator'
@@ -223,7 +258,10 @@ if ($_SESSION['role'] != 'Administrator') {
                   </div>
                 </div>
               </div>
-
+                           <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] == 'Administrator') {
+?>
               <!-- Resident Educational Attainment -->
               <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="panel panel-default">
@@ -235,12 +273,16 @@ if ($_SESSION['role'] != 'Administrator') {
                   </div>
                 </div>
               </div>
+  <?php
+}
+?>
+
 
               <!-- Total Households -->
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="panel panel-default">
                   <div class="panel-heading">
-                    Total Households
+                    Total number of Municipal household bar graph
                   </div>
                   <div class="panel-body">
                     <div id="morris-bar-chart5"></div>
