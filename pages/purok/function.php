@@ -1,13 +1,12 @@
 <?php
 if(isset($_POST['btn_add'])){
-    $txt_name = $_POST['txt_name'];
-    $txt_uname = $_POST['txt_uname'];
-    $txt_pass = $_POST['txt_pass'];
+    $txt_barangay = $_POST['txt_barangay'];
+    $txt_purok = $_POST['txt_purok'];
     $barangay = $zone_barangay;
 
-    if(isset($_SESSION['role']) && isset($_POST['txt_name'])) {
+    if(isset($_SESSION['role']) && isset($_POST['txt_barangay'])) {
         // Escape user input for security
-        $txt_name = mysqli_real_escape_string($con, $_POST['txt_name']);
+        $txt_barangay = mysqli_real_escape_string($con, $_POST['txt_barangay']);
         
         // Construct the log action
         $action = 'Added Staff with name of ' . $txt_name;
@@ -34,16 +33,16 @@ if(isset($_POST['btn_add'])){
         $stmt->close();
     }
     
-    $su = mysqli_query($con,"SELECT * from tblstaff where username = '".$txt_uname."' ");
+    $su = mysqli_query($con,"SELECT * from tblpurok where purok = '".$txt_purok."' ");
     $ct = mysqli_num_rows($su);
     
     if($ct == 0){
         if ($isZoneLeader) {
-            $query = mysqli_query($con,"INSERT INTO tblstaff (name,username,password,barangay) 
-            values ('$txt_name', '$txt_uname', '$txt_pass','$barangay')") or die('Error: ' . mysqli_error($con));
+            $query = mysqli_query($con,"INSERT INTO tblpurok (barangay,purok) 
+            values ('$txt_barangay', '$txt_purok')") or die('Error: ' . mysqli_error($con));
         }else{
-            $query = mysqli_query($con,"INSERT INTO tblstaff (name,username,password) 
-            values ('$txt_name', '$txt_uname', '$txt_pass')") or die('Error: ' . mysqli_error($con));
+            $query = mysqli_query($con,"INSERT INTO tblpurok(barangay,purok) 
+            values ('$txt_barangay', '$txt_purok')") or die('Error: ' . mysqli_error($con));
         }
         if($query == true)
         {
