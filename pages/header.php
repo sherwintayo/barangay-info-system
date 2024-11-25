@@ -109,99 +109,118 @@ while ($rows = mysqli_fetch_assoc($result)) {
 
 
 <style>
-   /* Notification Bell CSS */
-.round {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    position: relative;
-    background: red;
-    display: inline-block;
-    padding: 0.3rem 0.2rem !important;
-    margin: 0.3rem 0.2rem !important;
-    left: -18px;
-    top: 10px;
-    z-index: 99 !important;
-}
+    /* Notification Count Badge */
+    .round {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        position: absolute; /* Keep it positioned relative to parent */
+        background: red;
+        display: flex; /* Use flexbox for centering */
+        justify-content: center;
+        align-items: center;
+        padding: 0; /* Remove unnecessary padding */
+        margin: 0; /* Reset margin */
+        left: -10px; /* Position near the bell icon */
+        top: 5px; /* Vertical adjustment */
+        z-index: 99; /* Ensure it's above other elements */
+    }
 
-.round > span {
-    color: white;
-    display: block;
-    text-align: center;
-    font-size: 1rem !important;
-    padding: 0 !important;
-}
+    .round > span {
+        color: white;
+        font-size: 12px; /* Set consistent font size */
+        font-weight: bold; /* Make it noticeable */
+        line-height: 1; /* Prevent extra spacing */
+    }
 
-#list {
-    display: none;
-    top: 33px;
-    position: absolute;
-    right: 2%;
-    background: #ffffff;
-    z-index: 100 !important;
-    width: 25vw;
-    margin-left: -37px;
-    padding: 0 !important;
-    margin: 0 auto !important;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
+    /* Notification Dropdown */
+    #list {
+        display: none; /* Hidden by default */
+        position: absolute; /* Position relative to bell icon */
+        top: 40px; /* Adjust below the bell */
+        right: 0; /* Align to the right edge */
+        background: #ffffff; /* White background for visibility */
+        z-index: 100; /* Keep above other elements */
+        width: 300px; /* Fixed width for consistency */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        border: 1px solid #ddd; /* Light border */
+        border-radius: 5px; /* Optional rounded corners */
+        padding: 10px; /* Add padding inside */
+    }
 
-.message > span {
-    width: 100%;
-    display: block;
-    color: red;
-    text-align: justify;
-    margin: 0.2rem 0.3rem !important;
-    padding: 0.3rem !important;
-    line-height: 1rem !important;
-    font-weight: bold;
-    border-bottom: 1px solid white;
-    font-size: 1.2rem;
-}
+    .message {
+        margin: 10px 0; /* Space between messages */
+        padding: 10px; /* Padding inside each message */
+        border-bottom: 1px solid #f0f0f0; /* Separate messages */
+    }
 
-.message > .msg {
-    width: 90%;
-    margin: 0.2rem 0.3rem !important;
-    padding: 0.2rem 0.2rem !important;
-    text-align: justify;
-    font-weight: bold;
-}
+    .message > .msg {
+        color: #333; /* Neutral text color */
+        font-size: 14px; /* Readable font size */
+        line-height: 1.5; /* Comfortable line height */
+    }
 
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #ffffff;
-    padding: 0.5rem 1rem;
-    border-bottom: 1px solid #e5e5e5;
-}
+    /* Navbar and User Menu Styling */
+    .navbar-right {
+        display: flex; /* Align items horizontally */
+        align-items: center; /* Vertically align items */
+    }
 
-.navbar-right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
+    .user-menu {
+        margin-left: 1rem; /* Add space between notification and user menu */
+    }
 
-.user-menu {
-    position: relative;
-}
+    .user-menu a {
+        color: black; /* Neutral link color */
+        text-decoration: none; /* Remove underline */
+    }
 
-.user-menu .dropdown-menu {
-    position: absolute;
-    right: 0;
-    top: 100%;
-    background: #ffffff;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: none;
-    z-index: 1000;
-}
+    .user-menu ul {
+        list-style: none; /* Remove bullet points */
+        padding: 0;
+        margin: 0;
+    }
 
-.user-menu:hover .dropdown-menu {
-    display: block;
-}
+    .user-menu ul li {
+        padding: 10px;
+        background: #f9f9f9;
+        border-bottom: 1px solid #ddd;
+    }
 
+    .user-menu ul li a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .user-menu ul li a:hover {
+        background: #007bff;
+        color: white;
+    }
+
+    /* Media Query for Responsiveness */
+    @media (max-width: 768px) {
+        #list {
+            width: 90%; /* Adjust dropdown width for smaller screens */
+            right: 5%; /* Center it more */
+        }
+
+        .navbar-right {
+            flex-direction: column; /* Stack items vertically */
+        }
+
+        .user-menu {
+            margin-left: 0; /* Remove unnecessary margin */
+        }
+    }
+
+    /* Print-Specific Styles */
+    @media print {
+        .dont-print {
+            display: none !important;
+        }
+    }
 </style>
+
 
 <?php
 $squery = mysqli_query($con, "SELECT * FROM tblsettings");
@@ -209,58 +228,82 @@ $data = $squery->fetch_assoc();
 $logo = $data['logo'];
 $name = $data['name'];
 
-$total_count = 5; // Example count
-$notifications_data = [
-    ['id' => 1, 'fname' => 'John', 'mname' => 'Doe', 'lname' => 'Smith', 'datemove' => '2024-11-01'],
-    ['id' => 2, 'fname' => 'Jane', 'mname' => 'A.', 'lname' => 'Doe', 'datemove' => '2024-11-15']
-];
-
 echo '<header class="header">
     <a href="#" class="logo">
-        <img src="../../images/' . $logo . '" style="height: 50px; width:50px; float: left; margin-left: -10px;">
-        <p style="font-size: 12px;">' . $name . '</p>
+        <img src="../../images/'.$logo.'" style="height: 50px; width:50px; float: left; margin-left: -10px;">
+        <!-- Add the class icon to your logo image or logo icon to add the margining -->
+        <p style="font-size: 12px;"> '.$name.'</p>
     </a>
-    <nav class="navbar">
-        <ul class="nav navbar-nav">
-            <li>
-                <i class="fa fa-bell" id="over" style="font-size: 20px; color: black;"></i>';
-if ($total_count > 0) {
-    echo '<div class="round" id="bell-count"><span>' . $total_count . '</span></div>';
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        <ul class="nav navbar-nav navbar-right">
+        <li><i class="fa fa-bell" id="over" data-value="' . $total_count . '" style="z-index:-99 !important;font-size:20px;color:black;margin:1.5rem 0.4rem !important;"></i></li>';
+if (!empty($total_count)) {
+    echo '<div class="round" id="bell-count" data-value="' . $total_count . '"><span>' . $total_count . '</span></div>';
+}
+if (!empty($count_active)) {
     echo '<div id="list">';
-    foreach ($notifications_data as $notification) {
-        echo '<li class="message">
-            <div class="msg">
-                <p>' . $notification['fname'] . ' ' . $notification['mname'] . ' ' . $notification['lname'] . ' moved in on ' . $notification['datemove'] . '</p>
-            </div>
-        </li>';
+    foreach ($notifications_data as $list_rows) {
+        echo '<li id="message_items">
+<div class="message alert alert-warning" data-id="' . $list_rows['id'] . '">
+<div class="msg">
+    <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
+</div>
+</div>
+</li>';
+    }
+    echo '</div>';
+} else {
+    echo '<div id="list">';
+    foreach ($deactive_notifications_dump as $list_rows) {
+        echo '<li id="message_items">
+<div class="message alert alert-danger" data-id="' . $list_rows['id'] . '">
+<div class="msg">
+    <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
+</div>
+</div>
+</li>';
     }
     echo '</div>';
 }
-echo '    </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown user-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="glyphicon glyphicon-user"></i>
-                    <span>' . $_SESSION['role'] . ' <i class="caret"></i></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li class="user-header bg-light-blue">
-                        <p>' . $_SESSION['role'] . '</p>
-                    </li>
-                    <li class="user-footer">
-                        <div class="pull-left">
-                            <a href="#" class="btn btn-default btn-flat" style="background-color: #00BB27;">Change Account</a>
-                        </div>
-                        <div class="pull-right">
-                            <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+echo '<ul>
+        <div class="navbar-right">
+            <ul class="nav navbar-nav" style="background-color:transparent;">
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                    <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-user"></i><span>' . $_SESSION['role'] . '<i class="caret"></i></span>
+                    </a>
+                  
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header bg-light-blue" style="background-color:#0000FF;">
+                            <p>' . $_SESSION['role'] . '</p>
+                        </li>
+                        <!-- Menu Body -->
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background-color: #00BB27;">Change Account</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </nav>
 </header>';
+
 ?>
 
 <div id="editProfileModal" class="modal fade">
