@@ -60,20 +60,19 @@ if(isset($_POST['btn_add'])){
 if(isset($_POST['btn_save']))
 {
     $txt_id = $_POST['hidden_id'];
-    $txt_edit_name = $_POST['txt_edit_name'];
-    $txt_edit_uname = $_POST['txt_edit_uname'];
-    $txt_edit_pass = $_POST['txt_edit_pass'];
+    $txt_edit_barangay = $_POST['txt_edit_barangay'];
+    $txt_edit_upurok = $_POST['txt_edit_purok'];
 
     if(isset($_SESSION['role'])){
-        $action = 'Update Staff with name of '.$txt_edit_name;
+        $action = 'Update Staff with name of '.$txt_edit_barangay;
         $iquery = mysqli_query($con,"INSERT INTO tbllogs (user,logdate,action) values ('".$_SESSION['role']."', NOW(), '".$action."')");
     }
 
-    $su = mysqli_query($con,"SELECT * from tblstaff where username = '".$txt_edit_uname."' ");
+    $su = mysqli_query($con,"SELECT * from tblpurok where purok = '".$txt_edit_upurok."' ");
     $ct = mysqli_num_rows($su);
     
     if($ct == 0){
-        $update_query = mysqli_query($con,"UPDATE tblstaff set name = '".$txt_edit_name."', username = '".$txt_edit_uname."', password = '".$txt_edit_pass."' where id = '".$txt_id."' ") or die('Error: ' . mysqli_error($con));
+        $update_query = mysqli_query($con,"UPDATE tblpurok set barangay = '".$txt_edit_barangay."', purok = '".$txt_edit_upurok."' where id = '".$txt_id."' ") or die('Error: ' . mysqli_error($con));
 
         if($update_query == true){
             $_SESSION['edited'] = 1;
@@ -92,7 +91,7 @@ if(isset($_POST['btn_delete']))
     {
         foreach($_POST['chk_delete'] as $value)
         {
-            $delete_query = mysqli_query($con,"DELETE from tblstaff where id = '$value' ") or die('Error: ' . mysqli_error($con));
+            $delete_query = mysqli_query($con,"DELETE from tblpurok where id = '$value' ") or die('Error: ' . mysqli_error($con));
                     
             if($delete_query == true)
             {
