@@ -290,6 +290,8 @@ echo '
             background-color: white !important;
             border-right: 1px solid black !important;
             box-shadow: 3px 0px 10px rgba(0, 0, 0, 0.6);
+            height: 100vh; /* Make the sidebar height cover the viewport */
+            overflow-y: auto; /* Enable vertical scrolling if content exceeds height */
         }
         .user-panel h4 {
             margin: 0;
@@ -297,6 +299,7 @@ echo '
         .sidebar-menu {
             list-style: none;
             padding: 0;
+            margin: 0; /* Remove default margin for better alignment */
         }
         .sidebar-menu li {
             padding: 10px;
@@ -310,4 +313,17 @@ echo '
         .sidebar-menu a i {
             margin-right: 10px;
         }
+
+        /* Optional: Add styling for the scrollbar */
+        .left-side.sidebar-offcanvas::-webkit-scrollbar {
+            width: 8px;
+        }
+        .left-side.sidebar-offcanvas::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+        .left-side.sidebar-offcanvas::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
 </style>
+
