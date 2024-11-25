@@ -54,6 +54,26 @@
 
 
 <script>
+    // Generate a unique random color
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    // Generate an array of unique colors for each barangay
+    function generateUniqueColors(count) {
+        const colors = new Set();
+        while (colors.size < count) {
+            colors.add(getRandomColor());
+        }
+        return Array.from(colors);
+    }
+
+    // Define the data for the chart
     Morris.Bar({
         element: 'morris-bar-chart6',
         data: [
@@ -79,7 +99,9 @@
             }
 
             // Format data for Morris.js
+            $barangayCount = 0; // Counter for the number of barangays
             while ($row = mysqli_fetch_array($qry)) {
+                $barangayCount++;
                 echo "{y: '" . $row['barangay'] . "', male: " . $row['male_count'] . ", female: " . $row['female_count'] . "},";
             }
             ?>
@@ -89,9 +111,9 @@
         labels: ['Male', 'Female'], // Legend labels
         hideHover: 'auto',
         barColors: function (row, series, type) {
-            // Assign unique colors based on the barangay (row index)
-            const colors = ['#1E90FF', '#FF4500', '#32CD32', '#FFD700', '#6A5ACD']; // Add more colors if needed
-            return colors[row.x % colors.length];
+            // Generate unique colors dynamically for each barangay
+            const uniqueColors = generateUniqueColors(<?php echo $barangayCount; ?>);
+            return uniqueColors[row.x];
         },
         stacked: false // Ensure bars are grouped, not stacked
     });
