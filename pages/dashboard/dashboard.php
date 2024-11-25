@@ -55,7 +55,7 @@ if ($_SESSION['role'] == 'Administrator') {
             </a>
             <div class="info-box-content">
               <span class="info-box-text">Total number of Municipal household</span>
-              <span class="info-box-number" style="font-size: 4rem; font-weight: bold;"> <!-- Adjusted font size and weight -->
+              <span class="info-box-number" style="font-size: 3rem; font-weight: bold;"> <!-- Adjusted font size and weight -->
                 <?php
                 if ($isZoneLeader) {
                   $q = mysqli_query($con, "SELECT * from tblhousehold WHERE barangay = '$barangayByZoneLeader'");
@@ -84,7 +84,7 @@ if ($_SESSION['role'] != 'Administrator') {
                         class="fa fa-home"></i></span></a>
                   <div class="info-box-content">
                     <span class="info-box-text">Total number of households</span>
-                    <span class="info-box-number" style="font-size: 2rem; font-weight: bold;">
+                    <span class="info-box-number">
                       <?php
                      if ($isZoneLeader) {
                       $q = mysqli_query($con, "SELECT * from tblhousehold WHERE barangay = '$barangayByZoneLeader'");
@@ -110,7 +110,7 @@ if ($_SESSION['role'] != 'Administrator') {
                         class="fa fa-users"></i></span></a>
                   <div class="info-box-content">
                     <span class="info-box-text">Total number of Municipal residents</span>
-                    <span class="info-box-number">
+                    <span class="info-box-number" style="font-size: 3rem; font-weight: bold;">
                       <?php
                       if ($isZoneLeader) {
                         $q = mysqli_query($con, "SELECT * from tblresident WHERE barangay = '$barangayByZoneLeader'");
