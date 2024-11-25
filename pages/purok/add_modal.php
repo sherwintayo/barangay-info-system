@@ -11,10 +11,17 @@
                         
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Barangay:</label>
-                                    <input name="txt_barangay" class="form-control input-sm" type="text" placeholder="Barangay" required="" />
-                                </div>
+                                    <div class="form-group">
+                                        <label>Barangay:</label>
+                                        <input 
+                                            name="txt_barangay" 
+                                            class="form-control input-sm" 
+                                            type="text" 
+                                            placeholder="Barangay" 
+                                            required="" 
+                                            value="<?php echo htmlspecialchars($zone_barangay, ENT_QUOTES, 'UTF-8'); ?>" 
+                                        />
+                                    </div>
                                 <div class="form-group">
                                     <label>Purok:</label>
                                     <input name="txt_purok" class="form-control input-sm" id="purok"  type="text" placeholder="Purok" required="" />
