@@ -111,28 +111,28 @@ while ($rows = mysqli_fetch_assoc($result)) {
 <style>
     /* Notification Count Badge */
     .round {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        position: absolute; /* Keep it positioned relative to parent */
-        background: red;
-        display: flex; /* Use flexbox for centering */
-        justify-content: center;
-        align-items: center;
-        padding: 0; /* Remove unnecessary padding */
-        margin: 0; /* Reset margin */
-        left: -10px; /* Position near the bell icon */
-        top: 5px; /* Vertical adjustment */
-        z-index: 99; /* Ensure it's above other elements */
-    }
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute; /* Keep it positioned relative to parent */
+    background: red;
+    display: flex; /* Use flexbox for centering */
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    left: 10px; /* Adjust horizontal positioning */
+    top: 0px; /* Adjust vertical positioning */
+    z-index: 99; /* Ensure it appears above other elements */
+}
 
-    .round > span {
-        color: white;
-        font-size: 12px; /* Set consistent font size */
-        font-weight: bold; /* Make it noticeable */
-        line-height: 1; /* Prevent extra spacing */
-    }
-
+.round > span {
+    color: white;
+    font-size: 12px; /* Keep consistent font size */
+    font-weight: bold;
+    line-height: 1;
+}
+    
     /* Notification Dropdown */
     #list {
         display: none; /* Hidden by default */
