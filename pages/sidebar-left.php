@@ -150,6 +150,11 @@ if ($_SESSION['role'] == 'Administrator') {
                 </a>
             </li> -->
             <li>
+                <a href="../purok/purok.php">
+                    <i class="fa fa-users"></i> <span>Puroks</span>
+                </a>
+            </li>
+            <li>
                 <a href="../household/household.php">
                     <i class="fa fa-home"></i> <span>Household</span>
                 </a>
