@@ -55,7 +55,7 @@ if ($_SESSION['role'] == 'Administrator') {
             </a>
             <div class="info-box-content">
               <span class="info-box-text">Total number of Municipal household</span>
-              <span class="info-box-number" style="font-size: 2rem; font-weight: bold;"> <!-- Adjusted font size and weight -->
+              <span class="info-box-number" style="font-size: 4rem; font-weight: bold;"> <!-- Adjusted font size and weight -->
                 <?php
                 if ($isZoneLeader) {
                   $q = mysqli_query($con, "SELECT * from tblhousehold WHERE barangay = '$barangayByZoneLeader'");
