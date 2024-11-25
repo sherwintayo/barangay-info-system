@@ -5,24 +5,19 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Manage Staff</h4>
+                        <h4 class="modal-title">Manage Purok</h4>
                     </div>
                     <div class="modal-body">
                         
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Name:</label>
-                                    <input name="txt_name" class="form-control input-sm" type="text" placeholder="Lastname, Firstname Middlename" required="" />
+                                    <label>Barangay:</label>
+                                    <input name="txt_barangay" class="form-control input-sm" type="text" placeholder="Barangay" required="" />
                                 </div>
                                 <div class="form-group">
-                                    <label>Username:</label>
-                                    <input name="txt_uname" class="form-control input-sm" id="username"  type="text" placeholder="Username" required="" />
-                                    <label id="user_msg" style="color:#CC0000;" ></label>
-                                </div>
-                                <div class="form-group">
-                                    <label>Password:</label>
-                                    <input name="txt_pass" class="form-control input-sm" type="password" placeholder="Password" required="" />
+                                    <label>Purok:</label>
+                                    <input name="txt_purok" class="form-control input-sm" id="purok"  type="text" placeholder="Purok" required="" />
                                 </div>
                             </div>
                         </div>
@@ -30,7 +25,7 @@
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-default btn-sm" data-dismiss="modal" value="Cancel"/>
-                        <input type="submit" class="btn btn-primary btn-sm" name="btn_add" id="btn_add" value="Add Staff"/>
+                        <input type="submit" class="btn btn-primary btn-sm" name="btn_add" id="btn_add" value="Add Purok"/>
                     </div>
                 </div>
               </div>
@@ -101,31 +96,31 @@ function is_available(){
 }
 </script>
 <script>
-    $(document).ready(function() {
-    var timeOut = null;
-    var loading_html = '<img src="../../img/ajax-loader.gif" style="height: 20px; width: 20px;"/>';
+//     $(document).ready(function() {
+//     var timeOut = null;
+//     var loading_html = '<img src="../../img/ajax-loader.gif" style="height: 20px; width: 20px;"/>';
 
-    $('#username').on('input', function() { // Change from keyup to input
-        if (timeOut != null)
-            clearTimeout(timeOut);
-        timeOut = setTimeout(is_available, 500);
-        $('#user_msg').html(loading_html);
-    });
-});
+//     $('#username').on('input', function() { // Change from keyup to input
+//         if (timeOut != null)
+//             clearTimeout(timeOut);
+//         timeOut = setTimeout(is_available, 500);
+//         $('#user_msg').html(loading_html);
+//     });
+// });
 
-function is_available() {
-    var username = $('#username').val();
-    $.post("check_username.php", { username: username },
-        function(result) {
-            console.log(result);
-            if (result != 0) {
-                $('#user_msg').html('Not Available');
-                $('#btn_add').prop('disabled', true); // Updated to jQuery method
-            } else {
-                $('#user_msg').html('<span style="color:#006600;">Available</span>');
-                $('#btn_add').prop('disabled', false); // Updated to jQuery method
-            }
-        });
-}
+// function is_available() {
+//     var username = $('#username').val();
+//     $.post("check_username.php", { username: username },
+//         function(result) {
+//             console.log(result);
+//             if (result != 0) {
+//                 $('#user_msg').html('Not Available');
+//                 $('#btn_add').prop('disabled', true); // Updated to jQuery method
+//             } else {
+//                 $('#user_msg').html('<span style="color:#006600;">Available</span>');
+//                 $('#btn_add').prop('disabled', false); // Updated to jQuery method
+//             }
+//         });
+// }
 
     </script>
