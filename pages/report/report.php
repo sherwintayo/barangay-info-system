@@ -83,7 +83,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+                                                         <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] != 'Administrator') {
+?>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
@@ -94,6 +97,8 @@
                                         </div>
                                     </div>
                                 </div>
+       <?php } ?>
+                                
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
