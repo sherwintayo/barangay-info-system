@@ -60,25 +60,35 @@
             <?php
             // Check if the user is a Zone Leader and filter by barangay accordingly
             if ($isZoneLeader) {
-                $qry = mysqli_query($con, "SELECT barangay, gender, COUNT(*) as cnt FROM tblresident 
-                                           WHERE barangay = '$zone_barangay' 
-                                           GROUP BY barangay, gender");
+                $qry = mysqli_query($con, "
+                    SELECT barangay,
+                           SUM(CASE WHEN gender = 'Male' THEN 1 ELSE 0 END) as male_count,
+                           SUM(CASE WHEN gender = 'Female' THEN 1 ELSE 0 END) as female_count
+                    FROM tblresident 
+                    WHERE barangay = '$zone_barangay'
+                    GROUP BY barangay
+                ");
             } else {
-                $qry = mysqli_query($con, "SELECT barangay, gender, COUNT(*) as cnt FROM tblresident 
-                                           GROUP BY barangay, gender");
+                $qry = mysqli_query($con, "
+                    SELECT barangay,
+                           SUM(CASE WHEN gender = 'Male' THEN 1 ELSE 0 END) as male_count,
+                           SUM(CASE WHEN gender = 'Female' THEN 1 ELSE 0 END) as female_count
+                    FROM tblresident 
+                    GROUP BY barangay
+                ");
             }
-            
+
             // Fetch and format data for Morris.js
             while ($row = mysqli_fetch_array($qry)) {
-                echo "{y:'" . $row['barangay'] . " (" . $row['gender'] . ")', a:" . $row['cnt'] . "},";
+                echo "{y: '" . $row['barangay'] . "', male: " . $row['male_count'] . ", female: " . $row['female_count'] . "},";
             }
             ?>
         ],
         xkey: 'y',
-        ykeys: ['a'],
-        labels: ['Count'],
+        ykeys: ['male', 'female'],
+        labels: ['Male', 'Female'],
         hideHover: 'auto',
-        barColors: ['#37B7C3'] // Adjust the color as needed
+        barColors: ['#1E90FF', '#FF69B4'], // Assign unique colors for male and female
     });
 </script>
 
