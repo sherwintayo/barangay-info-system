@@ -109,85 +109,98 @@ while ($rows = mysqli_fetch_assoc($result)) {
 
 
 <style>
-    .round {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        position: relative;
-        background: red;
-        display: inline-block;
-        padding: 0.3rem 0.2rem !important;
-        margin: 0.3rem 0.2rem !important;
-        left: -18px;
-        top: 10px;
-        z-index: 99 !important;
-    }
+   /* Notification Bell CSS */
+.round {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: relative;
+    background: red;
+    display: inline-block;
+    padding: 0.3rem 0.2rem !important;
+    margin: 0.3rem 0.2rem !important;
+    left: -18px;
+    top: 10px;
+    z-index: 99 !important;
+}
 
-    .round>span {
-        color: white;
-        display: block;
-        text-align: center;
-        font-size: 1rem !important;
-        padding: 0 !important;
-    }
+.round > span {
+    color: white;
+    display: block;
+    text-align: center;
+    font-size: 1rem !important;
+    padding: 0 !important;
+}
 
-    #list {
+#list {
+    display: none;
+    top: 33px;
+    position: absolute;
+    right: 2%;
+    background: #ffffff;
+    z-index: 100 !important;
+    width: 25vw;
+    margin-left: -37px;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-        display: none;
-        top: 33px;
-        position: absolute;
-        right: 2%;
-        background: #ffffff;
-        z-index: 100 !important;
-        width: 25vw;
-        margin-left: -37px;
+.message > span {
+    width: 100%;
+    display: block;
+    color: red;
+    text-align: justify;
+    margin: 0.2rem 0.3rem !important;
+    padding: 0.3rem !important;
+    line-height: 1rem !important;
+    font-weight: bold;
+    border-bottom: 1px solid white;
+    font-size: 1.2rem;
+}
 
-        padding: 0 !important;
-        margin: 0 auto !important;
+.message > .msg {
+    width: 90%;
+    margin: 0.2rem 0.3rem !important;
+    padding: 0.2rem 0.2rem !important;
+    text-align: justify;
+    font-weight: bold;
+}
 
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #e5e5e5;
+}
 
-    }
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
 
-    .message>span {
-        width: 100%;
-        display: block;
-        color: red;
-        text-align: justify;
-        margin: 0.2rem 0.3rem !important;
-        padding: 0.3rem !important;
-        line-height: 1rem !important;
-        font-weight: bold;
-        border-bottom: 1px solid white;
-        font-size: 1.8rem !important;
+.user-menu {
+    position: relative;
+}
 
-    }
+.user-menu .dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1000;
+}
 
-    .message {
-        /* background:#ff7f50;
-          margin:0.3rem 0.2rem !important;
-          padding:0.2rem 0 !important;
-          width:100%;
-          display:block; */
+.user-menu:hover .dropdown-menu {
+    display: block;
+}
 
-    }
-
-    .message>.msg {
-        width: 90%;
-        margin: 0.2rem 0.3rem !important;
-        padding: 0.2rem 0.2rem !important;
-        text-align: justify;
-        font-weight: bold;
-        display: block;
-
-
-    }
-
-        @media print {
-            .dont-print{
-                display: none !important;
-            }
-        }
-   
 </style>
 
 <?php
@@ -196,82 +209,58 @@ $data = $squery->fetch_assoc();
 $logo = $data['logo'];
 $name = $data['name'];
 
+$total_count = 5; // Example count
+$notifications_data = [
+    ['id' => 1, 'fname' => 'John', 'mname' => 'Doe', 'lname' => 'Smith', 'datemove' => '2024-11-01'],
+    ['id' => 2, 'fname' => 'Jane', 'mname' => 'A.', 'lname' => 'Doe', 'datemove' => '2024-11-15']
+];
+
 echo '<header class="header">
     <a href="#" class="logo">
-        <img src="../../images/'.$logo.'" style="height: 50px; width:50px; float: left; margin-left: -10px;">
-        <!-- Add the class icon to your logo image or logo icon to add the margining -->
-        <p style="font-size: 12px;"> '.$name.'</p>
+        <img src="../../images/' . $logo . '" style="height: 50px; width:50px; float: left; margin-left: -10px;">
+        <p style="font-size: 12px;">' . $name . '</p>
     </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top" role="navigation">
-        <!-- Sidebar toggle button-->
-        <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </a>
+    <nav class="navbar">
+        <ul class="nav navbar-nav">
+            <li>
+                <i class="fa fa-bell" id="over" style="font-size: 20px; color: black;"></i>';
+if ($total_count > 0) {
+    echo '<div class="round" id="bell-count"><span>' . $total_count . '</span></div>';
+    echo '<div id="list">';
+    foreach ($notifications_data as $notification) {
+        echo '<li class="message">
+            <div class="msg">
+                <p>' . $notification['fname'] . ' ' . $notification['mname'] . ' ' . $notification['lname'] . ' moved in on ' . $notification['datemove'] . '</p>
+            </div>
+        </li>';
+    }
+    echo '</div>';
+}
+echo '    </li>
+        </ul>
         <ul class="nav navbar-nav navbar-right">
-        <li><i class="fa fa-bell" id="over" data-value="' . $total_count . '" style="z-index:-99 !important;font-size:20px;color:black;margin:1.5rem 0.4rem !important;"></i></li>';
-if (!empty($total_count)) {
-    echo '<div class="round" id="bell-count" data-value="' . $total_count . '"><span>' . $total_count . '</span></div>';
-}
-if (!empty($count_active)) {
-    echo '<div id="list">';
-    foreach ($notifications_data as $list_rows) {
-        echo '<li id="message_items">
-<div class="message alert alert-warning" data-id="' . $list_rows['id'] . '">
-<div class="msg">
-    <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
-</div>
-</div>
-</li>';
-    }
-    echo '</div>';
-} else {
-    echo '<div id="list">';
-    foreach ($deactive_notifications_dump as $list_rows) {
-        echo '<li id="message_items">
-<div class="message alert alert-danger" data-id="' . $list_rows['id'] . '">
-<div class="msg">
-    <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
-</div>
-</div>
-</li>';
-    }
-    echo '</div>';
-}
-echo '<ul>
-        <div class="navbar-right">
-            <ul class="nav navbar-nav" style="background-color:transparent;">
-                <!-- User Account: style can be found in dropdown.less -->
-                <li class="dropdown user user-menu">
-                    <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="glyphicon glyphicon-user"></i><span>' . $_SESSION['role'] . '<i class="caret"></i></span>
-                    </a>
-                  
-                    <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <li class="user-header bg-light-blue" style="background-color:#0000FF;">
-                            <p>' . $_SESSION['role'] . '</p>
-                        </li>
-                        <!-- Menu Body -->
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background-color: #00BB27;">Change Account</a>
-                            </div>
-                            <div class="pull-right">
-                                <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+            <li class="dropdown user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-user"></i>
+                    <span>' . $_SESSION['role'] . ' <i class="caret"></i></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="user-header bg-light-blue">
+                        <p>' . $_SESSION['role'] . '</p>
+                    </li>
+                    <li class="user-footer">
+                        <div class="pull-left">
+                            <a href="#" class="btn btn-default btn-flat" style="background-color: #00BB27;">Change Account</a>
+                        </div>
+                        <div class="pull-right">
+                            <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </nav>
 </header>';
-
 ?>
 
 <div id="editProfileModal" class="modal fade">
