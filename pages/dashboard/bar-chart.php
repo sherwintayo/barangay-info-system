@@ -27,8 +27,12 @@
 </script>
 
 
-
-
+<!-- For Secretary -->
+     <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] != 'Administrator') {
+?>
+	
 <script>
 	Morris.Bar({
 		element: 'morris-bar-chart5',
@@ -52,7 +56,81 @@
 	});
 </script>
 
+	<?php
+	}
+?>
 
+<!-- For Admin -->
+     <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] == 'Administrator') {
+?>
+<script>
+    // Function to generate a random HEX color
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    // Generate unique colors for barangays
+    function generateUniqueColors(count) {
+        const colors = new Set();
+        while (colors.size < count) {
+            colors.add(getRandomColor());
+        }
+        return Array.from(colors);
+    }
+
+    Morris.Bar({
+        element: 'morris-bar-chart5',
+        data: [
+            <?php
+            // Query to group data by barangay and count households
+            if ($isZoneLeader) {
+                $qry = mysqli_query($con, "
+                    SELECT barangay, COUNT(DISTINCT householdnum) as household_count
+                    FROM tblresident
+                    WHERE barangay = '$zone_barangay'
+                    GROUP BY barangay
+                ");
+            } else {
+                $qry = mysqli_query($con, "
+                    SELECT barangay, COUNT(DISTINCT householdnum) as household_count
+                    FROM tblresident
+                    GROUP BY barangay
+                ");
+            }
+
+            $barangayCount = 0; // Counter for barangays
+            while ($row = mysqli_fetch_array($qry)) {
+                $barangayCount++;
+                echo "{y: '" . $row['barangay'] . "', a: " . $row['household_count'] . "},";
+            }
+            ?>
+        ],
+        xkey: 'y', // Barangay name
+        ykeys: ['a'], // Household count
+        labels: ['Households'], // Legend label
+        hideHover: 'auto',
+        barColors: generateUniqueColors(<?php echo $barangayCount; ?>) // Dynamic colors for each barangay
+    });
+</script>
+	
+	<?php
+	}
+?>
+
+
+<!-- For Admin -->
+                           <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] == 'Administrator') {
+?>
+	
 <script>
     // Generate a unique random color
     function getRandomColor() {
@@ -118,5 +196,42 @@
         stacked: false // Ensure bars are grouped, not stacked
     });
 </script>
+	
+	<?php
+	}
+?>
+
+
+<!-- For Secratary -->
+
+	 <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] != 'Administrator') {
+?>
+<script>
+	Morris.Bar({
+		element: 'morris-bar-chart6',
+		data: [
+			<?php
+			if ($isZoneLeader) {
+				$qry = mysqli_query($con, "SELECT *,count(*) as cnt FROM tblresident r WHERE r.barangay = '$zone_barangay' group by r.gender ");
+			}else{
+				$qry = mysqli_query($con, "SELECT *,count(*) as cnt FROM tblresident r group by r.gender ");
+			}
+			while ($row = mysqli_fetch_array($qry)) {
+				echo "{y:'" . $row['gender'] . "',a:'" . $row['cnt'] . "'},";
+			}
+			?>
+		],
+		xkey: 'y',
+		ykeys: ['a'],
+		labels: ['gender'],
+		hideHover: 'auto',
+		barColors: ['#37B7C3'] // Change this color to your desired color
+	});
+</script>
+	<?php
+	}
+?>
 
 </script>
