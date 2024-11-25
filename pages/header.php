@@ -106,93 +106,6 @@ while ($rows = mysqli_fetch_assoc($result)) {
 }
 
 ?>
-
-
-<?php
-$squery = mysqli_query($con, "SELECT * FROM tblsettings");
-$data = $squery->fetch_assoc();
-$logo = $data['logo'];
-$name = $data['name'];
-
-echo '<header class="header">
-    <a href="#" class="logo">
-        <img src="../../images/'.$logo.'" style="height: 50px; width:50px; float: left; margin-left: -10px;">
-        <!-- Add the class icon to your logo image or logo icon to add the margining -->
-        <p style="font-size: 12px;"> '.$name.'</p>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top" role="navigation">
-        <!-- Sidebar toggle button-->
-        <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </a>
-        <ul class="nav navbar-nav navbar-right">
-            <li style="position: relative;">
-                <i class="fa fa-bell" id="over" data-value="' . $total_count . '" style="z-index:-99 !important;font-size:20px;color:black;margin:1.5rem 0.4rem !important;"></i>';
-                if (!empty($total_count)) {
-                    echo '<div class="round" id="bell-count" data-value="' . $total_count . '"><span>' . $total_count . '</span></div>';
-                }
-            echo '</li>';
-            if (!empty($count_active)) {
-                echo '<div id="list">';
-                foreach ($notifications_data as $list_rows) {
-                    echo '<li id="message_items">
-                    <div class="message alert alert-warning" data-id="' . $list_rows['id'] . '">
-                        <div class="msg">
-                            <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
-                        </div>
-                    </div>
-                </li>';
-                }
-                echo '</div>';
-            } else {
-                echo '<div id="list">';
-                foreach ($deactive_notifications_dump as $list_rows) {
-                    echo '<li id="message_items">
-                    <div class="message alert alert-danger" data-id="' . $list_rows['id'] . '">
-                        <div class="msg">
-                            <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
-                        </div>
-                    </div>
-                </li>';
-                }
-                echo '</div>';
-            }
-            echo '<ul>
-            <div class="navbar-right">
-                <ul class="nav navbar-nav" style="background-color:transparent;">
-                    <!-- User Account: style can be found in dropdown.less -->
-                    <li class="dropdown user user-menu">
-                        <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i><span>' . $_SESSION['role'] . '<i class="caret"></i></span>
-                        </a>
-                      
-                        <ul class="dropdown-menu">
-                            <!-- User image -->
-                            <li class="user-header bg-light-blue" style="background-color:#0000FF;">
-                                <p>' . $_SESSION['role'] . '</p>
-                            </li>
-                            <!-- Menu Body -->
-                            <!-- Menu Footer-->
-                            <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background-color: #00BB27;">Change Account</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>';
-?>
-
 <style>
 /* Notification Count Badge */
 .round {
@@ -207,7 +120,7 @@ echo '<header class="header">
     padding: 0;
     margin: 0;
     left: 16px; /* Adjust horizontal positioning */
-    top: -6px; /* Adjust vertical positioning */
+    top: -10px; /* Adjust vertical positioning */
     z-index: 99; /* Ensure it appears above other elements */
 }
 
@@ -314,6 +227,90 @@ echo '<header class="header">
 }
 </style>
 
+<?php
+$squery = mysqli_query($con, "SELECT * FROM tblsettings");
+$data = $squery->fetch_assoc();
+$logo = $data['logo'];
+$name = $data['name'];
+
+echo '<header class="header">
+    <a href="#" class="logo">
+        <img src="../../images/'.$logo.'" style="height: 50px; width:50px; float: left; margin-left: -10px;">
+        <!-- Add the class icon to your logo image or logo icon to add the margining -->
+        <p style="font-size: 12px;"> '.$name.'</p>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        <ul class="nav navbar-nav navbar-right">
+            <li style="position: relative;">
+                <i class="fa fa-bell" id="over" data-value="' . $total_count . '" style="z-index:-99 !important;font-size:20px;color:black;margin:1.5rem 0.4rem !important;"></i>';
+                if (!empty($total_count)) {
+                    echo '<div class="round" id="bell-count" data-value="' . $total_count . '"><span>' . $total_count . '</span></div>';
+                }
+            echo '</li>';
+            if (!empty($count_active)) {
+                echo '<div id="list">';
+                foreach ($notifications_data as $list_rows) {
+                    echo '<li id="message_items">
+                    <div class="message alert alert-warning" data-id="' . $list_rows['id'] . '">
+                        <div class="msg">
+                            <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
+                        </div>
+                    </div>
+                </li>';
+                }
+                echo '</div>';
+            } else {
+                echo '<div id="list">';
+                foreach ($deactive_notifications_dump as $list_rows) {
+                    echo '<li id="message_items">
+                    <div class="message alert alert-danger" data-id="' . $list_rows['id'] . '">
+                        <div class="msg">
+                            <p>' . $list_rows['fname'] . ' ' . $list_rows['mname'] . ' ' . $list_rows['lname'] . ' Date Move In: ' . $list_rows['datemove'] . ' is now officially resident of the barangay</p>
+                        </div>
+                    </div>
+                </li>';
+                }
+                echo '</div>';
+            }
+            echo '<ul>
+            <div class="navbar-right">
+                <ul class="nav navbar-nav" style="background-color:transparent;">
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-user"></i><span>' . $_SESSION['role'] . '<i class="caret"></i></span>
+                        </a>
+                      
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header bg-light-blue" style="background-color:#0000FF;">
+                                <p>' . $_SESSION['role'] . '</p>
+                            </li>
+                            <!-- Menu Body -->
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background-color: #00BB27;">Change Account</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>';
+?>
 
 <div id="editProfileModal" class="modal fade">
     <form method="post">
