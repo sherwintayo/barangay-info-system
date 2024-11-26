@@ -495,5 +495,40 @@ if (isset($_POST['btn_saveeditProfile'])) {
         
     });
 
+     // Function to check for pending approvals
+    function checkForApprovals() {
+        $.ajax({
+            url: 'check_approvals.php', // Backend endpoint
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                // Check if there are pending approvals
+                if (response.pendingCount > 0) {
+                    Swal.fire({
+                        title: 'Pending Approvals!',
+                        text: `There are ${response.pendingCount} Zone Leaders waiting for approval.`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Go to Approvals',
+                        cancelButtonText: 'Dismiss',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = 'user.php'; // Redirect to the user page
+                        }
+                    });
+                }
+            },
+            error: function() {
+                console.error('Error fetching pending approvals');
+            }
+        });
+    }
+
+    // Call the function every 1 minute (60000 ms)
+    setInterval(checkForApprovals, 60000);
+
+    // Optional: Call immediately on page load
+    checkForApprovals();
+
 </script>
 
