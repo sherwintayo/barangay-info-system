@@ -31,7 +31,7 @@ if ($_SESSION['role'] == "Administrator") {
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
-            <li>
+<!--             <li>
                 <a href="../officials/officials.php">
                     <i class="fa fa-user"></i> <span>Barangay Officials</span>
                 </a>
@@ -45,7 +45,7 @@ if ($_SESSION['role'] == "Administrator") {
                 <a href="../zone/zone.php">
                     <i class="fa fa-user"></i> <span>Zone/Purok Leader</span>
                 </a>
-            </li>
+            </li> -->
              <li>
                 <a href="../user/user.php">
                     <i class="fa fa-user"></i> <span>Users</span>
@@ -61,7 +61,7 @@ if ($_SESSION['role'] == "Administrator") {
                     <i class="fa fa-users"></i> <span>Resident</span>
                 </a>
             </li>
-            <li>
+<!--             <li>
                 <a href="../permit/permit.php">
                     <i class="fa fa-file"></i> <span>Permit</span>
                 </a>
@@ -110,7 +110,7 @@ if ($_SESSION['role'] == "Administrator") {
                 <a href="../logs/logs.php">
                     <i class="fa fa-history"></i> <span>Logs</span>
                 </a>
-            </li>
+            </li> -->
             <li>
                 <a href="../settings/settings.php">
                     <i class="fa fa-gear"></i> <span>Settings</span>
