@@ -1,6 +1,6 @@
 <?php
 // Include database connection
-include "../connection.php";
+include "../pages/connection.php";
 
 // Initialize response
 $response = [];
