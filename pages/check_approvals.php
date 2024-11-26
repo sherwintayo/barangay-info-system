@@ -1,6 +1,6 @@
 <?php
 // Include database connection
-include "pages/connection.php";
+include "../connection.php";
 
 // Query to check for pending approvals
 $query = "SELECT COUNT(*) as pending_count FROM tbluser WHERE type = 'Zone Leader' AND isApproved = 0";
