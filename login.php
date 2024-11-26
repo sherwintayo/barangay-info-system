@@ -121,7 +121,7 @@ session_start();
     echo password_hash("dianna*123", PASSWORD_DEFAULT);
 
             if (isset($_POST['btn_login'])) {
-            $recaptchaSecret = '6LfXLooqAAAAACMqm0n2nspU65tuJr6aI8z_3ZOj'; // Replace with your secret key
+            $recaptchaSecret = '6LfXLooqAAAAAPzzjG01n0BsGVab1yQDaa1s3LDI'; // Replace with your secret key
             $recaptchaResponse = $_POST['g-recaptcha-response'];
         
             // Validate reCAPTCHA response
