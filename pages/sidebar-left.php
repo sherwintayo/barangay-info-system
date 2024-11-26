@@ -46,19 +46,11 @@ if ($_SESSION['role'] == "Administrator") {
                     <i class="fa fa-user"></i> <span>Zone/Purok Leader</span>
                 </a>
             </li>
-                                   <?php
-// Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] == 'Administrator') {
-?>
              <li>
                 <a href="../user/user.php">
                     <i class="fa fa-user"></i> <span>Users</span>
                 </a>
             </li>
-
-                        <?php
-}
-?>
             <li>
                 <a href="../household/household.php">
                     <i class="fa fa-home"></i> <span>Household</span>
@@ -207,6 +199,11 @@ if ($_SESSION['role'] == 'Administrator') {
             <li>
                 <a href="../report/report.php">
                     <i class="fa fa-file"></i> <span>Report</span>
+                </a>
+            </li>
+                    <li>
+                <a href="../settings/settings.php">
+                    <i class="fa fa-gear"></i> <span>Settings</span>
                 </a>
             </li>
             <!-- <li>
