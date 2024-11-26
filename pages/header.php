@@ -5,7 +5,7 @@
 <script src="./assets/js/bootstrap.min.js"></script>
 
 <?php
-$pending_approvals_query = "SELECT COUNT(*) as pending_count FROM tbluser WHERE role = 'Zone Leader' AND isApproved = 0";
+$pending_approvals_query = "SELECT COUNT(*) as pending_count FROM tbluser WHERE type = 'Zone Leader' AND isApproved = 0";
 $pending_approvals_result = mysqli_query($con, $pending_approvals_query);
 $pending_approvals = mysqli_fetch_assoc($pending_approvals_result);
 $pending_count = $pending_approvals['pending_count'];
