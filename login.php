@@ -103,6 +103,7 @@ session_start();
                 </div>
                 <!-- Google reCAPTCHA -->
                 <div class="g-recaptcha" data-sitekey="6LfXLooqAAAAACMqm0n2nspU65tuJr6aI8z_3ZOj"></div>
+                                   <br>
                 <button type="submit" class="btn btn-sm btn-primary" name="btn_login" style="background-color:#00BB27;">Log in</button>
                 <a href="pages/resetpassword.php" style="float: right;">Forgot password</a>
                 <label id="error" class="label label-danger pull-right"></label>
