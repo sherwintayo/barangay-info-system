@@ -121,79 +121,110 @@ session_start();
     echo password_hash("dianna*123", PASSWORD_DEFAULT);
 
             if (isset($_POST['btn_login'])) {
-            $recaptchaSecret = '6LfXLooqAAAAAPzzjG01n0BsGVab1yQDaa1s3LDI'; // Replace with your secret key
-            $recaptchaResponse = $_POST['g-recaptcha-response'];
-        
-            // Validate reCAPTCHA response
-            $recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
-            $recaptchaValidation = file_get_contents("$recaptchaUrl?secret=$recaptchaSecret&response=$recaptchaResponse");
-            $recaptchaResult = json_decode($recaptchaValidation, true);
-        
-            if ($recaptchaResult['success'] == true) {
-                // CAPTCHA validated successfully
-                $username = htmlspecialchars(stripslashes(trim($_POST['txt_username'])));
-                $password = htmlspecialchars(stripslashes(trim($_POST['txt_password'])));
-                $status = 1;
-        
-                $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
-                $stmt->bind_param("s", $username);
-                if ($stmt->execute()) {
-                    $result = $stmt->get_result();
-                    if ($result->num_rows > 0) {
-                        $row = $result->fetch_assoc();
-                        if (password_verify($password, htmlspecialchars(stripslashes(trim($row['password']))))) {
-                            // Login successful
-                            $_SESSION['role'] = clean($row['type']);
-                            $_SESSION['userid'] = clean($row['id']);
-                            $_SESSION['username'] = clean($row['username']);
-                            $_SESSION['barangay'] = clean($row['barangay']);
-                            
-                            echo "<script>
+    // Verify reCAPTCHA
+    $recaptchaResponse = $_POST['g-recaptcha-response'];
+    $secretKey = 'your-secret-key'; // Replace with your actual reCAPTCHA secret key
+    $verifyResponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$recaptchaResponse");
+    $responseData = json_decode($verifyResponse);
+
+    // Check if reCAPTCHA is successful
+    if (!$responseData->success) {
+        echo "<script>
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'reCAPTCHA verification failed. Please try again.',
+                    icon: 'error',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+              </script>";
+        exit; // Stop further execution
+    }
+
+    // Process login if reCAPTCHA is successful
+    $username = htmlspecialchars(stripslashes(trim($_POST['txt_username'])));
+    $password = htmlspecialchars(stripslashes(trim($_POST['txt_password'])));
+    $status = 1;
+
+    $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+
+            if (password_verify($password, htmlspecialchars(stripslashes(trim($row['password']))))) {
+                if ($row['type'] == 'administrator') {
+                    $_SESSION['role'] = clean("Administrator");
+                    $_SESSION['userid'] = clean($row['id']);
+                    $_SESSION['username'] = clean($row['username']);
+                    $_SESSION['barangay'] = clean($row['barangay']);
+                
+                    echo "<script>
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Welcome, Administrator!',
+                                icon: 'success',
+                                timer: 2000,
+                                showConfirmButton: false
+                            }).then(() => {
+                                window.location.href = 'pages/dashboard/dashboard.php';
+                            });
+                          </script>";
+                } else if ($row['type'] == 'Zone Leader') {
+                    if ($row['isApproved'] == $status) {
+                        $_SESSION['role'] = clean("Zone Leader");
+                        $_SESSION['userid'] = clean($row['id']);
+                        $_SESSION['username'] = clean($row['username']);
+                        $_SESSION['barangay'] = clean($row['barangay']);
+                        
+                        echo "<script>
                                 Swal.fire({
                                     title: 'Success!',
-                                    text: 'Welcome!',
+                                    text: 'Welcome, Zone Leader!',
                                     icon: 'success',
                                     timer: 2000,
                                     showConfirmButton: false
                                 }).then(() => {
-                                    window.location.href = 'pages/dashboard/dashboard.php';
+                                    window.location.href = 'pages/permit/permit.php';
                                 });
-                            </script>";
-                        } else {
-                            echo "<script>
-                                Swal.fire({
-                                    title: 'Error!',
-                                    text: 'Incorrect username or password.',
-                                    icon: 'error',
-                                    timer: 2000,
-                                    showConfirmButton: false
-                                });
-                            </script>";
-                        }
+                              </script>";
                     } else {
                         echo "<script>
-                            Swal.fire({
-                                title: 'Error!',
-                                text: 'Account doesn\'t exist.',
-                                icon: 'error',
-                                timer: 2000,
-                                showConfirmButton: false
-                            });
-                        </script>";
+                                Swal.fire({
+                                    title: 'Account Pending Approval!',
+                                    text: 'Your account has not been approved yet. Please contact the administrator.',
+                                    icon: 'warning',
+                                    timer: 3000,
+                                    showConfirmButton: false
+                                });
+                              </script>";
                     }
                 }
             } else {
-                // CAPTCHA validation failed
                 echo "<script>
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Incorrect username or password.',
+                            icon: 'error',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                      </script>";
+            }
+        } else {
+            echo "<script>
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Please verify that you are not a robot.',
+                        text: 'Account doesn\'t exist.',
                         icon: 'error',
                         timer: 2000,
                         showConfirmButton: false
                     });
-                </script>";
-            }
+                  </script>";
+        }
+    }
+
 
         // Prepare and bind parameters
         // $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ? AND password = ? AND type = 'administrator'");
