@@ -123,7 +123,7 @@ session_start();
             if (isset($_POST['btn_login'])) {
     // Verify reCAPTCHA
     $recaptchaResponse = $_POST['g-recaptcha-response'];
-    $secretKey = 'your-secret-key'; // Replace with your actual reCAPTCHA secret key
+    $secretKey = '6LfXLooqAAAAAPzzjG01n0BsGVab1yQDaa1s3LDI'; // Replace with your actual reCAPTCHA secret key
     $verifyResponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$recaptchaResponse");
     $responseData = json_decode($verifyResponse);
 
