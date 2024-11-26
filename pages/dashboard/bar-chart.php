@@ -67,11 +67,12 @@ if ($_SESSION['role'] == 'Administrator') {
 ?>
 	
 <script>
+    // Generate the Morris Bar Chart
     Morris.Bar({
         element: 'morris-bar-chart5',
         data: [
             <?php
-            // Query to fetch barangay and household counts
+            // Fetch the barangay and household counts
             if ($isZoneLeader) {
                 $qry = mysqli_query($con, "
                     SELECT barangay, COUNT(DISTINCT householdnum) as household_count
@@ -100,23 +101,15 @@ if ($_SESSION['role'] == 'Administrator') {
             }
             ?>
         ],
-        xkey: 'y', // Barangay name
-        ykeys: ['a'], // Household count
-        labels: ['Households'], // Legend label
+        xkey: 'y', // Barangay names as x-axis labels
+        ykeys: ['a'], // Household counts
+        labels: ['Households'],
         hideHover: 'auto',
-        barColors: [
-            <?php
-            // Generate unique colors for each barangay
-            $usedColors = [];
-            foreach ($barangays as $barangay) {
-                do {
-                    $randomColor = sprintf('#%06X', mt_rand(0, 0xFFFFFF)); // Random HEX color
-                } while (in_array($randomColor, $usedColors)); // Ensure no duplicate colors
-                $usedColors[] = $randomColor;
-                echo "'$randomColor',";
-            }
-            ?>
-        ]
+        barColors: function (row, series, type) {
+            // Generate a random color for each barangay
+            const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            return randomColor;
+        }
     });
 </script>
 	
