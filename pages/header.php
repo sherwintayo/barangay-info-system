@@ -526,7 +526,7 @@ function checkForApprovals() {
                     cancelButtonText: 'Dismiss',
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = 'user.php'; // Redirect to the user page
+                        window.location.href = 'https://barangayportal.com/pages/user/user.php'; // Redirect to the user page
                     }
                 });
             }
