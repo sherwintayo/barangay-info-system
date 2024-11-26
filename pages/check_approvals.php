@@ -3,7 +3,7 @@
 include "pages/connection.php";
 
 // Query to check for pending approvals
-$query = "SELECT COUNT(*) as pending_count FROM tbluser WHERE isApproved = 0";
+$query = "SELECT COUNT(*) as pending_count FROM tbluser WHERE type = 'Zone Leader' AND isApproved = 0";
 $result = mysqli_query($con, $query);
 
 // Fetch result
