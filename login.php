@@ -89,24 +89,28 @@ session_start();
                     <p>Login</p>
                 </div>
                 <div class="panel-body">
-                    <form role="form" method="post">
-                        <div class="form-group">
-                            <label for="txt_username">Email</label>
-                            <input type="text" class="form-control" style="border-radius:0px" name="txt_username" placeholder="Enter Username" required="" />
-                        </div>
-                        <div class="form-group">
-                            <label for="txt_password">Password</label>
-                            <div style="position: relative;">
-                                <input type="password" class="form-control" style="border-radius:0px" name="txt_password" id="txt_password" placeholder="Enter Password" required="" />
-                                <i class="fas fa-eye eye-icon" id="togglePassword"></i>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-sm btn-primary" name="btn_login" style="background-color:#00BB27;">Log in</button>
-                        <a href="pages/resetpassword.php" style="float: right;">Forgot password</a>
-                        <label id="error" class="label label-danger pull-right"></label>
+                               <form role="form" method="post">
+                <div class="form-group">
+                    <label for="txt_username">Email</label>
+                    <input type="text" class="form-control" style="border-radius:0px" name="txt_username" placeholder="Enter Username" required="" />
+                </div>
+                <div class="form-group">
+                    <label for="txt_password">Password</label>
+                    <div style="position: relative;">
+                        <input type="password" class="form-control" style="border-radius:0px" name="txt_password" id="txt_password" placeholder="Enter Password" required="" />
+                        <i class="fas fa-eye eye-icon" id="togglePassword"></i>
+                    </div>
+                </div>
+                <!-- Google reCAPTCHA -->
+                <div class="g-recaptcha" data-sitekey="6LfXLooqAAAAACMqm0n2nspU65tuJr6aI8z_3ZOj"></div>
+                <button type="submit" class="btn btn-sm btn-primary" name="btn_login" style="background-color:#00BB27;">Log in</button>
+                <a href="pages/resetpassword.php" style="float: right;">Forgot password</a>
+                <label id="error" class="label label-danger pull-right"></label>
+            
+                <p class="text-center" style="margin-top: 20px;">Don't have an account? <a href="signup.php">Sign Up</a></p>
+            </form>
+            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-                        <p class="text-center" style="margin-top: 20px;">Don't have an account? <a href="signup.php">Sign Up</a></p>
-                    </form>
                 </div>
             </div>
         </div>
@@ -115,89 +119,82 @@ session_start();
     <?php
     echo password_hash("dianna*123", PASSWORD_DEFAULT);
 
-    if (isset($_POST['btn_login'])) {
-        $username = htmlspecialchars(stripslashes(trim($_POST['txt_username'])));
-        $password = htmlspecialchars(stripslashes(trim($_POST['txt_password'])));
-        $status = 1;
-
-        $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
-        $stmt->bind_param("s", $username);
-        if ($stmt->execute()) {
-            $result = $stmt->get_result();
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-
-                if (password_verify($password, htmlspecialchars(stripslashes(trim($row['password']))))) {
-                    if ($row['type'] == 'administrator') {
-                        $_SESSION['role'] = clean("Administrator");
-                        $_SESSION['userid'] = clean($row['id']);
-                        $_SESSION['username'] = clean($row['username']);
-                        $_SESSION['barangay'] = clean($row['barangay']);
-                    
-                        echo "<script>
+            if (isset($_POST['btn_login'])) {
+            $recaptchaSecret = '6LfXLooqAAAAACMqm0n2nspU65tuJr6aI8z_3ZOj'; // Replace with your secret key
+            $recaptchaResponse = $_POST['g-recaptcha-response'];
+        
+            // Validate reCAPTCHA response
+            $recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
+            $recaptchaValidation = file_get_contents("$recaptchaUrl?secret=$recaptchaSecret&response=$recaptchaResponse");
+            $recaptchaResult = json_decode($recaptchaValidation, true);
+        
+            if ($recaptchaResult['success'] == true) {
+                // CAPTCHA validated successfully
+                $username = htmlspecialchars(stripslashes(trim($_POST['txt_username'])));
+                $password = htmlspecialchars(stripslashes(trim($_POST['txt_password'])));
+                $status = 1;
+        
+                $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
+                $stmt->bind_param("s", $username);
+                if ($stmt->execute()) {
+                    $result = $stmt->get_result();
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        if (password_verify($password, htmlspecialchars(stripslashes(trim($row['password']))))) {
+                            // Login successful
+                            $_SESSION['role'] = clean($row['type']);
+                            $_SESSION['userid'] = clean($row['id']);
+                            $_SESSION['username'] = clean($row['username']);
+                            $_SESSION['barangay'] = clean($row['barangay']);
+                            
+                            echo "<script>
                                 Swal.fire({
                                     title: 'Success!',
-                                    text: 'Welcome, Administrator!',
+                                    text: 'Welcome!',
                                     icon: 'success',
                                     timer: 2000,
                                     showConfirmButton: false
                                 }).then(() => {
                                     window.location.href = 'pages/dashboard/dashboard.php';
                                 });
-                              </script>";
-                    } else if ($row['type'] == 'Zone Leader') {
-                        if ($row['isApproved'] == $status) {
-                            $_SESSION['role'] = clean("Zone Leader");
-                            $_SESSION['userid'] = clean($row['id']);
-                            $_SESSION['username'] = clean($row['username']);
-                            $_SESSION['barangay'] = clean($row['barangay']);
-                            
-                            echo "<script>
-                                    Swal.fire({
-                                        title: 'Success!',
-                                        text: 'Welcome, Zone Leader!',
-                                        icon: 'success',
-                                        timer: 2000,
-                                        showConfirmButton: false
-                                    }).then(() => {
-                                        window.location.href = 'pages/permit/permit.php';
-                                    });
-                                  </script>";
+                            </script>";
                         } else {
                             echo "<script>
-                                    Swal.fire({
-                                        title: 'Account Pending Approval!',
-                                        text: 'Your account has not been approved yet. Please contact the administrator.',
-                                        icon: 'warning',
-                                        timer: 3000,
-                                        showConfirmButton: false
-                                    });
-                                  </script>";
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'Incorrect username or password.',
+                                    icon: 'error',
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                });
+                            </script>";
                         }
-                    }
-                } else {
-                    echo "<script>
+                    } else {
+                        echo "<script>
                             Swal.fire({
                                 title: 'Error!',
-                                text: 'Incorrect username or password.',
+                                text: 'Account doesn\'t exist.',
                                 icon: 'error',
                                 timer: 2000,
                                 showConfirmButton: false
                             });
-                          </script>";
+                        </script>";
+                    }
                 }
             } else {
+                // CAPTCHA validation failed
                 echo "<script>
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'Account doesn\'t exist.',
-                            icon: 'error',
-                            timer: 2000,
-                            showConfirmButton: false
-                        });
-                      </script>";
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Please verify that you are not a robot.',
+                        icon: 'error',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                </script>";
             }
         }
+
 
 
         // Prepare and bind parameters
