@@ -150,6 +150,16 @@ if (!isset($_SESSION['role'])) {
                             </div><!-- /.box-body -->
                         </div><!-- /.box -->
 
+                                                    <?php include "../edit_notif.php"; ?>
+
+                            <?php include "../added_notif.php"; ?>
+
+                            <?php include "../delete_notif.php"; ?>
+
+                            <?php include "add_modal.php"; ?>
+
+            <?php include "function.php"; ?>
+
                     </div> <!-- /.row -->
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
