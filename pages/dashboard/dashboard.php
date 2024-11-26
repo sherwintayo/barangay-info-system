@@ -321,7 +321,10 @@ if ($_SESSION['role'] != 'Administrator') {
 }
 ?>
 
-
+                           <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] == 'Administrator') {
+?>
               <!-- Total Households -->
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="panel panel-default">
@@ -333,6 +336,31 @@ if ($_SESSION['role'] != 'Administrator') {
                   </div>
                 </div>
               </div>
+
+    <?php
+}
+?>
+
+                             <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] != 'Administrator') {
+?>
+              <!-- Total Households -->
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    Total number of households bar graph
+                  </div>
+                  <div class="panel-body">
+                    <div id="morris-bar-chart5"></div>
+                  </div>
+                </div>
+              </div>
+
+    <?php
+}
+?>
+  
  </div> <!-- /.row -->
             </div><!-- /.box -->
 
