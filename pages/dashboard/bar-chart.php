@@ -106,9 +106,14 @@ if ($_SESSION['role'] == 'Administrator') {
         labels: ['Households'],
         hideHover: 'auto',
         barColors: function (row, series, type) {
-            // Generate a random color for each barangay
-            const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-            return randomColor;
+            // Generate a random color excluding whites and overly light colors
+            let color;
+            do {
+                color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            } while (parseInt(color.substring(1, 3), 16) > 200 && // Red component too high
+                     parseInt(color.substring(3, 5), 16) > 200 && // Green component too high
+                     parseInt(color.substring(5, 7), 16) > 200);  // Blue component too high
+            return color;
         }
     });
 </script>
