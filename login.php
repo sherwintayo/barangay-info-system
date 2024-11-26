@@ -193,9 +193,6 @@ session_start();
                     });
                 </script>";
             }
-        }
-
-
 
         // Prepare and bind parameters
         // $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ? AND password = ? AND type = 'administrator'");
