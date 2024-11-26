@@ -422,39 +422,41 @@ if (isset($_POST['btn_saveeditProfile'])) {
 <script>
     $(document).ready(function () {
         var ids = new Array();
-        $('#over').on('click', function () {
+
+        // Toggle dropdown visibility
+        $('#over').on('click', function (e) {
+            e.stopPropagation(); // Prevent click from propagating to the document
             $('#list').toggle();
         });
 
-        //Message with Ellipsis
+        // Hide dropdown when clicking outside
+        $(document).on('click', function (e) {
+            if (!$(e.target).closest('#list').length && !$(e.target).is('#over')) {
+                $('#list').hide();
+            }
+        });
+
+        // Message with Ellipsis
         $('div.msg').each(function () {
             var len = $(this).text().trim(" ").split(" ");
             if (len.length > 12) {
-                var add_elip = $(this).text().trim().substring(0, 1000)
+                var add_elip = $(this).text().trim().substring(0, 1000);
                 $(this).text(add_elip);
             }
-
         });
 
-
+        // Handle bell count click
         $("#bell-count").on('click', function (e) {
             e.preventDefault();
-
             let belvalue = $('#bell-count').attr('data-value');
 
-            if (belvalue == '') {
-
+            if (belvalue === '') {
                 console.log("inactive");
             } else {
                 $(".round").css('display', 'none');
                 $("#list").css('display', 'block');
 
-                // $('.message').each(function(){
-                // var i = $(this).attr("data-id");
-                // ids.push(i);
-
-                // });
-                //Ajax
+                // Ajax for deactivating notifications
                 $('.message').click(function (e) {
                     e.preventDefault();
                     $.ajax({
@@ -462,7 +464,6 @@ if (isset($_POST['btn_saveeditProfile'])) {
                         type: 'POST',
                         data: { "id": $(this).attr('data-id') },
                         success: function (data) {
-
                             console.log(data);
                             location.reload();
                         }
@@ -471,6 +472,7 @@ if (isset($_POST['btn_saveeditProfile'])) {
             }
         });
 
+        // Insert notification
         $('#notify').on('click', function (e) {
             e.preventDefault();
             var name = $('#notifications_name').val();
@@ -488,8 +490,7 @@ if (isset($_POST['btn_saveeditProfile'])) {
             } else {
                 alert("Please Fill All the fields");
             }
-
-
         });
     });
 </script>
+
