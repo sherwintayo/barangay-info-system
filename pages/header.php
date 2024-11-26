@@ -498,7 +498,7 @@ if (isset($_POST['btn_saveeditProfile'])) {
      // Function to check for pending approvals
     function checkForApprovals() {
         $.ajax({
-            url: 'check_approvals.php', // Backend endpoint
+            url: 'pages/check_approvals.php', // Backend endpoint
             type: 'GET',
             dataType: 'json',
             success: function(response) {
