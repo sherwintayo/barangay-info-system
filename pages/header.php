@@ -495,15 +495,20 @@ if (isset($_POST['btn_saveeditProfile'])) {
         
     });
 
-     // Function to check for pending approvals
-    function checkForApprovals() {
-        $.ajax({
-            url: '../check_approvals.php', // Backend endpoint
-            type: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                // Check if there are pending approvals
+    // Function to check for pending approvals
+function checkForApprovals() {
+    $.ajax({
+        url: '../check_approvals.php', // Backend endpoint
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            // Log response for debugging
+            console.log('Server Response:', response);
+
+            // Validate response format and check for pending approvals
+            if (response && typeof response.pendingCount === 'number') {
                 if (response.pendingCount > 0) {
+                    // Display alert if approvals are pending
                     Swal.fire({
                         title: 'Pending Approvals!',
                         text: `There are ${response.pendingCount} Zone Leaders waiting for approval.`,
@@ -517,18 +522,24 @@ if (isset($_POST['btn_saveeditProfile'])) {
                         }
                     });
                 }
-            },
-            error: function() {
-                console.error('Error fetching pending approvals');
+            } else {
+                console.error('Unexpected response format:', response);
             }
-        });
-    }
+        },
+        error: function(xhr, status, error) {
+            // Log detailed error for debugging
+            console.error('Error fetching pending approvals:', error);
+            console.error('Response status:', status);
+            console.error('Response text:', xhr.responseText);
+        }
+    });
+}
 
-    // Call the function every 1 minute (60000 ms)
-    setInterval(checkForApprovals, 60000);
+// Set an interval to check for approvals every 1 minute (60000 ms)
+setInterval(checkForApprovals, 60000);
 
-    // Optional: Call immediately on page load
-    checkForApprovals();
+// Optional: Call the function immediately on page load
+checkForApprovals();
 
 </script>
 
