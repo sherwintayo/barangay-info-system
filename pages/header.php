@@ -5,6 +5,13 @@
 <script src="./assets/js/bootstrap.min.js"></script>
 
 <?php
+$pending_approvals_query = "SELECT COUNT(*) as pending_count FROM tbluser WHERE role = 'Zone Leader' AND isApproved = 0";
+$pending_approvals_result = mysqli_query($con, $pending_approvals_query);
+$pending_approvals = mysqli_fetch_assoc($pending_approvals_result);
+$pending_count = $pending_approvals['pending_count'];
+?>
+
+<?php
 function clean($data){
     $data = htmlspecialchars(stripslashes(trim($data)));
     return $data;
@@ -491,6 +498,26 @@ if (isset($_POST['btn_saveeditProfile'])) {
                 alert("Please Fill All the fields");
             }
         });
+    });
+
+      $(document).ready(function () {
+        let pendingCount = <?php echo $pending_count; ?>;
+        if (pendingCount > 0) {
+            Swal.fire({
+                title: 'Pending Approvals!',
+                text: `There are ${pendingCount} Zone Leaders awaiting approval.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Go to Approvals',
+                cancelButtonText: 'Later'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'user.php';
+                }
+            });
+        }
     });
 </script>
 
