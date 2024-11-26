@@ -24,8 +24,11 @@ if (!$result) {
 
 // Fetch result
 $data = mysqli_fetch_assoc($result);
-$response['pendingCount'] = $data['pending_count'];
+
+// Ensure pendingCount is an integer
+$response['pendingCount'] = (int)$data['pending_count']; // Cast to integer
 
 // Return JSON response
+header('Content-Type: application/json'); // Ensure proper header
 echo json_encode($response);
 ?>
