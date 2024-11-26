@@ -263,7 +263,7 @@ if ($_SESSION['role'] != 'Administrator') {
               </div>
                            <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] == 'Administrator') {
+if ($_SESSION['role'] != 'Administrator') {
 ?>
               <!-- Resident Educational Attainment -->
               <div class="col-md-6 col-sm-12 col-xs-12">
