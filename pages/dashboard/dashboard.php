@@ -177,7 +177,7 @@ if ($_SESSION['role'] != 'Administrator') {
                         class="fa fa-users"></i></span></a>
                   <div class="info-box-content">
                     <span class="info-box-text">Total New Resident</span>
-                    <span class="info-box-number">
+                    <span class="info-box-number" style="font-size: 4rem; font-weight: bold;">
                       <?php
                       if ($isZoneLeader) {
                         $q = mysqli_query($con, "SELECT * from tblresident WHERE barangay = '$barangayByZoneLeader' AND status = 'New Resident'");
@@ -207,7 +207,7 @@ if ($_SESSION['role'] != 'Administrator') {
                         class="fa fa-file"></i></span></a>
                   <div class="info-box-content">
                     <span class="info-box-text">Clearance Issued</span>
-                    <span class="info-box-number">
+                    <span class="info-box-number" style="font-size: 4rem; font-weight: bold;">
                       <?php
                       if ($isZoneLeader) {
                         $q = mysqli_query($con, "SELECT * from tblclearance where status = 'Approved' AND barangay = '$barangayByZoneLeader' ");
@@ -229,7 +229,7 @@ if ($_SESSION['role'] != 'Administrator') {
                         class="fa fa-file"></i></span></a>
                   <div class="info-box-content">
                     <span class="info-box-text">Permit Issued</span>
-                    <span class="info-box-number">
+                    <span class="info-box-number" style="font-size: 4rem; font-weight: bold;">
                       <?php
                      if ($isZoneLeader) {
                       $q = mysqli_query($con, "SELECT * from tblpermit where status = 'Approved' AND businessAddress = '$barangayByZoneLeader' ");
@@ -251,7 +251,7 @@ if ($_SESSION['role'] != 'Administrator') {
                         class="fa fa-user"></i></span></a>
                   <div class="info-box-content">
                     <span class="info-box-text">Blotter Issued</span>
-                    <span class="info-box-number">
+                    <span class="info-box-number" style="font-size: 4rem; font-weight: bold;">
                       <?php
                       if ($isZoneLeader) {
                         $q = mysqli_query($con, "SELECT * from tblblotter WHERE barangay = '$barangayByZoneLeader'");
