@@ -138,13 +138,13 @@ if (!isset($_SESSION['role'])) {
                                                         </button></td>
                                                     </tr>';
                                                     include "edit_modal.php";
+
+                                                    include "add_modal.php";
                                                 }
                                             }
                                             ?>
                                         </tbody>
                                     </table>
-
-                                    <?php include "add_modal.php"; ?>
 
                                     <?php include "../deleteModal.php"; ?>
 
