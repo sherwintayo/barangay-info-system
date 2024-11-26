@@ -84,7 +84,7 @@ if ($_SESSION['role'] != 'Administrator') {
                         class="fa fa-home"></i></span></a>
                   <div class="info-box-content">
                     <span class="info-box-text">Total number of households</span>
-                    <span class="info-box-number">
+                    <span class="info-box-number" style="font-size: 4rem; font-weight: bold;">
                       <?php
                      if ($isZoneLeader) {
                       $q = mysqli_query($con, "SELECT * from tblhousehold WHERE barangay = '$barangayByZoneLeader'");
@@ -102,6 +102,11 @@ if ($_SESSION['role'] != 'Administrator') {
 
                               <?php
 }
+?>
+
+                                           <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] == 'Administrator') {
 ?>
               <!-- Total Resident -->
               <div class="col-md-6 col-sm-6 col-xs-12"><br>
@@ -125,6 +130,42 @@ if ($_SESSION['role'] != 'Administrator') {
                   </div>
                 </div>
               </div>
+
+                                            <?php
+}
+?>
+  
+  <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] != 'Administrator') {
+?>
+              <!-- Total Resident -->
+              <div class="col-md-6 col-sm-6 col-xs-12"><br>
+                <div class="info-box">
+                  <a href="../resident/resident.php"><span class="info-box-icon" style="background-color: transparent;"><i
+                        class="fa fa-users"></i></span></a>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Total number of residents</span>
+                    <span class="info-box-number" style="font-size: 4rem; font-weight: bold;">
+                      <?php
+                      if ($isZoneLeader) {
+                        $q = mysqli_query($con, "SELECT * from tblresident WHERE barangay = '$barangayByZoneLeader'");
+                      }else{
+                        $q = mysqli_query($con, "SELECT * from tblresident");
+                      }
+                     
+                      $num_rows = mysqli_num_rows($q);
+                      echo $num_rows;
+                      ?>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+                                            <?php
+}
+?>
+  
                            <?php
 // Check if the session role is not equal to 'Administrator'
 if ($_SESSION['role'] != 'Administrator') {
