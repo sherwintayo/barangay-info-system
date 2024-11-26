@@ -65,31 +65,13 @@ if ($_SESSION['role'] != 'Administrator') {
 // Check if the session role is not equal to 'Administrator'
 if ($_SESSION['role'] == 'Administrator') {
 ?>
+	
 <script>
-    // Function to generate a random HEX color
-    function getRandomColor() {
-        const letters = '0123456789ABCDEF';
-        let color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
-
-    // Generate unique colors for barangays
-    function generateUniqueColors(count) {
-        const colors = new Set();
-        while (colors.size < count) {
-            colors.add(getRandomColor());
-        }
-        return Array.from(colors);
-    }
-
     Morris.Bar({
         element: 'morris-bar-chart5',
         data: [
             <?php
-            // Query to group data by barangay and count households
+            // Query to fetch barangay and household counts
             if ($isZoneLeader) {
                 $qry = mysqli_query($con, "
                     SELECT barangay, COUNT(DISTINCT householdnum) as household_count
@@ -105,10 +87,16 @@ if ($_SESSION['role'] == 'Administrator') {
                 ");
             }
 
-            $barangayCount = 0; // Counter for barangays
+            $barangays = [];
             while ($row = mysqli_fetch_array($qry)) {
-                $barangayCount++;
-                echo "{y: '" . $row['barangay'] . "', a: " . $row['household_count'] . "},";
+                $barangays[] = [
+                    'barangay' => $row['barangay'],
+                    'household_count' => $row['household_count']
+                ];
+            }
+
+            foreach ($barangays as $barangay) {
+                echo "{y: '" . $barangay['barangay'] . "', a: " . $barangay['household_count'] . "},";
             }
             ?>
         ],
@@ -116,7 +104,19 @@ if ($_SESSION['role'] == 'Administrator') {
         ykeys: ['a'], // Household count
         labels: ['Households'], // Legend label
         hideHover: 'auto',
-        barColors: generateUniqueColors(<?php echo $barangayCount; ?>) // Dynamic colors for each barangay
+        barColors: [
+            <?php
+            // Generate unique colors for each barangay
+            $usedColors = [];
+            foreach ($barangays as $barangay) {
+                do {
+                    $randomColor = sprintf('#%06X', mt_rand(0, 0xFFFFFF)); // Random HEX color
+                } while (in_array($randomColor, $usedColors)); // Ensure no duplicate colors
+                $usedColors[] = $randomColor;
+                echo "'$randomColor',";
+            }
+            ?>
+        ]
     });
 </script>
 	
