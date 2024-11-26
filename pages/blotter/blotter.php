@@ -144,6 +144,8 @@ if (!isset($_SESSION['role'])) {
                                         </tbody>
                                     </table>
 
+                                    <?php include "add_modal.php"; ?>
+
                                     <?php include "../deleteModal.php"; ?>
 
                                 </form>
