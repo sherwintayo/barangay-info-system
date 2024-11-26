@@ -495,7 +495,7 @@ if (isset($_POST['btn_saveeditProfile'])) {
         
     });
 
-    // Function to check for pending approvals
+   // Function to check for pending approvals
 function checkForApprovals() {
     $.ajax({
         url: '../check_approvals.php', // Backend endpoint
@@ -505,29 +505,30 @@ function checkForApprovals() {
             // Log response for debugging
             console.log('Server Response:', response);
 
-            // Validate response format and check for pending approvals
-            if (response && typeof response.pendingCount === 'number') {
-                if (response.pendingCount > 0) {
-                    // Display alert if approvals are pending
-                    Swal.fire({
-                        title: 'Pending Approvals!',
-                        text: `There are ${response.pendingCount} Zone Leaders waiting for approval.`,
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Go to Approvals',
-                        cancelButtonText: 'Dismiss',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = 'user.php'; // Redirect to the user page
-                        }
-                    });
-                }
-            } else {
-                console.error('Unexpected response format:', response);
+            // Check for errors in the response
+            if (response.error) {
+                console.error('Error:', response.error);
+                return;
+            }
+
+            // Check for pending approvals
+            if (response.pendingCount > 0) {
+                Swal.fire({
+                    title: 'Pending Approvals!',
+                    text: `There are ${response.pendingCount} Zone Leaders waiting for approval.`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Go to Approvals',
+                    cancelButtonText: 'Dismiss',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'user.php'; // Redirect to the user page
+                    }
+                });
             }
         },
         error: function(xhr, status, error) {
-            // Log detailed error for debugging
+            // Log AJAX errors
             console.error('Error fetching pending approvals:', error);
             console.error('Response status:', status);
             console.error('Response text:', xhr.responseText);
@@ -535,10 +536,10 @@ function checkForApprovals() {
     });
 }
 
-// Set an interval to check for approvals every 1 minute (60000 ms)
+// Set an interval to check for approvals every 1 minute
 setInterval(checkForApprovals, 60000);
 
-// Optional: Call the function immediately on page load
+// Call immediately on page load
 checkForApprovals();
 
 </script>
