@@ -165,35 +165,6 @@ if ($_SESSION['role'] != 'Administrator') {
                                             <?php
 }
 ?>
-  
-                           <?php
-// Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] != 'Administrator') {
-?>
-              <!-- Total New Resident -->
-              <div class="col-md-3 col-sm-6 col-xs-12"><br>
-                <div class="info-box">
-                  <a href="../resident/newResident.php"><span class="info-box-icon" style="background-color: transparent;"><i
-                        class="fa fa-users"></i></span></a>
-                  <div class="info-box-content">
-                    <span class="info-box-text">Total New Resident</span>
-                    <span class="info-box-number" style="font-size: 4rem; font-weight: bold;">
-                      <?php
-                      if ($isZoneLeader) {
-                        $q = mysqli_query($con, "SELECT * from tblresident WHERE barangay = '$barangayByZoneLeader' AND status = 'New Resident'");
-                      }else{
-                        $q = mysqli_query($con, "SELECT * from tblresident WHERE status = 'New Resident'");
-                      }
-                      $num_rows = mysqli_num_rows($q);
-                      echo $num_rows;
-                      ?>
-                    </span>
-                  </div>
-                </div>
-              </div>
-                <?php
-}
-?>
               
                                        <?php
 // Check if the session role is not equal to 'Administrator'
