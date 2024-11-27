@@ -118,7 +118,7 @@ session_start();
     </div>
 
     <?php
-    echo password_hash("dianna*123", PASSWORD_DEFAULT);
+    //echo password_hash("dianna*123", PASSWORD_DEFAULT);
 
             if (isset($_POST['btn_login'])) {
     // Verify reCAPTCHA
