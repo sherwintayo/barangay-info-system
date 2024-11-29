@@ -16,14 +16,35 @@
                                     <label>Resident:</label>
                                     <select name="ddl_resident" class="select2 form-control input-sm" style="width:100%" required="" />
                                         <option selected="" disabled="">-- Select Resident -- </option>
-                                        <?php
-                                            $squery = mysqli_query($con,"SELECT r.id,r.lname,r.fname,r.mname from tblresident r where ((r.id not in (select personToComplain from tblblotter)) or (r.id in (select personToComplain from tblblotter where sStatus = 'Solved')) ) and lengthofstay >= 6");
-                                            while ($row = mysqli_fetch_array($squery)){
-                                                echo '
-                                                    <option value="'.$row['id'].'">'.$row['lname'].', '.$row['fname'].' '.$row['mname'].'</option>    
-                                                ';
-                                            }
-                                        ?>
+                                    <?php
+                                    // Ensure $zone_barangay is defined and properly sanitized
+                                    $zone_barangay = mysqli_real_escape_string($con, $zone_barangay); // Prevent SQL injection
+                                    
+                                    // Modify the query to filter by Barangay using $zone_barangay
+                                    $squery = mysqli_query($con, "
+                                        SELECT r.id, r.lname, r.fname, r.mname
+                                        FROM tblresident r
+                                        WHERE (
+                                            (r.id NOT IN (SELECT personToComplain FROM tblblotter))
+                                            OR
+                                            (r.id IN (SELECT personToComplain FROM tblblotter WHERE sStatus = 'Solved'))
+                                        )
+                                        AND r.lengthofstay >= 6
+                                        AND r.barangay = '$zone_barangay'"); // Filter by Barangay
+                                    
+                                    // Check if there are any results
+                                    if (mysqli_num_rows($squery) > 0) {
+                                        while ($row = mysqli_fetch_array($squery)) {
+                                            echo '
+                                                <option value="' . $row['id'] . '">' . $row['lname'] . ', ' . $row['fname'] . ' ' . $row['mname'] . '</option>
+                                            ';
+                                        }
+                                    } else {
+                                        // If no results found, you can show a message or handle it differently
+                                        echo '<option>No residents found in this Barangay.</option>';
+                                    }
+                                    ?>
+
                                     </select>
                                 </div>
                                 <div class="form-group">
