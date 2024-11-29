@@ -132,7 +132,16 @@ if ($_SESSION['role'] != 'Administrator') {
 
                                                     <th>Gender</th>
                                                     <th>Former Address</th>
+                                                                                                    <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] != 'Administrator') {
+?>
                                                     <th style="width: 40px !important;">Option</th>
+                                                                                                        <?php
+// Check if the session role is not equal to 'Administrator'
+}
+?>
+   
                                                 </tr>
                                             </thead>
                                             <tbody>
