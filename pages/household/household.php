@@ -89,58 +89,67 @@ if ($_SESSION['role'] != 'Administrator') {
                                                 <th>Zone/Purok</th>
                                                 <th>Total Members</th>
                                                 <th>Head of Family</th>
+                                                <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] != 'Administrator') {
+?>
                                                 <th style="width: 40px !important;">Option</th>
+                                                    <?php
+}
+?>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            if(!isset($_SESSION['staff']))
-                                            {   
+if (!isset($_SESSION['staff'])) {
+    if ($isZoneLeader) {
+        $squery = mysqli_query($con, "SELECT *,h.id as hid,h.zone as hzone,CONCAT(r.lname, ', ', r.fname, ' ', r.mname) as hname FROM tblhousehold h LEFT JOIN tblresident r ON r.id = h.headoffamily WHERE h.barangay = '$zone_barangay'");
+    } else {
+        $squery = mysqli_query($con, "SELECT *,h.id as hid,h.zone as hzone,CONCAT(r.lname, ', ', r.fname, ' ', r.mname) as hname FROM tblhousehold h LEFT JOIN tblresident r ON r.id = h.headoffamily");
+    }
+    while ($row = mysqli_fetch_array($squery)) {
+        echo '
+        <tr>
+            <td><input type="checkbox" name="chk_delete[]" class="chk_delete" value="' . $row['hid'] . '" /></td>
+            <td><a href="../resident/resident.php?resident=' . $row['householdno'] . '">' . $row['householdno'] . '</a></td>
+            <td>' . $row['hzone'] . '</td>
+            <td>' . $row['totalhousehold'] . '</td>
+            <td>' . $row['hname'] . '</td>';
+        // Show "Edit" button only if session role is not Administrator
+        if ($_SESSION['role'] !== 'Administrator') {
+            echo '<td><button class="btn btn-primary btn-sm" data-target="#editModal' . $row['hid'] . '" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>';
+        } else {
+            echo '<td></td>'; // Empty cell if "Edit" button is hidden
+        }
+        echo '</tr>';
 
-                                               if ($isZoneLeader) {
-                                                 $squery = mysqli_query($con, "select *,h.id as hid,h.zone as hzone,CONCAT(r.lname, ', ', r.fname, ' ', r.mname) as hname from tblhousehold h left join tblresident r on r.id = h.headoffamily WHERE h.barangay = '$zone_barangay'");
-                                               }else{
-                                                 $squery = mysqli_query($con, "select *,h.id as hid,h.zone as hzone,CONCAT(r.lname, ', ', r.fname, ' ', r.mname) as hname from tblhousehold h left join tblresident r on r.id = h.headoffamily");
-                                               }
-                                                while($row = mysqli_fetch_array($squery))
-                                                {
-                                                    echo '
-                                                    <tr>
-                                                        <td><input type="checkbox" name="chk_delete[]" class="chk_delete" value="'.$row['hid'].'" /></td>
-                                                        <td><a href="../resident/resident.php?resident='.$row['householdno'].'">'.$row['householdno'].'</a></td>
-                                                        <td>'.$row['hzone'].'</td>
-                                                        <td>'.$row['totalhousehold'].'</td>
-                                                        <td>'.$row['hname'].'</td>
-                                                        <td><button class="btn btn-primary btn-sm" data-target="#editModal'.$row['hid'].'" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>
-                                                    </tr>
-                                                    ';
+        include "edit_modal.php";
+    }
+} else {
+    if ($isZoneLeader) {
+        $squery = mysqli_query($con, "SELECT *,h.id as hid,h.zone as hzone,CONCAT(r.lname, ', ', r.fname, ' ', r.mname) as hname FROM tblhousehold h LEFT JOIN tblresident r ON r.id = h.headoffamily WHERE h.barangay = '$zone_barangay'");
+    } else {
+        $squery = mysqli_query($con, "SELECT *,h.id as hid,h.zone as hzone,CONCAT(r.lname, ', ', r.fname, ' ', r.mname) as hname FROM tblhousehold h LEFT JOIN tblresident r ON r.id = h.headoffamily");
+    }
+    while ($row = mysqli_fetch_array($squery)) {
+        echo '
+        <tr>
+            <td><a href="../resident/resident.php?resident=' . $row['householdno'] . '">' . $row['householdno'] . '</a></td>
+            <td>' . $row['hzone'] . '</td>
+            <td>' . $row['totalhousehold'] . '</td>
+            <td>' . $row['hname'] . '</td>';
+        // Show "Edit" button only if session role is not Administrator
+        if ($_SESSION['role'] !== 'Administrator') {
+            echo '<td><button class="btn btn-primary btn-sm" data-target="#editModal' . $row['hid'] . '" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>';
+        } else {
+            echo '<td></td>'; // Empty cell if "Edit" button is hidden
+        }
+        echo '</tr>';
 
-                                                    include "edit_modal.php";
-                                                }
-
-                                            }
-                                            else{
-                                               if ($isZoneLeader) {
-                                                 $squery = mysqli_query($con, "select *,h.id as hid,h.zone as hzone,CONCAT(r.lname, ', ', r.fname, ' ', r.mname) as hname from tblhousehold h left join tblresident r on r.id = h.headoffamily WHERE h.barangay = '$zone_barangay'");
-                                               }else{
-                                                 $squery = mysqli_query($con, "select *,h.id as hid,h.zone as hzone,CONCAT(r.lname, ', ', r.fname, ' ', r.mname) as hname from tblhousehold h left join tblresident r on r.id = h.headoffamily");
-                                               }
-                                                while($row = mysqli_fetch_array($squery))
-                                                {
-                                                    echo '
-                                                    <tr>
-                                                        <td><a href="../resident/resident.php?resident='.$row['householdno'].'">'.$row['householdno'].'</a></td>
-                                                        <td>'.$row['hzone'].'</td>
-                                                        <td>'.$row['totalhousehold'].'</td>
-                                                        <td>'.$row['hname'].'</td>
-                                                        <td><button class="btn btn-primary btn-sm" data-target="#editModal'.$row['hid'].'" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>
-                                                    </tr>
-                                                    ';
-
-                                                    include "edit_modal.php";
-                                                }
-                                            }
-                                            ?>
+        include "edit_modal.php";
+    }
+}
+?>
                                         </tbody>
                                     </table>
 
