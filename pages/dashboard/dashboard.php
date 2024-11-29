@@ -78,7 +78,7 @@ if ($_SESSION['role'] == 'Administrator') {
 // Check if the session role is not equal to 'Administrator'
 if ($_SESSION['role'] != 'Administrator') {
 ?>
-   <div class="col-md-6 col-sm-6 col-xs-12"><br>
+   <div class="col-md-4 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
                   <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                         class="fa fa-home"></i></span></a>
@@ -140,7 +140,7 @@ if ($_SESSION['role'] == 'Administrator') {
 if ($_SESSION['role'] != 'Administrator') {
 ?>
               <!-- Total Resident -->
-              <div class="col-md-6 col-sm-6 col-xs-12"><br>
+              <div class="col-md-4 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
                   <a href="../resident/resident.php"><span class="info-box-icon" style="background-color: transparent;"><i
                         class="fa fa-users"></i></span></a>
@@ -172,7 +172,7 @@ if ($_SESSION['role'] != 'Administrator') {
 ?>
 
               <!-- Clearance Issued -->
-              <div class="col-md-3 col-sm-6 col-xs-12"><br>
+              <div class="col-md-4 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
                   <a href="../clearance/clearance.php"><span class="info-box-icon" style="background-color: transparent;"><i
                         class="fa fa-file"></i></span></a>
@@ -194,7 +194,7 @@ if ($_SESSION['role'] != 'Administrator') {
               </div>
 
               <!-- Permit Issued -->
-              <div class="col-md-3 col-sm-6 col-xs-12"><br>
+              <div class="col-md-4 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
                   <a href="../permit/permit.php"><span class="info-box-icon" style="background-color: transparent;"><i
                         class="fa fa-file"></i></span></a>
@@ -216,7 +216,7 @@ if ($_SESSION['role'] != 'Administrator') {
               </div>
 
               <!-- Blotter Issued -->
-              <div class="col-md-3 col-sm-6 col-xs-12"><br>
+              <div class="col-md-4 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
                   <a href="../blotter/blotter.php"><span class="info-box-icon" style="background-color: transparent;"><i
                         class="fa fa-user"></i></span></a>
