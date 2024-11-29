@@ -8,7 +8,7 @@ if (!isset($_SESSION['role'])) {
 } else {
     include('../head_css.php');
     include("../connection.php");
-    ?>
+?>
     <script src="sweet_alert.js"></script>
     <style>
         .input-size {
@@ -129,3 +129,6 @@ if (!isset($_SESSION['role'])) {
         </style>
     </body>
 </html>
+<?php 
+} // Close the else statement for the session check
+?>
