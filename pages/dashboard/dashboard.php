@@ -78,7 +78,7 @@ if ($_SESSION['role'] == 'Administrator') {
 // Check if the session role is not equal to 'Administrator'
 if ($_SESSION['role'] != 'Administrator') {
 ?>
-   <div class="col-md-4 col-sm-6 col-xs-12"><br>
+   <div class="col-md-6 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
                   <a href="../household/household.php"><span class="info-box-icon" style="background-color: transparent;"><i
                         class="fa fa-home"></i></span></a>
@@ -263,7 +263,7 @@ if ($_SESSION['role'] != 'Administrator') {
 ?>
 
               <!-- Males and Females in Barangay -->
-              <div class="col-md-6 col-sm-12 col-xs-12">
+              <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     Males and Females in Barangay
