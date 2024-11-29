@@ -31,7 +31,7 @@ if ($_SESSION['role'] == "Administrator") {
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
-<!--             <li>
+            <li>
                 <a href="../officials/officials.php">
                     <i class="fa fa-user"></i> <span>Barangay Officials</span>
                 </a>
