@@ -16,13 +16,25 @@
                                     <select name="ddl_resident" class="select2 form-control input-sm" style="width:100%;" required=""/>
                                         <option selected="" disabled="">-- Select Resident -- </option>
                                         <?php
-                                            $squery = mysqli_query($con,"SELECT id,lname,fname,mname from tblresident");
-                                            while ($row = mysqli_fetch_array($squery)){
-                                                echo '
-                                                    <option value="'.$row['id'].'">'.$row['lname'].', '.$row['fname'].' '.$row['mname'].'</option>    
-                                                ';
-                                            }
-                                        ?>
+// Ensure $zone_barangay is defined and properly sanitized if coming from user input
+$zone_barangay = mysqli_real_escape_string($con, $zone_barangay); // Prevent SQL injection
+
+// Modify the query to filter by Barangay using $zone_barangay
+$squery = mysqli_query($con, "SELECT id, lname, fname, mname FROM tblresident WHERE barangay = '$zone_barangay'");
+
+// Check if there are any results
+if (mysqli_num_rows($squery) > 0) {
+    while ($row = mysqli_fetch_array($squery)) {
+        echo '
+            <option value="' . $row['id'] . '">' . $row['lname'] . ', ' . $row['fname'] . ' ' . $row['mname'] . '</option>
+        ';
+    }
+} else {
+    // If no results found, you can optionally show a message or handle it differently
+    echo '<option>No residents found in this Barangay.</option>';
+}
+?>
+
                                     </select>
                                 </div>
                                 <div class="form-group">
