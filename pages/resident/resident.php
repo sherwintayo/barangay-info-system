@@ -46,7 +46,10 @@ if (!isset($_SESSION['role'])) {
                             <div class="box">
                                 <div class="box-header">
                                     <div style="padding:10px;">
-
+                                            <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] != 'Administrator') {
+?>
                                         <button class="btn btn-primary btn-sm" data-toggle="modal"
                                             data-target="#addCourseModal"><i class="fa fa-user-plus" aria-hidden="true"></i> Add
                                             Residents</button>
@@ -57,6 +60,7 @@ if (!isset($_SESSION['role'])) {
                                                     class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                                             <?php
                                         }
+}
                                         ?>
 
                                     </div>
