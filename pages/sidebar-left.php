@@ -113,7 +113,7 @@ if ($_SESSION['role'] == "Administrator") {
             </li> -->
             <li>
                 <a href="../logo/logo.php">
-                    <i class="fa fa-gallery"></i> <span>Logo</span>
+                    <i class="fa fa-images"></i> <span>Logo</span>
                 </a>
             </li>
             <li>
