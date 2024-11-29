@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ng<!DOCTYPE html>
 <html>
 
 <?php
@@ -34,7 +34,7 @@ if (!isset($_SESSION['role'])) {
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Resident
+                        Settings
                     </h1>
 
                 </section>
