@@ -165,7 +165,6 @@ if (!isset($_SESSION['staff'])) {
         if ($_SESSION['role'] !== 'Administrator') {
             echo '<td><button class="btn btn-primary btn-sm" data-target="#editModal' . $row['id'] . '" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>';
         } else {
-            echo '<td></td>'; // Empty cell if "Edit" button is hidden
         }
         echo '</tr>';
 
@@ -186,7 +185,6 @@ if (!isset($_SESSION['staff'])) {
         if ($_SESSION['role'] !== 'Administrator') {
             echo '<td><button class="btn btn-primary btn-sm" data-target="#editModal' . $row['id'] . '" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>';
         } else {
-            echo '<td></td>'; // Empty cell if "Edit" button is hidden
         }
         echo '</tr>';
 
