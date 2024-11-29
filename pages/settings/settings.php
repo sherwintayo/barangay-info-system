@@ -55,7 +55,7 @@ if (!isset($_SESSION['role'])) {
                                     <!-- Barangay Logo (which is stored as 'existing_logo' in the DB) -->
 <!--                                     <label for="logo">Barangay Logo</label>
                                     <br>
-                                    <img src="../../images/<?= //$data['existing_logo'] ?>" alt="Barangay Logo" style="width: 200px; margin: 10px 0;">
+                                    <img src="../../images/<?= $data['existing_logo'] ?>" alt="Barangay Logo" style="width: 200px; margin: 10px 0;">
                                     <input type="file" name="logo" accept="image/*" class="form-control input-size" style="margin: 10px 0;"> -->
                                     
                                     <!-- Update Button -->
