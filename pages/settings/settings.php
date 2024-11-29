@@ -130,5 +130,5 @@ if (!isset($_SESSION['role'])) {
     </body>
 </html>
 <?php 
-} // Close the else statement for the session check
+} // End of the else statement for session check
 ?>
