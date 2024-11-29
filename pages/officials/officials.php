@@ -40,7 +40,10 @@
                             <div class="box">
                                 <div class="box-header">
                                     <div style="padding:10px;">
-                                        
+                                        <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] == 'Administrator') {
+?>
                                         <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addCourseModal"><i class="fa fa-user-plus" aria-hidden="true"></i> Add Officials</button>  
 
                                         <?php 
@@ -50,6 +53,7 @@
                                         <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button> 
                                         <?php
                                             }
+}
                                         ?>
                                 
                                     </div>                                
@@ -73,69 +77,77 @@
                                                 <th>Address</th>
                                                 <th>Start of Term</th>
                                                 <th>End of Term</th>
+                                                                                                <?php
+// Check if the session role is not equal to 'Administrator'
+if ($_SESSION['role'] == 'Administrator') {
+?>
                                                 <th style="width: 130px !important;">Option</th>
+                                            <?php
+}
+?>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                                if(!isset($_SESSION['staff']))
-                                                {
+if (!isset($_SESSION['staff'])) {
+    if ($isZoneLeader) {
+        $squery = mysqli_query($con, "select * from tblofficial WHERE barangay = '$zone_barangay' ");
+    } else {
+        $squery = mysqli_query($con, "select * from tblofficial ");
+    }
+    while ($row = mysqli_fetch_array($squery)) {
+        echo '
+        <tr>
+            <td><input type="checkbox" name="chk_delete[]" class="chk_delete" value="' . $row['id'] . '" /></td>
+            <td>' . $row['sPosition'] . '</td>
+            <td>' . $row['completeName'] . '</td>
+            <td>' . $row['pcontact'] . '</td>
+            <td>' . $row['paddress'] . '</td>
+            <td>' . $row['termStart'] . '</td>
+            <td>' . $row['termEnd'] . '</td>
+            <td>';
+        
+        // Only show buttons if the role is 'Administrator'
+        if ($_SESSION['role'] == 'Administrator') {
+            echo '
+                <button class="btn btn-primary btn-sm" data-target="#editModal' . $row['id'] . '" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>';
+            if ($row['status'] == 'Ongoing Term') {
+                echo '<button class="btn btn-danger btn-sm" data-target="#endModal' . $row['id'] . '" data-toggle="modal"><i class="fa fa-minus-circle" aria-hidden="true"></i> End</button>';
+            } else {
+                echo '<button class="btn btn-success btn-sm" data-target="#startModal' . $row['id'] . '" data-toggle="modal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Start</button>';
+            }
+        }
+        
+        echo '</td>
+        </tr>';
 
-                                                    if ($isZoneLeader) {
-                                                        $squery = mysqli_query($con, "select * from tblofficial WHERE barangay = '$zone_barangay' ");
-                                                    }else{
-                                                        $squery = mysqli_query($con, "select * from tblofficial ");
-                                                    }
-                                                    while($row = mysqli_fetch_array($squery))
-                                                    {
-                                                        echo '
-                                                        <tr>
-                                                            <td><input type="checkbox" name="chk_delete[]" class="chk_delete" value="'.$row['id'].'" /></td>
-                                                            <td>'.$row['sPosition'].'</td>
-                                                            <td>'.$row['completeName'].'</td>
-                                                            <td>'.$row['pcontact'].'</td>
-                                                            <td>'.$row['paddress'].'</td>
-                                                            <td>'.$row['termStart'].'</td>
-                                                            <td>'.$row['termEnd'].'</td>
-                                                            <td>
-                                                                <button class="btn btn-primary btn-sm" data-target="#editModal'.$row['id'].'" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>';
-                                                                if($row['status'] == 'Ongoing Term'){
-                                                                echo '<button class="btn btn-danger btn-sm" data-target="#endModal'.$row['id'].'" data-toggle="modal"><i class="fa fa-minus-circle " aria-hidden="true"></i> End</button>';
-                                                                }
-                                                                else{
-                                                                echo '<button class="btn btn-success btn-sm" data-target="#startModal'.$row['id'].'" data-toggle="modal"><i class="fa fa-minus-circle " aria-hidden="true"></i> Start</button>';
-                                                                }
-                                                            echo '</td>
-                                                        
-                                                        </tr>
-                                                        ';
+        include "edit_modal.php";
+        include "endterm_modal.php";
+        include "startterm_modal.php";
+    }
+} else {
+    $squery = mysqli_query($con, "select * from tblofficial where status = 'Ongoing Term' group by termend");
+    while ($row = mysqli_fetch_array($squery)) {
+        echo '
+        <tr>
+            <td>' . $row['sPosition'] . '</td>
+            <td>' . $row['completeName'] . '</td>
+            <td>' . $row['pcontact'] . '</td>
+            <td>' . $row['paddress'] . '</td>
+            <td>' . $row['termStart'] . '</td>
+            <td>' . $row['termEnd'] . '</td>';
 
-                                                        include "edit_modal.php";
-                                                        include "endterm_modal.php";
-                                                        include "startterm_modal.php";
-                                                    }
+        // Only show the "Edit" button if the role is 'Administrator'
+        if ($_SESSION['role'] == 'Administrator') {
+            echo '<td><button class="btn btn-primary btn-sm" data-target="#editModal' . $row['id'] . '" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>';
+        }
+        
+        echo '</tr>';
 
-                                                }
-                                                else{
-                                                    $squery = mysqli_query($con, "select * from tblofficial where status = 'Ongoing Term' group by termend");
-                                                    while($row = mysqli_fetch_array($squery))
-                                                    {
-                                                        echo '
-                                                        <tr>
-                                                            <td>'.$row['sPosition'].'</td>
-                                                            <td>'.$row['completeName'].'</td>
-                                                            <td>'.$row['pcontact'].'</td>
-                                                            <td>'.$row['paddress'].'</td>
-                                                            <td>'.$row['termStart'].'</td>
-                                                            <td>'.$row['termEnd'].'</td>
-                                                            <td><button class="btn btn-primary btn-sm" data-target="#editModal'.$row['id'].'" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>
-                                                        </tr>
-                                                        ';
-
-                                                        include "edit_modal.php";
-                                                    }
-                                                }
-                                            ?>
+        include "edit_modal.php";
+    }
+}
+?>
                                         </tbody>
                                     </table>
 
