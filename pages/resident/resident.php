@@ -137,47 +137,54 @@ if ($_SESSION['role'] != 'Administrator') {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                if (!isset($_SESSION['staff'])) {
-                                                   if ($isZoneLeader) {
-                                                    $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where statRes=0 AND status = 'Active' AND barangay = '$zone_barangay' order by zone ");
-                                                   }else{
-                                                    $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where statRes=0 AND status = 'Active' order by zone ");
-                                                   }
-                                                    while ($row = mysqli_fetch_array($squery)) {
-                                                        echo '
-                                                    <tr>
-                                                        <td><input type="checkbox" name="chk_delete[]" class="chk_delete" value="' . $row['id'] . '" /></td>
-                                                        <td>' . $row['zone'] . '</td>
-                                                        <td style="width:70px;"><image src="image/' . basename($row['image']) . '" style="width:60px;height:60px;"/></td>
-                                                        <td>' . $row['cname'] . '</td>
-                                                        
-                                                        <td>' . $row['gender'] . '</td>
-                                                        <td>' . $row['formerAddress'] . '</td>
-                                                        <td><button class="btn btn-primary btn-sm" data-target="#editModal' . $row['id'] . '" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>
-                                                    </tr>
-                                                    ';
+if (!isset($_SESSION['staff'])) {
+    if ($isZoneLeader) {
+        $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where statRes=0 AND status = 'Active' AND barangay = '$zone_barangay' order by zone ");
+    } else {
+        $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident where statRes=0 AND status = 'Active' order by zone ");
+    }
+    while ($row = mysqli_fetch_array($squery)) {
+        echo '
+        <tr>
+            <td><input type="checkbox" name="chk_delete[]" class="chk_delete" value="' . $row['id'] . '" /></td>
+            <td>' . $row['zone'] . '</td>
+            <td style="width:70px;"><image src="image/' . basename($row['image']) . '" style="width:60px;height:60px;"/></td>
+            <td>' . $row['cname'] . '</td>
+            <td>' . $row['gender'] . '</td>
+            <td>' . $row['formerAddress'] . '</td>';
+        // Show "Edit" button only if session role is not Administrator
+        if ($_SESSION['role'] !== 'Administrator') {
+            echo '<td><button class="btn btn-primary btn-sm" data-target="#editModal' . $row['id'] . '" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>';
+        } else {
+            echo '<td></td>'; // Empty cell if "Edit" button is hidden
+        }
+        echo '</tr>';
 
-                                                        include "edit_modalres.php";
-                                                    }
-                                                } else {
-                                                    $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident WHERE status = 'Active' order by zone");
-                                                    while ($row = mysqli_fetch_array($squery)) {
-                                                        echo '
-                                                    <tr>
-                                                        <td>' . $row['zone'] . '</td>
-                                                        <td style="width:70px;"><image src="image/' . basename($row['image']) . '" style="width:60px;height:60px;"/></td>
-                                                        <td>' . $row['cname'] . '</td>
-                                                        <td>' . $row['age'] . '</td>
-                                                        <td>' . $row['gender'] . '</td>
-                                                        <td>' . $row['formerAddress'] . '</td>
-                                                        <td><button class="btn btn-primary btn-sm" data-target="#editModal' . $row['id'] . '" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>
-                                                    </tr>
-                                                    ';
+        include "edit_modalres.php";
+    }
+} else {
+    $squery = mysqli_query($con, "SELECT *,zone,id,CONCAT(lname, ', ', fname, ' ', mname) as cname, age, gender, formerAddress, image FROM tblresident WHERE status = 'Active' order by zone");
+    while ($row = mysqli_fetch_array($squery)) {
+        echo '
+        <tr>
+            <td>' . $row['zone'] . '</td>
+            <td style="width:70px;"><image src="image/' . basename($row['image']) . '" style="width:60px;height:60px;"/></td>
+            <td>' . $row['cname'] . '</td>
+            <td>' . $row['age'] . '</td>
+            <td>' . $row['gender'] . '</td>
+            <td>' . $row['formerAddress'] . '</td>';
+        // Show "Edit" button only if session role is not Administrator
+        if ($_SESSION['role'] !== 'Administrator') {
+            echo '<td><button class="btn btn-primary btn-sm" data-target="#editModal' . $row['id'] . '" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>';
+        } else {
+            echo '<td></td>'; // Empty cell if "Edit" button is hidden
+        }
+        echo '</tr>';
 
-                                                        include "edit_modalres.php";
-                                                    }
-                                                }
-                                                ?>
+        include "edit_modalres.php";
+    }
+}
+?>
                                             </tbody>
                                         </table>
 
