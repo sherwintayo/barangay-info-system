@@ -36,7 +36,7 @@ if ($_SESSION['role'] == "Administrator") {
                     <i class="fa fa-user"></i> <span>Barangay Officials</span>
                 </a>
             </li>
-            <li>
+           <!-- <li>
                 <a href="../staff/staff.php">
                     <i class="fa fa-user"></i> <span>Staff</span>
                 </a>
