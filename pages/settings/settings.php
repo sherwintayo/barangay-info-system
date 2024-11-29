@@ -46,18 +46,18 @@ if (!isset($_SESSION['role'])) {
                                     <label for="name">Barangay Name</label>
                                     <input type="text" name="name" class="form-control input-size" style="margin: 10px 0;" value="<?= $data['name'] ?>" required>
 
-                                    <!-- Barangay Logo -->
-                                    <label for="logo">Barangay Logo</label>
-                                    <br>
-                                    <img src="../../images/<?= $data['logo'] ?>" alt="Barangay Logo" style="width: 200px; margin: 10px 0;">
-                                    <input type="file" name="logo" accept="image/*" class="form-control input-size" style="margin: 10px 0;">
-                                    
-                                    <!-- Existing Logo (no removal, just update) -->
+                                    <!-- Existing Logo (which is stored as 'logo' in the DB) -->
                                     <label for="existing_logo">Existing Logo</label>
                                     <br>
-                                    <img src="../../images/<?= $data['existing_logo'] ?>" alt="Existing Logo" style="width: 200px; margin: 10px 0;">
+                                    <img src="../../images/<?= $data['logo'] ?>" alt="Existing Logo" style="width: 200px; margin: 10px 0;">
                                     <input type="file" name="existing_logo" accept="image/*" class="form-control input-size" style="margin: 10px 0;">
 
+                                    <!-- Barangay Logo (which is stored as 'existing_logo' in the DB) -->
+                                    <label for="logo">Barangay Logo</label>
+                                    <br>
+                                    <img src="../../images/<?= $data['existing_logo'] ?>" alt="Barangay Logo" style="width: 200px; margin: 10px 0;">
+                                    <input type="file" name="logo" accept="image/*" class="form-control input-size" style="margin: 10px 0;">
+                                    
                                     <!-- Update Button -->
                                     <input type="submit" class="btn btn-primary btn-sm" name="btn_update" value="Update">
                                 </form>
