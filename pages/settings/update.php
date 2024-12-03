@@ -1,78 +1,79 @@
 <?php 
- if (isset($_POST['btn_update'])) {
-    $name = $_POST['name'];
-    $userid = $_SESSION['userid'];
-    
+if (isset($_POST['btn_update'])) {
+    $userid = $_SESSION['userid']; // Get user_id from session
+    $name = $_POST['name']; // Get the name from the form
+
+    // Check if a logo was uploaded
     if ($_FILES['logo']['error'] > 0) {
-        $stmt = $con->query("UPDATE tblsettings SET name = '$name', user_id = '$userid'");
+        // Update only the name in the database by user_id
+        $stmt = $con->query("UPDATE tblsettings SET name = '$name' WHERE user_id = '$userid'");
         if ($stmt) {
             ?>
             <script>
                 Swal.fire({
                     icon: 'success',
-                    title: 'Updated Successfully!',
+                    title: 'Name Updated Successfully!',
                     showConfirmButton: false,
                     timer: 1500,
                     customClass: {
                         confirmButton: 'swal2-square-button'
                     }
                 }).then(() => {
-                    window.location.href = "settings.php"
+                    window.location.href = "settings.php";
                 });
-               
             </script>
-            <?php 
+            <?php
         }
-    }else{
+    } else {
+        // Process the uploaded logo
         $filename = $_FILES['logo']['name'];
         $tmpname = $_FILES['logo']['tmp_name'];
         $img_type = $_FILES['logo']['type'];
         $folder = "../../images/" . $filename;
 
+        // Validate image format
         if ($img_type == "image/jpg" || $img_type == "image/png" || $img_type == "image/jpeg") {
-            $stmt = $con->query("UPDATE tblsettings SET name = '$name', user_id = '$userid', logo = '$filename'");
+            // Update name and logo in the database by user_id
+            $stmt = $con->query("UPDATE tblsettings SET name = '$name', logo = '$filename' WHERE user_id = '$userid'");
             if ($stmt) {
+                // Move uploaded file to the specified folder if it doesn't already exist
                 if (!file_exists($folder)) {
-                    move_uploaded_file($tmpname, $folder); 
+                    move_uploaded_file($tmpname, $folder);
                 }
-                    ?>
-                    <script>
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Updated Successfully!',
-                            showConfirmButton: false,
-                            timer: 1500,
-                            customClass: {
-                                confirmButton: 'swal2-square-button'
-                            }
-                        }).then(() => {
-                            window.location.href = "settings.php"
-                        });
-                       
-                    </script>
-                    <?php 
-                
+                ?>
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Name and Logo Updated Successfully!',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        customClass: {
+                            confirmButton: 'swal2-square-button'
+                        }
+                    }).then(() => {
+                        window.location.href = "settings.php";
+                    });
+                </script>
+                <?php
             }
-        }else{
+        } else {
+            // Handle invalid image format
             ?>
             <script>
                 Swal.fire({
                     icon: 'error',
-                    title: 'Invalid image format',
+                    title: 'Invalid Image Format! Only JPG, PNG, and JPEG are allowed.',
                     showConfirmButton: false,
                     timer: 1500,
                     customClass: {
                         confirmButton: 'swal2-square-button'
                     }
                 }).then(() => {
-                    window.location.href = "settings.php"
+                    window.location.href = "settings.php";
                 });
-               
             </script>
-            <?php 
+            <?php
         }
-
     }
-
 }
 ?>
