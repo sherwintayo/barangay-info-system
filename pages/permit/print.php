@@ -129,10 +129,7 @@ if (!isset($_SESSION['role'])) {
                                     Barangay Tugas<br>
                             </b></p>
                         </center>
-                    </div>
-
-                                                                             <!-- Right Image Section -->
-                    <div class="col-xs-4 col-sm-8 col-md-3">
+                                            <div class="col-xs-4 col-sm-8 col-md-3">
                         <center>
                             <?php
                             // Fetch the image path from tblsettings by user_id
@@ -146,6 +143,10 @@ if (!isset($_SESSION['role'])) {
                             ?>
                         </center>
                     </div>
+
+                    </div>
+
+                                                                             <!-- Right Image Section -->
 
                     <div class="col-xs-12 col-md-8" style=" border:2px solid green; margin-top: 50px;">
                         <br>
