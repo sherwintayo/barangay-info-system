@@ -32,7 +32,7 @@ if (!isset($_SESSION['role'])) {
             <div style=" background: black; margin-top: 50px;">
                 <div class="col-xs-4 col-sm-6 col-md-3">
                     <center>
-                        <image src="../../images/madridejos.png" style="width:100%;height:200px;" />
+                        <image src="../../images/madridejos.png" style="width:200px;height:100%;" />
                     </center>
                     <h1></h1>
                     <div
@@ -140,7 +140,7 @@ if (!isset($_SESSION['role'])) {
                             if ($row = mysqli_fetch_array($qry)) {
                                 echo '<img src="../../images/' . $row['logo'] . '" style="width:200px;height:100%;" />';
                             } else {
-                                echo '<img style="margin-left: 80px;" src="../../images/default.png" style="width:200px;height:100%;" />'; // Fallback image
+                                echo '<img src="../../images/default.png" style="width:200px;height:100%;" />'; // Fallback image
                             }
                             ?>
                         </center>
