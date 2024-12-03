@@ -135,7 +135,7 @@ if (!isset($_SESSION['role'])) {
                         <center>
                             <?php
                             // Fetch the image path from tblsettings by user_id
-                            $user_id = $_SESSION['user_id'];
+                            $user_id = $_SESSION['userid'];
                             $qry = mysqli_query($con, "SELECT * FROM tblsettings WHERE user_id = '$user_id'");
                             if ($row = mysqli_fetch_array($qry)) {
                                 echo '<img src="../../images/' . $row['logo'] . '" style="width:90%;height:164px;" />';
