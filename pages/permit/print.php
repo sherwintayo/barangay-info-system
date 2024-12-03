@@ -128,23 +128,24 @@ if (!isset($_SESSION['role'])) {
                                     Municipality of Madridejos<br>
                                     Barangay Tugas<br>
                             </b></p>
+                        </center>
 
-                            
+                    </div>
+                   <!-- Right Image Section -->
+                    <div class="col-xs-4 col-sm-8">
+                        <center>
                             <?php
                             // Fetch the image path from tblsettings by user_id
                             $user_id = $_SESSION['userid'];
                             $qry = mysqli_query($con, "SELECT * FROM tblsettings WHERE user_id = '$user_id'");
                             if ($row = mysqli_fetch_array($qry)) {
-                                echo '<img src="../../images/' . $row['logo'] . '" style="width:200px;height:auto;" />';
+                                echo '<img src="../../images/' . $row['logo'] . '" style="width:200px;height:100%;" />';
                             } else {
-                                echo '<img src="../../images/default.png" style="width:200px;height:auto;" />'; // Fallback image
+                                echo '<img src="../../images/default.png" style="width:200px;height:100%;" />'; // Fallback image
                             }
                             ?>
                         </center>
-
                     </div>
-
-                                                                             <!-- Right Image Section -->
 
                     <div class="col-xs-12 col-md-8" style=" border:2px solid green; margin-top: 50px;">
                         <br>
