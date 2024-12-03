@@ -10,7 +10,7 @@
     .right-image {
         position: absolute;
         top: 0;
-        right: 80%;
+        right: 30%;
         width: 100px; /* Adjust size as needed */
         height: auto;
     }
