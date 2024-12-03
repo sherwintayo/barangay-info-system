@@ -32,7 +32,7 @@ if (!isset($_SESSION['role'])) {
             <div style=" background: black; margin-top: 50px;">
                 <div class="col-xs-4 col-sm-6 col-md-3">
                     <center>
-                        <image src="../../images/madridejos.png" style="width:90%;height:164px;" />
+                        <image src="../../images/madridejos.png" style="width:100%;height:200px;" />
                     </center>
                     <h1></h1>
                     <div
@@ -138,7 +138,7 @@ if (!isset($_SESSION['role'])) {
                             $user_id = $_SESSION['userid'];
                             $qry = mysqli_query($con, "SELECT * FROM tblsettings WHERE user_id = '$user_id'");
                             if ($row = mysqli_fetch_array($qry)) {
-                                echo '<img src="../../images/' . $row['logo'] . '" style="width:90%;height:164px;" />';
+                                echo '<img src="../../images/' . $row['logo'] . '" style="width:100%;height:200px;" />';
                             } else {
                                 echo '<img src="../../images/default.png" style="width:90%;height:164px;" />'; // Fallback image
                             }
