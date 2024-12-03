@@ -128,9 +128,8 @@ if (!isset($_SESSION['role'])) {
                                     Municipality of Madridejos<br>
                                     Barangay Tugas<br>
                             </b></p>
-                        </center>
-                                            <div class="col-xs-4 col-sm-8 col-md-3">
-                        <center>
+
+                            
                             <?php
                             // Fetch the image path from tblsettings by user_id
                             $user_id = $_SESSION['userid'];
@@ -142,7 +141,6 @@ if (!isset($_SESSION['role'])) {
                             }
                             ?>
                         </center>
-                    </div>
 
                     </div>
 
