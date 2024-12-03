@@ -118,7 +118,7 @@ if (!isset($_SESSION['role'])) {
                         ?>
                     </div>
                 </div>
-                <div class="col-xs-7 col-sm-5 col-md-8" style="background: white; ">
+                <div class="col-xs-6 col-sm-5 col-md-8" style="background: white; ">
                     <div class="pull-left" style="margin-left: 95px; margin-top: 50px;">
                         <center><b>
                                 <p style="font-size: 20px;">
