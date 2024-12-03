@@ -65,7 +65,7 @@ if (!isset($_SESSION['role'])) {
                                             } else {
                                                 // Default values if no data is found
                                                 $data = [
-                                                    'name' => '',
+                                                    'name' => 'Barangay Management System',
                                                     'logo' => 'madridejos.png' // Replace with a default image path
                                                 ];
                                             }
