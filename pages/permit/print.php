@@ -128,7 +128,7 @@ if (!isset($_SESSION['role'])) {
                 </div>
 
                 <div class="col-xs-7 col-sm-5 col-md-9" style="background: white; ">
-                    <div class="pull-left" style="margin-left: 20px; margin-top: 10px;">
+                    <div class="pull-left" style="margin-top: 10px;">
                         <center><b>
                                 <p style="font-size: 20px;">
                                     Republic of the Philippines<br>
