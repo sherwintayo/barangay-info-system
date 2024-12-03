@@ -55,7 +55,10 @@ if (!isset($_SESSION['role'])) {
 
                                         <?php
                                         if (!isset($_SESSION['staff'])) {
-                                            $squery = mysqli_query($con, "SELECT * FROM tblsettings");
+                                           // Get the user_id from session
+                                            $userid = $_SESSION['userid'];
+                                            
+                                            $squery = mysqli_query($con, "SELECT * FROM tblsettings WHERE user_id = '$userid'");
                                             $data = $squery->fetch_assoc();
                                         ?>
                                             <form method="post" enctype="multipart/form-data">
