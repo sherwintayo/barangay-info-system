@@ -32,7 +32,7 @@ if (!isset($_SESSION['role'])) {
             <div style=" background: black; margin-top: 50px;">
                 <div class="col-xs-4 col-sm-6 col-md-3">
                     <center>
-                        <image src="../../img/madridejos.png" style="width:90%;height:164px;" />
+                        <image src="../../images/madridejos.png" style="width:90%;height:164px;" />
                     </center>
                     <h1></h1>
                     <div
