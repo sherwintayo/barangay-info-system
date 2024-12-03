@@ -130,7 +130,7 @@ if (!isset($_SESSION['role'])) {
                         </center>
                     </div>
                      <!-- Right Image Section -->
-                    <div class="col-xs-4 col-sm-8 col-md-3"  style="margin-left: 80px;">
+                    <div class="col-xs-4 col-sm-8 col-md-3">
                         <center>
                             <?php
                             // Fetch the image path from tblsettings by user_id
