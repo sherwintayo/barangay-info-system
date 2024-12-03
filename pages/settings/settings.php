@@ -59,7 +59,16 @@ if (!isset($_SESSION['role'])) {
                                             $userid = $_SESSION['userid'];
                                             
                                             $squery = mysqli_query($con, "SELECT * FROM tblsettings WHERE user_id = '$userid'");
-                                            $data = $squery->fetch_assoc();
+                                            
+                                            if ($squery && mysqli_num_rows($squery) > 0) {
+                                                $data = $squery->fetch_assoc();
+                                            } else {
+                                                // Default values if no data is found
+                                                $data = [
+                                                    'name' => '',
+                                                    'logo' => 'madridejos.png' // Replace with a default image path
+                                                ];
+                                            }
                                         ?>
                                             <form method="post" enctype="multipart/form-data">
                                                 <label for="">Name</label>
