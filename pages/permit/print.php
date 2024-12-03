@@ -137,9 +137,9 @@ if (!isset($_SESSION['role'])) {
                             $user_id = $_SESSION['userid'];
                             $qry = mysqli_query($con, "SELECT * FROM tblsettings WHERE user_id = '$user_id'");
                             if ($row = mysqli_fetch_array($qry)) {
-                                echo '<img src="../../images/' . $row['logo'] . '" style="width:200px;height:100%;" />';
+                                echo '<img src="../../images/' . $row['logo'] . '" style="width:200px;height:auto;" />';
                             } else {
-                                echo '<img src="../../images/default.png" style="width:200px;height:100%;" />'; // Fallback image
+                                echo '<img src="../../images/default.png" style="width:200px;height:auto;" />'; // Fallback image
                             }
                             ?>
                         </center>
