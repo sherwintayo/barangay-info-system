@@ -233,8 +233,19 @@ while ($rows = mysqli_fetch_assoc($result)) {
 </style>
 
 <?php
-$squery = mysqli_query($con, "SELECT * FROM tblsettings");
-$data = $squery->fetch_assoc();
+ $userid = $_SESSION['userid'];
+                                            
+$squery = mysqli_query($con, "SELECT * FROM tblsettings WHERE user_id = '$userid'");
+
+if ($squery && mysqli_num_rows($squery) > 0) {
+    $data = $squery->fetch_assoc();
+} else {
+    // Default values if no data is found
+    $data = [
+        'name' => 'Barangay Management System',
+        'logo' => 'madridejos.png' // Replace with a default image path
+    ];
+}
 $logo = $data['logo'];
 $name = $data['name'];
 
