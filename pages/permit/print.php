@@ -128,7 +128,7 @@ if (!isset($_SESSION['role'])) {
                 </div>
 
                 <div class="col-xs-7 col-sm-5 col-md-9" style="background: white; ">
-                    <div class="pull-left" style="margin-left: 80px; margin-top: 30px;">
+                    <div class="pull-left" style="margin-left: 50px; margin-top: 10px;">
                         <center><b>
                                 <p style="font-size: 20px;">
                                     Republic of the Philippines<br>
@@ -147,9 +147,9 @@ if (!isset($_SESSION['role'])) {
                             $user_id = $_SESSION['userid'];
                             $qry = mysqli_query($con, "SELECT * FROM tblsettings WHERE user_id = '$user_id'");
                             if ($row = mysqli_fetch_array($qry)) {
-                                echo '<img src="../../images/' . $row['logo'] . '" style="width:100%;height:100%;" />';
+                                echo '<img src="../../images/' . $row['logo'] . '" style="width:150px;height:100%;" />';
                             } else {
-                                echo '<img src="../../images/default.png" style="width:100%;height:100%;" />'; // Fallback image
+                                echo '<img src="../../images/default.png" style="width:150px;height:100%;" />'; // Fallback image
                             }
                             ?>
                         </center>
