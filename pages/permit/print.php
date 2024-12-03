@@ -131,20 +131,20 @@ if (!isset($_SESSION['role'])) {
                     </div>
 
                     <!-- Right Image Section -->
-        <div class="col-xs-4 col-sm-6 col-md-3">
-            <center>
-                <?php
-                // Fetch the image path from tblsettings by user_id
-                $user_id = $_SESSION['user_id'];
-                $qry = mysqli_query($con, "SELECT * FROM tblsettings WHERE user_id = '$user_id'");
-                if ($row = mysqli_fetch_array($qry)) {
-                    echo '<img src="../../images/' . $row['image_path'] . '" style="width:90%;height:164px;" />';
-                } else {
-                    echo '<img src="../../images/default.png" style="width:90%;height:164px;" />'; // Fallback image
-                }
-                ?>
-            </center>
-        </div>
+                    <div class="col-xs-4 col-sm-6 col-md-3">
+                        <center>
+                            <?php
+                            // Fetch the image path from tblsettings by user_id
+                            $user_id = $_SESSION['user_id'];
+                            $qry = mysqli_query($con, "SELECT * FROM tblsettings WHERE user_id = '$user_id'");
+                            if ($row = mysqli_fetch_array($qry)) {
+                                echo '<img src="../../images/' . $row['image_path'] . '" style="width:90%;height:164px;" />';
+                            } else {
+                                echo '<img src="../../images/default.png" style="width:90%;height:164px;" />'; // Fallback image
+                            }
+                            ?>
+                        </center>
+                    </div>
 
                     <div class="col-xs-12 col-md-12" style=" border:2px solid green; margin-top: 50px;">
                         <br>
