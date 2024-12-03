@@ -155,7 +155,7 @@ if (!isset($_SESSION['role'])) {
                         </center>
                     </div>
 
-                    <div class="col-xs-12 col-md-8" style=" border:2px solid green; margin-top: 30px;">
+                    <div class="col-xs-12 col-md-8" style=" border:2px solid green; margin-top: 20px;">
                         <br>
                         <p class="text-center" style="font-size: 20px; font-size:bold;">OFFICE OF THE PUNONG BARANGAY <br><b
                                 style="font-size: 28px;">BARANGAY CLEARANCE FOR BUSINESS PERMIT </b></p><br><br>
