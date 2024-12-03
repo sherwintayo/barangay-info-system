@@ -32,7 +32,7 @@ if (!isset($_SESSION['role'])) {
             <div style=" background: black; margin-top: 50px;">
                 <div class="col-xs-4 col-sm-6 col-md-3">
                     <center>
-                        <image src="../../images/madridejos.png" style="width:200px;height:100%;" />
+                        <image src="../../images/madridejos.png" style="width:100px;height:100%;" />
                     </center>
                     <h1></h1>
                     <div
@@ -120,7 +120,7 @@ if (!isset($_SESSION['role'])) {
                 </div>
 
                 <div class="col-xs-7 col-sm-5 col-md-9" style="background: white; ">
-                    <div class="pull-left" style="margin-left: 50px; margin-top: 50px;">
+                    <div class="pull-left" style="margin-left: 20px; margin-top: 50px;">
                         <center><b>
                                 <p style="font-size: 20px;">
                                     Republic of the Philippines<br>
@@ -139,9 +139,9 @@ if (!isset($_SESSION['role'])) {
                             $user_id = $_SESSION['userid'];
                             $qry = mysqli_query($con, "SELECT * FROM tblsettings WHERE user_id = '$user_id'");
                             if ($row = mysqli_fetch_array($qry)) {
-                                echo '<img src="../../images/' . $row['logo'] . '" style="width:200px;height:100%;" />';
+                                echo '<img src="../../images/' . $row['logo'] . '" style="width:100px;height:100%;" />';
                             } else {
-                                echo '<img src="../../images/default.png" style="width:200px;height:100%;" />'; // Fallback image
+                                echo '<img src="../../images/default.png" style="width:100px;height:100%;" />'; // Fallback image
                             }
                             ?>
                         </center>
