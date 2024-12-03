@@ -12,7 +12,7 @@
         top: 0;
         right: 0;
         width: 100px; /* Adjust size as needed */
-        height: 100px;
+        height: auto;
     }
 
     @page {
