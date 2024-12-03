@@ -128,7 +128,7 @@ if (!isset($_SESSION['role'])) {
                 </div>
 
                 <div class="col-xs-7 col-sm-5 col-md-9" style="background: white; ">
-                    <div class="pull-left" style="margin-left: 50px; margin-top: 10px;">
+                    <div class="pull-left" style="margin-left: 20px; margin-top: 10px;">
                         <center><b>
                                 <p style="font-size: 20px;">
                                     Republic of the Philippines<br>
@@ -155,7 +155,7 @@ if (!isset($_SESSION['role'])) {
                         </center>
                     </div>
 
-                    <div class="col-xs-12 col-md-8" style=" border:2px solid green; margin-top: 50px;">
+                    <div class="col-xs-12 col-md-8" style=" border:2px solid green; margin-top: 30px;">
                         <br>
                         <p class="text-center" style="font-size: 20px; font-size:bold;">OFFICE OF THE PUNONG BARANGAY <br><b
                                 style="font-size: 28px;">BARANGAY CLEARANCE FOR BUSINESS PERMIT </b></p><br><br>
