@@ -120,41 +120,35 @@ session_start();
     <?php
     //echo password_hash("dianna*123", PASSWORD_DEFAULT);
 
-           // Maximum number of login attempts and lockout duration in seconds
-define('MAX_ATTEMPTS', 3);
-define('LOCKOUT_DURATION', 300); // 5 minutes
+          // Define maximum login attempts and lockout duration
+$max_attempts = 5;
+$lockout_duration = 15 * 60; // 15 minutes
 
+// Initialize login attempt tracking
 if (!isset($_SESSION['login_attempts'])) {
     $_SESSION['login_attempts'] = 0;
     $_SESSION['lockout_time'] = 0;
 }
 
 if (isset($_POST['btn_login'])) {
-    $current_time = time();
-
-    // Check if user is locked out
-    if ($_SESSION['login_attempts'] >= MAX_ATTEMPTS && $current_time < $_SESSION['lockout_time']) {
-        $remaining_time = $_SESSION['lockout_time'] - $current_time;
+    // Check if the user is locked out
+    if ($_SESSION['login_attempts'] >= $max_attempts && time() < $_SESSION['lockout_time']) {
+        $remaining_time = $_SESSION['lockout_time'] - time();
         echo "<script>
                 Swal.fire({
                     title: 'Account Locked!',
-                    text: 'Too many failed login attempts. Try again after $remaining_time seconds.',
+                    text: 'Too many failed login attempts. Try again in " . ceil($remaining_time / 60) . " minutes.',
                     icon: 'error',
-                    timer: 3000,
+                    timer: 4000,
                     showConfirmButton: false
                 });
               </script>";
         exit;
     }
 
-    // Reset login attempts after lockout period
-    if ($current_time >= $_SESSION['lockout_time']) {
-        $_SESSION['login_attempts'] = 0;
-    }
-
     // Verify reCAPTCHA
     $recaptchaResponse = $_POST['g-recaptcha-response'];
-    $secretKey = '6LfXLooqAAAAAPzzjG01n0BsGVab1yQDaa1s3LDI'; // Replace with your reCAPTCHA secret key
+    $secretKey = '6LfXLooqAAAAAPzzjG01n0BsGVab1yQDaa1s3LDI';
     $verifyResponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$recaptchaResponse");
     $responseData = json_decode($verifyResponse);
 
@@ -171,103 +165,74 @@ if (isset($_POST['btn_login'])) {
         exit;
     }
 
-    // Process login
+    // Sanitize and validate user inputs
     $username = clean($_POST['txt_username']);
     $password = clean($_POST['txt_password']);
-    $status = 1;
 
+    // Query the database for the user
     $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
     $stmt->bind_param("s", $username);
-    if ($stmt->execute()) {
-        $result = $stmt->get_result();
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-            if (password_verify($password, clean($row['password']))) {
-                // Login successful, reset login attempts
-                $_SESSION['login_attempts'] = 0;
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
 
-                if ($row['type'] == 'administrator') {
-                    $_SESSION['role'] = "Administrator";
-                    $_SESSION['userid'] = clean($row['id']);
-                    $_SESSION['username'] = clean($row['username']);
-                    $_SESSION['barangay'] = clean($row['barangay']);
+        // Verify password
+        if (password_verify($password, $row['password'])) {
+            // Reset login attempts on successful login
+            $_SESSION['login_attempts'] = 0;
 
-                    echo "<script>
-                            Swal.fire({
-                                title: 'Success!',
-                                text: 'Welcome, Administrator!',
-                                icon: 'success',
-                                timer: 2000,
-                                showConfirmButton: false
-                            }).then(() => {
-                                window.location.href = 'pages/dashboard/dashboard.php';
-                            });
-                          </script>";
-                } elseif ($row['type'] == 'Zone Leader') {
-                    if ($row['isApproved'] == $status) {
-                        $_SESSION['role'] = "Zone Leader";
-                        $_SESSION['userid'] = clean($row['id']);
-                        $_SESSION['username'] = clean($row['username']);
-                        $_SESSION['barangay'] = clean($row['barangay']);
+            // Store user details in session and redirect
+            $_SESSION['role'] = clean($row['type']);
+            $_SESSION['userid'] = clean($row['id']);
+            $_SESSION['username'] = clean($row['username']);
+            $_SESSION['barangay'] = clean($row['barangay']);
 
-                        echo "<script>
-                                Swal.fire({
-                                    title: 'Success!',
-                                    text: 'Welcome, Zone Leader!',
-                                    icon: 'success',
-                                    timer: 2000,
-                                    showConfirmButton: false
-                                }).then(() => {
-                                    window.location.href = 'pages/permit/permit.php';
-                                });
-                              </script>";
-                    } else {
-                        echo "<script>
-                                Swal.fire({
-                                    title: 'Account Pending Approval!',
-                                    text: 'Your account has not been approved yet. Please contact the administrator.',
-                                    icon: 'warning',
-                                    timer: 3000,
-                                    showConfirmButton: false
-                                });
-                              </script>";
-                    }
-                }
-            } else {
-                // Incorrect password
-                $_SESSION['login_attempts']++;
-                if ($_SESSION['login_attempts'] >= MAX_ATTEMPTS) {
-                    $_SESSION['lockout_time'] = $current_time + LOCKOUT_DURATION;
-                }
-
-                echo "<script>
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'Incorrect username or password.',
-                            icon: 'error',
-                            timer: 2000,
-                            showConfirmButton: false
-                        });
-                      </script>";
-            }
+            echo "<script>
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Welcome, " . $row['type'] . "!',
+                        icon: 'success',
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = 'pages/dashboard/dashboard.php';
+                    });
+                  </script>";
         } else {
-            // Username not found
+            // Increment login attempts and set lockout time if necessary
             $_SESSION['login_attempts']++;
-            if ($_SESSION['login_attempts'] >= MAX_ATTEMPTS) {
-                $_SESSION['lockout_time'] = $current_time + LOCKOUT_DURATION;
+            if ($_SESSION['login_attempts'] >= $max_attempts) {
+                $_SESSION['lockout_time'] = time() + $lockout_duration;
             }
 
             echo "<script>
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Account doesn\'t exist.',
+                        text: 'Incorrect username or password.',
                         icon: 'error',
                         timer: 2000,
                         showConfirmButton: false
                     });
                   </script>";
         }
+    } else {
+        // Handle case where user does not exist
+        $_SESSION['login_attempts']++;
+        if ($_SESSION['login_attempts'] >= $max_attempts) {
+            $_SESSION['lockout_time'] = time() + $lockout_duration;
+        }
+
+        echo "<script>
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Account doesn\'t exist.',
+                    icon: 'error',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+              </script>";
     }
 
 
