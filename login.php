@@ -120,14 +120,44 @@ session_start();
     <?php
     //echo password_hash("dianna*123", PASSWORD_DEFAULT);
 
-            if (isset($_POST['btn_login'])) {
+           // Maximum number of login attempts and lockout duration in seconds
+define('MAX_ATTEMPTS', 3);
+define('LOCKOUT_DURATION', 300); // 5 minutes
+
+if (!isset($_SESSION['login_attempts'])) {
+    $_SESSION['login_attempts'] = 0;
+    $_SESSION['lockout_time'] = 0;
+}
+
+if (isset($_POST['btn_login'])) {
+    $current_time = time();
+
+    // Check if user is locked out
+    if ($_SESSION['login_attempts'] >= MAX_ATTEMPTS && $current_time < $_SESSION['lockout_time']) {
+        $remaining_time = $_SESSION['lockout_time'] - $current_time;
+        echo "<script>
+                Swal.fire({
+                    title: 'Account Locked!',
+                    text: 'Too many failed login attempts. Try again after $remaining_time seconds.',
+                    icon: 'error',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+              </script>";
+        exit;
+    }
+
+    // Reset login attempts after lockout period
+    if ($current_time >= $_SESSION['lockout_time']) {
+        $_SESSION['login_attempts'] = 0;
+    }
+
     // Verify reCAPTCHA
     $recaptchaResponse = $_POST['g-recaptcha-response'];
-    $secretKey = '6LfXLooqAAAAAPzzjG01n0BsGVab1yQDaa1s3LDI'; // Replace with your actual reCAPTCHA secret key
+    $secretKey = '6LfXLooqAAAAAPzzjG01n0BsGVab1yQDaa1s3LDI'; // Replace with your reCAPTCHA secret key
     $verifyResponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$recaptchaResponse");
     $responseData = json_decode($verifyResponse);
 
-    // Check if reCAPTCHA is successful
     if (!$responseData->success) {
         echo "<script>
                 Swal.fire({
@@ -138,12 +168,12 @@ session_start();
                     showConfirmButton: false
                 });
               </script>";
-        exit; // Stop further execution
+        exit;
     }
 
-    // Process login if reCAPTCHA is successful
-    $username = htmlspecialchars(stripslashes(trim($_POST['txt_username'])));
-    $password = htmlspecialchars(stripslashes(trim($_POST['txt_password'])));
+    // Process login
+    $username = clean($_POST['txt_username']);
+    $password = clean($_POST['txt_password']);
     $status = 1;
 
     $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
@@ -153,13 +183,16 @@ session_start();
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
 
-            if (password_verify($password, htmlspecialchars(stripslashes(trim($row['password']))))) {
+            if (password_verify($password, clean($row['password']))) {
+                // Login successful, reset login attempts
+                $_SESSION['login_attempts'] = 0;
+
                 if ($row['type'] == 'administrator') {
-                    $_SESSION['role'] = clean("Administrator");
+                    $_SESSION['role'] = "Administrator";
                     $_SESSION['userid'] = clean($row['id']);
                     $_SESSION['username'] = clean($row['username']);
                     $_SESSION['barangay'] = clean($row['barangay']);
-                
+
                     echo "<script>
                             Swal.fire({
                                 title: 'Success!',
@@ -171,13 +204,13 @@ session_start();
                                 window.location.href = 'pages/dashboard/dashboard.php';
                             });
                           </script>";
-                } else if ($row['type'] == 'Zone Leader') {
+                } elseif ($row['type'] == 'Zone Leader') {
                     if ($row['isApproved'] == $status) {
-                        $_SESSION['role'] = clean("Zone Leader");
+                        $_SESSION['role'] = "Zone Leader";
                         $_SESSION['userid'] = clean($row['id']);
                         $_SESSION['username'] = clean($row['username']);
                         $_SESSION['barangay'] = clean($row['barangay']);
-                        
+
                         echo "<script>
                                 Swal.fire({
                                     title: 'Success!',
@@ -202,6 +235,12 @@ session_start();
                     }
                 }
             } else {
+                // Incorrect password
+                $_SESSION['login_attempts']++;
+                if ($_SESSION['login_attempts'] >= MAX_ATTEMPTS) {
+                    $_SESSION['lockout_time'] = $current_time + LOCKOUT_DURATION;
+                }
+
                 echo "<script>
                         Swal.fire({
                             title: 'Error!',
@@ -213,6 +252,12 @@ session_start();
                       </script>";
             }
         } else {
+            // Username not found
+            $_SESSION['login_attempts']++;
+            if ($_SESSION['login_attempts'] >= MAX_ATTEMPTS) {
+                $_SESSION['lockout_time'] = $current_time + LOCKOUT_DURATION;
+            }
+
             echo "<script>
                     Swal.fire({
                         title: 'Error!',
