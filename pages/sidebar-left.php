@@ -36,16 +36,6 @@ if ($_SESSION['role'] == "Administrator") {
                     <i class="fa fa-user"></i> <span>Barangay Officials</span>
                 </a>
             </li>
-           <!-- <li>
-                <a href="../staff/staff.php">
-                    <i class="fa fa-user"></i> <span>Staff</span>
-                </a>
-            </li>
-            <li>
-                <a href="../zone/zone.php">
-                    <i class="fa fa-user"></i> <span>Zone/Purok Leader</span>
-                </a>
-            </li> -->
              <li>
                 <a href="../user/user.php">
                     <i class="fa fa-user"></i> <span>Users</span>
@@ -61,56 +51,6 @@ if ($_SESSION['role'] == "Administrator") {
                     <i class="fa fa-users"></i> <span>Resident</span>
                 </a>
             </li>
-<!--             <li>
-                <a href="../permit/permit.php">
-                    <i class="fa fa-file"></i> <span>Permit</span>
-                </a>
-            </li>
-            <li>
-                <a href="../blotter/blotter.php">
-                    <i class="fa fa-users"></i> <span>Blotter</span>
-                </a>
-            </li>
-            <li>
-                <a href="../clearance/clearance.php">
-                    <i class="fa fa-file"></i> <span>Clearance</span>
-                </a>
-            </li>
-            <li>
-                <a href="../activity/activity.php">
-                    <i class="fa fa-calendar"></i> <span>Activity</span>
-                </a>
-            </li>
-            <li>
-                <a href="../project/project.php">
-                    <i class="fa fa-calendar"></i> <span>Project</span>
-                </a>
-            </li>
-            <li>
-                <a href="../session/session.php">
-                    <i class="fa fa-calendar"></i> <span>Session</span>
-                </a>
-            </li>
-            <li>
-                <a href="../archive/archive.php">
-                    <i class="fa fa-archive"></i> <span>Archive</span>
-                </a>
-            </li>
-            <li>
-                <a href="../visitor/visitor.php">
-                    <i class="fa fa-users"></i> <span>Visitors</span>
-                </a>
-            </li>
-            <li>
-                <a href="../report/report.php">
-                    <i class="fa fa-file"></i> <span>Report</span>
-                </a>
-            </li>
-            <li>
-                <a href="../logs/logs.php">
-                    <i class="fa fa-history"></i> <span>Logs</span>
-                </a>
-            </li> -->
             <li>
                 <a href="../settings/settings.php">
                     <i class="fa fa-gear"></i> <span>Settings</span>
