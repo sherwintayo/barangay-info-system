@@ -44,7 +44,7 @@ if (!isset($_SESSION['role'])) {
               <!-- Total Household -->
                            <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] == 'Administrator') {
+if ($_SESSION['role'] == 'administrator') {
 ?>
         <div class="col-md-6 col-sm-6 col-xs-12"><br>
           <div class="info-box">
@@ -76,7 +76,7 @@ if ($_SESSION['role'] == 'Administrator') {
   
                              <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] != 'Administrator') {
+if ($_SESSION['role'] != 'administrator') {
 ?>
    <div class="col-md-4 col-sm-6 col-xs-12"><br>
                 <div class="info-box">
@@ -106,7 +106,7 @@ if ($_SESSION['role'] != 'Administrator') {
 
                                            <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] == 'Administrator') {
+if ($_SESSION['role'] == 'administrator') {
 ?>
               <!-- Total Resident -->
               <div class="col-md-6 col-sm-6 col-xs-12"><br>
@@ -137,7 +137,7 @@ if ($_SESSION['role'] == 'Administrator') {
   
   <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] != 'Administrator') {
+if ($_SESSION['role'] != 'administrator') {
 ?>
               <!-- Total Resident -->
               <div class="col-md-4 col-sm-6 col-xs-12"><br>
@@ -168,7 +168,7 @@ if ($_SESSION['role'] != 'Administrator') {
               
                                        <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] != 'Administrator') {
+if ($_SESSION['role'] != 'administrator') {
 ?>
 
               <!-- Clearance Issued -->
@@ -245,7 +245,7 @@ if ($_SESSION['role'] != 'Administrator') {
 <div class="row">
             <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] != 'Administrator') {
+if ($_SESSION['role'] != 'administrator') {
 ?>
   <!-- Population per Zone/Purok -->
   <div class="col-md-12 col-sm-12 col-xs-12">
@@ -275,7 +275,7 @@ if ($_SESSION['role'] != 'Administrator') {
               </div>
                            <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] != 'Administrator') {
+if ($_SESSION['role'] != 'administrator') {
 ?>
               <!-- Resident Educational Attainment -->
               <div class="col-md-6 col-sm-12 col-xs-12">
@@ -294,7 +294,7 @@ if ($_SESSION['role'] != 'Administrator') {
 
                            <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] == 'Administrator') {
+if ($_SESSION['role'] == 'administrator') {
 ?>
               <!-- Total Households -->
               <div class="col-md-12 col-sm-12 col-xs-12">
@@ -314,7 +314,7 @@ if ($_SESSION['role'] == 'Administrator') {
 
                              <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] != 'Administrator') {
+if ($_SESSION['role'] != 'administrator') {
 ?>
               <!-- Total Households -->
               <div class="col-md-12 col-sm-12 col-xs-12">
