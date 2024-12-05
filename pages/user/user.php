@@ -48,6 +48,7 @@ if ($_SESSION['role'] != 'Administrator') {
                                             <?php } ?>
                                             <th>Barangay</th>
                                             <th>Username</th>
+                                            <th>Type</th>
                                             <th style="width: 40px !important;">Approval</th>
                                         </tr>
                                     </thead>
@@ -63,6 +64,7 @@ if ($_SESSION['role'] != 'Administrator') {
     }
     echo '<td>' . $row['barangay'] . '</td>';
     echo '<td>' . $row['username'] . '</td>';
+    echo '<td>' . $row['type'] . '</td>';
     echo '<td>';
     if ($isApproved) {
         echo '<span class="badge badge-success">Approved</span>';
