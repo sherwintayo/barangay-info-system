@@ -184,7 +184,7 @@ if (isset($_POST['btn_login'])) {
             $_SESSION['login_attempts'] = 0;
 
             // Store user details in session and redirect
-            $_SESSION['role'] = $row['type'];
+            $_SESSION['role'] = clean($row['type']);
             $_SESSION['userid'] = clean($row['id']);
             $_SESSION['username'] = clean($row['username']);
             $_SESSION['barangay'] = clean($row['barangay']);
