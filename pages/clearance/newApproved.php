@@ -37,7 +37,7 @@
                 <section class="content">
 
                     <?php
-                    if($_SESSION['role'] == "Administrator" || isset($_SESSION['staff']))
+                    if($_SESSION['role'] == "administrator" || isset($_SESSION['staff']))
                     {
                         require './Administrator.php';
                     }
