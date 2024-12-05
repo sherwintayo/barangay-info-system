@@ -48,7 +48,7 @@ if (!isset($_SESSION['role'])) {
                                     <div style="padding:10px;">
                                             <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] != 'Administrator') {
+if ($_SESSION['role'] != 'administrator') {
 ?>
                                         <button class="btn btn-primary btn-sm" data-toggle="modal"
                                             data-target="#addCourseModal"><i class="fa fa-user-plus" aria-hidden="true"></i> Add
@@ -134,7 +134,7 @@ if ($_SESSION['role'] != 'Administrator') {
                                                     <th>Former Address</th>
                                                                                                     <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] != 'Administrator') {
+if ($_SESSION['role'] != 'administrator') {
 ?>
                                                     <th style="width: 40px !important;">Option</th>
                                                                                                         <?php
@@ -162,7 +162,7 @@ if (!isset($_SESSION['staff'])) {
             <td>' . $row['gender'] . '</td>
             <td>' . $row['formerAddress'] . '</td>';
         // Show "Edit" button only if session role is not Administrator
-        if ($_SESSION['role'] !== 'Administrator') {
+        if ($_SESSION['role'] !== 'administrator') {
             echo '<td><button class="btn btn-primary btn-sm" data-target="#editModal' . $row['id'] . '" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>';
         } else {
         }
@@ -182,7 +182,7 @@ if (!isset($_SESSION['staff'])) {
             <td>' . $row['gender'] . '</td>
             <td>' . $row['formerAddress'] . '</td>';
         // Show "Edit" button only if session role is not Administrator
-        if ($_SESSION['role'] !== 'Administrator') {
+        if ($_SESSION['role'] !== 'administrator') {
             echo '<td><button class="btn btn-primary btn-sm" data-target="#editModal' . $row['id'] . '" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>';
         } else {
         }
