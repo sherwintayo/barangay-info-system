@@ -30,7 +30,7 @@
 <!-- For Secretary -->
      <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] != 'Administrator') {
+if ($_SESSION['role'] != 'administrator') {
 ?>
 	
 <script>
@@ -63,7 +63,7 @@ if ($_SESSION['role'] != 'Administrator') {
 <!-- For Admin -->
      <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] == 'Administrator') {
+if ($_SESSION['role'] == 'administrator') {
 ?>
 	
 <script>
@@ -126,7 +126,7 @@ if ($_SESSION['role'] == 'Administrator') {
 <!-- For Admin -->
                            <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] == 'Administrator') {
+if ($_SESSION['role'] == 'administrator') {
 ?>
 	
 <script>
@@ -204,7 +204,7 @@ if ($_SESSION['role'] == 'Administrator') {
 
 	 <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] != 'Administrator') {
+if ($_SESSION['role'] != 'administrator') {
 ?>
 <script>
 	Morris.Bar({
