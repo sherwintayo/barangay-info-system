@@ -43,7 +43,7 @@
                     }
                     elseif($_SESSION['role'] == "Zone Leader")
                     {
-                        require './newZoneLeader.php';
+                        require './ZoneLeader.php';
                     }
                     else
                     {
