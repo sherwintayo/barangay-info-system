@@ -28,7 +28,7 @@ include('../head_css.php'); ?>
                             <div style="padding:10px;">
     <?php
 // Check if the session role is not equal to 'Administrator'
-if ($_SESSION['role'] != 'Administrator') {
+if ($_SESSION['role'] != 'administrator') {
 ?>
                                 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addZoneModal"><i class="fa fa-user-plus" aria-hidden="true"></i> Add Zone/Purok Leader</button>
                                 <?php if (!isset($_SESSION['staff'])) { ?>
