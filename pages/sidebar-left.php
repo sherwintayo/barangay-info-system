@@ -8,7 +8,7 @@ echo '
                 <div class="pull-left info">
 ';
 
-if ($_SESSION['role'] === 'Administrator') {
+if ($_SESSION['role'] === 'administrator') {
     echo '<h4>Hello, ' . $_SESSION['role'] . '</h4>';
 } else {
     echo '<h4>Barangay ' . $_SESSION['barangay'] . '</h4>';
@@ -19,7 +19,7 @@ echo '
             </div>
 ';
 
-if ($_SESSION['role'] == "Administrator") {
+if ($_SESSION['role'] == "administrator") {
     $today = date('Y-m-d');
 
     $count_permit = $con->query("SELECT * FROM tblpermit WHERE DATE(dateRecorded) = '$today'");
