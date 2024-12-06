@@ -146,7 +146,7 @@ if (isset($_POST['btn_login'])) {
     }
     grecaptcha.ready(function () {
             grecaptcha.execute('6LdNHJQqAAAAAKiCIj_9o_khOUaKhcinyZTPtJz3', { action: 'login' }).then(function (token) {
-                document.getElementById('g-recaptcha-response').value = token;
+                //document.getElementById('g-recaptcha-response').value = token;
             });
         });
     // Verify reCAPTCHA
