@@ -7,6 +7,13 @@ if (!isset($_SESSION['role'])) {
 } else {
     ob_start();
     include('../head_css.php');
+
+    $request = $_SERVER['REQUEST_URI'];
+if (substr($request, -4) == '.php') {
+    $new_url = substr($request, 0, -4);
+    header("Location: $new_url", true, 301);
+    exit();
+}
     ?>
     <body class="skin-black">
         <!-- header logo: style can be found in header.less -->
