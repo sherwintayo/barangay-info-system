@@ -340,7 +340,7 @@ echo '<header class="header">
                     <div class="row">
                         <div class="col-md-12">
                             <?php
-                            if ($_SESSION['role'] == "Administrator") {
+                            if ($_SESSION['role'] == "administrator") {
                                 $user = mysqli_query($con, "SELECT * from tbluser where id = '" . $_SESSION['userid'] . "' ");
                                 while ($row = mysqli_fetch_array($user)) {
                                     echo '
@@ -510,6 +510,11 @@ if (isset($_POST['btn_saveeditProfile'])) {
         
     });
 
+     <?php
+                            if ($_SESSION['role'] == "administrator") {
+
+                                ?>
+
    // Function to check for pending approvals
 function checkForApprovals() {
     $.ajax({
@@ -556,6 +561,11 @@ setInterval(checkForApprovals, 60000);
 
 // Call immediately on page load
 checkForApprovals();
+
+      <?php
+                            }
+
+                                ?>
 
 </script>
 
