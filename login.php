@@ -102,7 +102,8 @@ session_start();
                     </div>
                 </div>
                 <!-- Google reCAPTCHA -->
-                <<input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+                <div class="g-recaptcha" data-sitekey="6LfXLooqAAAAACMqm0n2nspU65tuJr6aI8z_3ZOj"></div>
+                                   <br>
                 <button type="submit" class="btn btn-sm btn-primary" name="btn_login" style="background-color:#00BB27;">Log in</button>
                 <a href="pages/resetpassword.php" style="float: right;">Forgot password</a>
                 <label id="error" class="label label-danger pull-right"></label>
@@ -144,29 +145,25 @@ if (isset($_POST['btn_login'])) {
               </script>";
         exit;
     }
-    grecaptcha.ready(function () {
-            grecaptcha.execute('6LdNHJQqAAAAAKiCIj_9o_khOUaKhcinyZTPtJz3', { action: 'login' }).then(function (token) {
-                //document.getElementById('g-recaptcha-response').value = token;
-            });
-        });
-    // Verify reCAPTCHA
-    //$recaptchaResponse = $_POST['g-recaptcha-response'];
-    //$secretKey = '6LfXLooqAAAAAPzzjG01n0BsGVab1yQDaa1s3LDI';
-    //$verifyResponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$recaptchaResponse");
-    //$responseData = json_decode($verifyResponse);
 
-    //if (!$responseData->success) {
-      //  echo "<script>
-        //        Swal.fire({
-          //          title: 'Error!',
-            //        text: 'reCAPTCHA verification failed. Please try again.',
-              //      icon: 'error',
-                //    timer: 2000,
-                  //  showConfirmButton: false
-                //});
-             // </script>";
-      //  exit;
-    //}
+    // Verify reCAPTCHA
+    $recaptchaResponse = $_POST['g-recaptcha-response'];
+    $secretKey = '6LfXLooqAAAAAPzzjG01n0BsGVab1yQDaa1s3LDI';
+    $verifyResponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$recaptchaResponse");
+    $responseData = json_decode($verifyResponse);
+
+    if (!$responseData->success) {
+        echo "<script>
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'reCAPTCHA verification failed. Please try again.',
+                    icon: 'error',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+              </script>";
+        exit;
+    }
 
     // Sanitize and validate user inputs
     $username = clean($_POST['txt_username']);
