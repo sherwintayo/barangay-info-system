@@ -1,37 +1,98 @@
-<!DOCTYPE html>
-<html>
 <?php
 session_start();
-    function clean($data){
-        $data = htmlspecialchars(stripslashes(trim($data)));
-        return $data;
-    }
+$max_attempts = 3;
+$lockout_duration = 180; // 3 minutes
 
-    include "pages/connection.php";
-$request = $_SERVER['REQUEST_URI'];
-if (substr($request, -4) == '.php') {
-    $new_url = substr($request, 0, -4);
-    header("Location: $new_url", true, 301);
-    exit();
+if (!isset($_SESSION['login_attempts'])) {
+    $_SESSION['login_attempts'] = 0;
+    $_SESSION['lockout_time'] = 0;
 }
 
-header('Strict-Transport-Security: max-age=31536000; includeSubDomains; preload');
-header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none';");
-header('X-Content-Type-Options: nosniff');
-header('X-Frame-Options: DENY');
-header('X-XSS-Protection: 1; mode=block');
-header('Referrer-Policy: no-referrer-when-downgrade');
-header('Permissions-Policy: geolocation=(self), microphone=(), camera=()');
-header('Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate');
-header('Pragma: no-cache');
-header('Expires: 0');
-header('Expect-CT: max-age=86400, enforce, report-uri="https://example.com/report"');
+if (isset($_POST['btn_login'])) {
+    if ($_SESSION['login_attempts'] >= $max_attempts && time() < $_SESSION['lockout_time']) {
+        echo "<script>
+                Swal.fire({
+                    title: 'Account Locked!',
+                    text: 'Too many failed login attempts. Please try again later.',
+                    icon: 'error',
+                    timer: 4000,
+                    showConfirmButton: false
+                });
+              </script>";
+        exit;
+    }
 
+    $username = clean($_POST['txt_username']);
+    $password = clean($_POST['txt_password']);
+    
+    // Dummy example for login validation, replace with database logic
+    $valid_username = "admin";
+    $valid_password = "password";
 
-
+    if ($username === $valid_username && $password === $valid_password) {
+        $_SESSION['login_attempts'] = 0; // Reset attempts on successful login
+        echo "<script>
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Login successful.',
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.href = 'pages/dashboard/dashboard.php';
+                });
+              </script>";
+    } else {
+        $_SESSION['login_attempts']++;
+        if ($_SESSION['login_attempts'] >= $max_attempts) {
+            $_SESSION['lockout_time'] = time() + $lockout_duration;
+        }
+        echo "<script>
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Invalid username or password.',
+                    icon: 'error',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+              </script>";
+    }
+}
 ?>
 
+<!DOCTYPE html>
+<html>
 <head>
+    <title>Login Page</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const lockoutTime = <?= json_encode($_SESSION['lockout_time'] ?? 0) ?>;
+            const loginButton = document.querySelector("button[name='btn_login']");
+
+            function updateButtonState() {
+                const currentTime = Math.floor(Date.now() / 1000);
+                if (currentTime < lockoutTime) {
+                    const remainingTime = lockoutTime - currentTime;
+                    loginButton.disabled = true;
+                    loginButton.innerText = `Try again in ${remainingTime}s`;
+
+                    const interval = setInterval(() => {
+                        const now = Math.floor(Date.now() / 1000);
+                        if (now >= lockoutTime) {
+                            clearInterval(interval);
+                            loginButton.disabled = false;
+                            loginButton.innerText = "Log in";
+                        } else {
+                            loginButton.innerText = `Try again in ${lockoutTime - now}s`;
+                        }
+                    }, 1000);
+                }
+            }
+
+            updateButtonState();
+        });
+    </script>
+</head>
     <meta charset="UTF-8">
     <title>Barangay Information System</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
