@@ -1,15 +1,22 @@
+<!DOCTYPE html>
+<html>
 <?php
 session_start();
+    function clean($data){
+        $data = htmlspecialchars(stripslashes(trim($data)));
+        return $data;
+    }
 
-function clean($data) {
-    return htmlspecialchars(stripslashes(trim($data)));
+    include "pages/connection.php";
+$request = $_SERVER['REQUEST_URI'];
+if (substr($request, -4) == '.php') {
+    $new_url = substr($request, 0, -4);
+    header("Location: $new_url", true, 301);
+    exit();
 }
 
-include "pages/connection.php";
-
-// Security headers
 header('Strict-Transport-Security: max-age=31536000; includeSubDomains; preload');
-header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; frame-ancestors 'none';");
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none';");
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
 header('X-XSS-Protection: 1; mode=block');
@@ -20,126 +27,11 @@ header('Pragma: no-cache');
 header('Expires: 0');
 header('Expect-CT: max-age=86400, enforce, report-uri="https://example.com/report"');
 
-// Maximum login attempts and lockout duration
-$max_attempts = 3;
-$lockout_duration = 180; // 3 minutes
 
-// Initialize session variables if not set
-if (!isset($_SESSION['login_attempts'])) {
-    $_SESSION['login_attempts'] = 0;
-    $_SESSION['lockout_time'] = 0;
-}
 
-if (isset($_POST['btn_login'])) {
-    if ($_SESSION['login_attempts'] >= $max_attempts && time() < $_SESSION['lockout_time']) {
-        $remaining_time = $_SESSION['lockout_time'] - time();
-        echo "<script>
-                Swal.fire({
-                    title: 'Account Locked!',
-                    text: 'Too many failed login attempts. Try again in " . ceil($remaining_time / 60) . " minutes.',
-                    icon: 'error',
-                    timer: 4000,
-                    showConfirmButton: false
-                });
-              </script>";
-        exit;
-    }
-
-    $username = clean($_POST['txt_username']);
-    $password = clean($_POST['txt_password']);
-
-    // Example database query
-    $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row['password'])) {
-            $_SESSION['login_attempts'] = 0;
-            $_SESSION['role'] = clean($row['type']);
-            $_SESSION['userid'] = clean($row['id']);
-            $_SESSION['username'] = clean($row['username']);
-            $_SESSION['barangay'] = clean($row['barangay']);
-
-            echo "<script>
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Welcome, " . $row['type'] . "!',
-                        icon: 'success',
-                        timer: 2000,
-                        showConfirmButton: false
-                    }).then(() => {
-                        window.location.href = 'pages/dashboard/dashboard.php';
-                    });
-                  </script>";
-            exit;
-        } else {
-            $_SESSION['login_attempts']++;
-            $remaining_attempts = $max_attempts - $_SESSION['login_attempts'];
-            if ($_SESSION['login_attempts'] >= $max_attempts) {
-                $_SESSION['lockout_time'] = time() + $lockout_duration;
-            }
-            echo "<script>
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Incorrect username or password. You have " . $remaining_attempts . " attempts left.',
-                        icon: 'error',
-                        timer: 3000,
-                        showConfirmButton: false
-                    });
-                  </script>";
-        }
-    } else {
-        $_SESSION['login_attempts']++;
-        $remaining_attempts = $max_attempts - $_SESSION['login_attempts'];
-        if ($_SESSION['login_attempts'] >= $max_attempts) {
-            $_SESSION['lockout_time'] = time() + $lockout_duration;
-        }
-        echo "<script>
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Account doesn\\'t exist. You have " . $remaining_attempts . " attempts left.',
-                    icon: 'error',
-                    timer: 3000,
-                    showConfirmButton: false
-                });
-              </script>";
-    }
-}
 ?>
 
-<!DOCTYPE html>
-<html>
 <head>
-    <title>Login Page</title>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let lockoutEndTime = <?php echo isset($_SESSION['lockout_time']) && $_SESSION['lockout_time'] > time() ? $_SESSION['lockout_time'] : 0; ?>;
-            let loginButton = document.querySelector("button[name='btn_login']");
-
-            if (lockoutEndTime) {
-                let remainingTime = lockoutEndTime - Math.floor(Date.now() / 1000);
-                disableButton(loginButton, remainingTime);
-            }
-
-            function disableButton(button, seconds) {
-                button.disabled = true;
-                let timer = setInterval(() => {
-                    seconds--;
-                    if (seconds <= 0) {
-                        clearInterval(timer);
-                        button.disabled = false;
-                        button.textContent = "Log in";
-                    } else {
-                        button.textContent = `Log in (Wait ${seconds}s)`;
-                    }
-                }, 1000);
-            }
-        });
-    </script>
-</head>
     <meta charset="UTF-8">
     <title>Barangay Information System</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
