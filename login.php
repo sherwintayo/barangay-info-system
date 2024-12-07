@@ -38,7 +38,7 @@ header('Expect-CT: max-age=86400, enforce, report-uri="https://example.com/repor
     <link rel="apple-touch-icon" sizes="180x180" href="images/favicon_io/apple-touch-icon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=YOUR_SITE_KEY"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LepTJUqAAAAAGXDqio3o4OI9Rr9OtBiPDaOIJ71"></script>
     <style>
         body {
             background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(./images/bg-img.jpeg);
@@ -114,7 +114,7 @@ header('Expect-CT: max-age=86400, enforce, report-uri="https://example.com/repor
         document.addEventListener("DOMContentLoaded", function() {
             // reCAPTCHA v3 integration
             grecaptcha.ready(function() {
-                grecaptcha.execute('YOUR_SITE_KEY', { action: 'login' }).then(function(token) {
+                grecaptcha.execute('6LepTJUqAAAAAGXDqio3o4OI9Rr9OtBiPDaOIJ71', { action: 'login' }).then(function(token) {
                     let recaptchaInput = document.createElement("input");
                     recaptchaInput.setAttribute("type", "hidden");
                     recaptchaInput.setAttribute("name", "g-recaptcha-response");
@@ -144,7 +144,7 @@ header('Expect-CT: max-age=86400, enforce, report-uri="https://example.com/repor
 if (isset($_POST['btn_login'])) {
     // Verify reCAPTCHA v3
     $recaptchaResponse = $_POST['g-recaptcha-response'];
-    $secretKey = 'YOUR_SECRET_KEY';
+    $secretKey = '6LepTJUqAAAAADNU42GE1ZgbXUOP4n1RulY5OVCC';
     $verifyResponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$recaptchaResponse");
     $responseData = json_decode($verifyResponse);
 
