@@ -1,385 +1,100 @@
-<!DOCTYPE html>
-<html>
 <?php
 session_start();
-    function clean($data){
-        $data = htmlspecialchars(stripslashes(trim($data)));
-        return $data;
-    }
+$max_attempts = 3;
+$lockout_duration = 180; // 3 minutes
 
-    include "pages/connection.php";
-$request = $_SERVER['REQUEST_URI'];
-if (substr($request, -4) == '.php') {
-    $new_url = substr($request, 0, -4);
-    header("Location: $new_url", true, 301);
-    exit();
-}
-
-header('Strict-Transport-Security: max-age=31536000; includeSubDomains; preload');
-header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none';");
-header('X-Content-Type-Options: nosniff');
-header('X-Frame-Options: DENY');
-header('X-XSS-Protection: 1; mode=block');
-header('Referrer-Policy: no-referrer-when-downgrade');
-header('Permissions-Policy: geolocation=(self), microphone=(), camera=()');
-header('Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate');
-header('Pragma: no-cache');
-header('Expires: 0');
-header('Expect-CT: max-age=86400, enforce, report-uri="https://example.com/report"');
-
-
-
-?>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Barangay Information System</title>
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <!-- bootstrap 3.0.2 -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- Theme style -->
-    <!-- <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" /> -->
-    <!-- <link href="../css/style1.css" rel="stylesheet" type="text/css" /> -->
-    <!--/ icon link--->
-    <link rel="icon" type="image/png" href="images/favicon_io/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon_io/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon_io/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon_io/favicon-16x16.png">
-    <link rel="manifest" href="images/favicon_io/site.webmanifest">
-    <!--/ end link-->
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> -->
-    <!-- SweetAlert2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-
-    <style>
-        body {
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(./images/bg-img.jpeg);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        .container{
-            min-height: 100vh;
-            display: grid;
-            place-items: center;
-        }
-
-        .eye-icon {
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #777;
-        }
-
-        .eye-icon:hover {
-            color: #333;
-        }
-
-        .card{
-            width: 400px !important;
-        }
-
-        @media (max-width: 400px) {
-            .card{
-                width: 100% !important;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <div class="card">
-            <div class="panel panel-default">
-                <div class="panel-heading" style="text-align:center; ">
-                    <img src="images/madridejos.png" style="height:150px;" />
-                    <h3 class="panel-title">
-                        <strong>
-                            Management System
-                        </strong>
-                    </h3>
-                    <p>Login</p>
-                </div>
-                <div class="panel-body">
-                               <form role="form" method="post">
-                <div class="form-group">
-                    <label for="txt_username">Email</label>
-                    <input type="text" class="form-control" style="border-radius:0px" name="txt_username" placeholder="Enter Username" required="" />
-                </div>
-                <div class="form-group">
-                    <label for="txt_password">Password</label>
-                    <div style="position: relative;">
-                        <input type="password" class="form-control" style="border-radius:0px" name="txt_password" id="txt_password" placeholder="Enter Password" required="" />
-                        <i class="fas fa-eye eye-icon" id="togglePassword"></i>
-                    </div>
-                </div>
-                <!-- Google reCAPTCHA -->
-                <div class="g-recaptcha" data-sitekey="6LfXLooqAAAAACMqm0n2nspU65tuJr6aI8z_3ZOj"></div>
-                                   <br>
-                <button type="submit" class="btn btn-sm btn-primary" name="btn_login" style="background-color:#00BB27;">Log in</button>
-                <a href="pages/resetpassword.php" style="float: right;">Forgot password</a>
-                <label id="error" class="label label-danger pull-right"></label>
-            
-                <p class="text-center" style="margin-top: 20px;">Don't have an account? <a href="signup.php">Sign Up</a></p>
-            </form>
-            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <?php
-    //echo password_hash("dianna*123", PASSWORD_DEFAULT);
-
-          // Define maximum login attempts and lockout duration
-$max_attempts = 5;
-$lockout_duration = 15 * 60; // 15 minutes
-
-// Initialize login attempt tracking
+// Initialize session variables if not set
 if (!isset($_SESSION['login_attempts'])) {
     $_SESSION['login_attempts'] = 0;
     $_SESSION['lockout_time'] = 0;
 }
 
-if (isset($_POST['btn_login'])) {
-    // Check if the user is locked out
-    if ($_SESSION['login_attempts'] >= $max_attempts && time() < $_SESSION['lockout_time']) {
-        $remaining_time = $_SESSION['lockout_time'] - time();
-        echo "<script>
-                Swal.fire({
-                    title: 'Account Locked!',
-                    text: 'Too many failed login attempts. Try again in " . ceil($remaining_time / 60) . " minutes.',
-                    icon: 'error',
-                    timer: 4000,
-                    showConfirmButton: false
-                });
-              </script>";
-        exit;
-    }
+$locked_out = false;
+$remaining_time = 0;
 
-    // Verify reCAPTCHA
-    $recaptchaResponse = $_POST['g-recaptcha-response'];
-    $secretKey = '6LfXLooqAAAAAPzzjG01n0BsGVab1yQDaa1s3LDI';
-    $verifyResponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$recaptchaResponse");
-    $responseData = json_decode($verifyResponse);
+// Check if the user is locked out
+if ($_SESSION['login_attempts'] >= $max_attempts && time() < $_SESSION['lockout_time']) {
+    $locked_out = true;
+    $remaining_time = $_SESSION['lockout_time'] - time();
+}
 
-    if (!$responseData->success) {
-        echo "<script>
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'reCAPTCHA verification failed. Please try again.',
-                    icon: 'error',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-              </script>";
-        exit;
-    }
-
-    // Sanitize and validate user inputs
+if (isset($_POST['btn_login']) && !$locked_out) {
     $username = clean($_POST['txt_username']);
     $password = clean($_POST['txt_password']);
 
-    // Query the database for the user
-    $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // Simulate user validation (replace with actual DB validation)
+    $valid_user = ($username === "admin" && $password === "password123");
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-
-        // Verify password
-        if (password_verify($password, $row['password'])) {
-            // Reset login attempts on successful login
-            $_SESSION['login_attempts'] = 0;
-
-            // Store user details in session and redirect
-            $_SESSION['role'] = clean($row['type']);
-            $_SESSION['userid'] = clean($row['id']);
-            $_SESSION['username'] = clean($row['username']);
-            $_SESSION['barangay'] = clean($row['barangay']);
-
-            echo "<script>
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Welcome, " . $row['type'] . "!',
-                        icon: 'success',
-                        timer: 2000,
-                        showConfirmButton: false
-                    }).then(() => {
-                        window.location.href = 'pages/dashboard/dashboard.php';
-                    });
-                  </script>";
-        } else {
-            // Increment login attempts and set lockout time if necessary
-            $_SESSION['login_attempts']++;
-            if ($_SESSION['login_attempts'] >= $max_attempts) {
-                $_SESSION['lockout_time'] = time() + $lockout_duration;
-            }
-
-            echo "<script>
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Incorrect username or password.',
-                        icon: 'error',
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-                  </script>";
-        }
+    if ($valid_user) {
+        $_SESSION['login_attempts'] = 0; // Reset attempts on successful login
+        echo "<script>
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Welcome!',
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.href = 'pages/dashboard/dashboard.php';
+                });
+              </script>";
     } else {
-        // Handle case where user does not exist
         $_SESSION['login_attempts']++;
         if ($_SESSION['login_attempts'] >= $max_attempts) {
             $_SESSION['lockout_time'] = time() + $lockout_duration;
         }
-
         echo "<script>
                 Swal.fire({
                     title: 'Error!',
-                    text: 'Account doesn\'t exist.',
+                    text: 'Incorrect username or password.',
                     icon: 'error',
                     timer: 2000,
                     showConfirmButton: false
                 });
               </script>";
     }
+}
+?>
 
-
-        // Prepare and bind parameters
-        // $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ? AND password = ? AND type = 'administrator'");
-        // $stmt->bind_param("ss", $username, $password);
-        // $stmt->execute();
-        // $admin_result = $stmt->get_result();
-
-        // $stmt = $con->prepare("SELECT * FROM tblzone WHERE username = ? AND password = ?");
-        // $stmt->bind_param("ss", $username, $password);
-        // $stmt->execute();
-        // $zone_result = $stmt->get_result();
-
-        // $stmt = $con->prepare("SELECT * FROM tblstaff WHERE username = ? AND password = ?");
-        // $stmt->bind_param("ss", $username, $password);
-        // $stmt->execute();
-        // $staff_result = $stmt->get_result();
-
-        // $stmt = $con->prepare("SELECT * FROM tblresident WHERE username = ? AND password = ?");
-        // $stmt->bind_param("ss", $username, $password);
-        // $stmt->execute();
-        // $user_result = $stmt->get_result();
-
-        // if ($admin_result->num_rows > 0) {
-        //     while ($row = $admin_result->fetch_assoc()) {
-        //         $_SESSION['role'] = "Administrator";
-        //         $_SESSION['userid'] = $row['id'];
-        //         $_SESSION['username'] = $row['username'];
-        //     }
-        //     echo "<script>
-        //     Swal.fire({
-        //         title: 'Success!',
-        //         text: 'Welcome, Administrator!',
-        //         icon: 'success',
-        //         timer: 2000,
-        //         showConfirmButton: false
-        //     }).then(() => {
-        //         window.location.href = 'pages/dashboard/dashboard.php';
-        //     });
-        // </script>";
-        // } elseif ($zone_result->num_rows > 0) {
-        //     while ($row = $zone_result->fetch_assoc()) {
-        //         $_SESSION['role'] = "Zone Leader";
-        //         $_SESSION['userid'] = $row['id'];
-        //         $_SESSION['username'] = $row['username'];
-        //     }
-        //     echo "<script>
-        //     Swal.fire({
-        //         title: 'Success!',
-        //         text: 'Welcome, Zone Leader!',
-        //         icon: 'success',
-        //         timer: 2000,
-        //         showConfirmButton: false
-        //     }).then(() => {
-        //         window.location.href = 'pages/permit/permit.php';
-        //     });
-        // </script>";
-        // } elseif ($staff_result->num_rows > 0) {
-        //     while ($row = $staff_result->fetch_assoc()) {
-        //         $_SESSION['role'] = $row['name'];
-        //         $_SESSION['staff'] = "Staff";
-        //         $_SESSION['userid'] = $row['id'];
-        //         $_SESSION['username'] = $row['username'];
-        //     }
-        //     echo "<script>
-        //     Swal.fire({
-        //         title: 'Success!',
-        //         text: 'Welcome, Staff Member!',
-        //         icon: 'success',
-        //         timer: 2000,
-        //         showConfirmButton: false
-        //     }).then(() => {
-        //         window.location.href = 'pages/resident/resident.php';
-        //     });
-        // </script>";
-        // } elseif ($user_result->num_rows > 0) {
-        //     while ($row = $user_result->fetch_assoc()) {
-        //         $_SESSION['role'] = $row['fname'];
-        //         $_SESSION['resident'] = 1;
-        //         $_SESSION['userid'] = $row['id'];
-        //         $_SESSION['username'] = $row['username'];
-        //     }
-        //     echo "<script>
-        //     Swal.fire({
-        //         title: 'Success!',
-        //         text: 'Welcome, Resident!',
-        //         icon: 'success',
-        //         timer: 2000,
-        //         showConfirmButton: false
-        //     }).then(() => {
-        //         window.location.href = 'pages/permit/permit.php';
-        //     });
-        // </script>";
-        // } else {
-        //     echo "<script>
-        //     Swal.fire({
-        //         title: 'Error!',
-        //         text: 'Invalid username or password.',
-        //         icon: 'error',
-        //         timer: 2000,
-        //         showConfirmButton: false
-        //     });
-        // </script>";
-        // }
-
-
-
-    }
-    ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <form method="post">
+            <input type="text" name="txt_username" placeholder="Username" required>
+            <input type="password" name="txt_password" placeholder="Password" required>
+            <button type="submit" name="btn_login" id="btnLogin" 
+                <?php if ($locked_out) echo "disabled"; ?>>
+                Log in
+            </button>
+        </form>
+    </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let passwordInp = document.querySelector("input[name='txt_password']");
-            let showPass = document.getElementById("togglePassword");
+        document.addEventListener("DOMContentLoaded", function () {
+            const btnLogin = document.getElementById("btnLogin");
 
-            showPass.onclick = () => {
-                if (passwordInp.getAttribute("type") == "password") {
-                    passwordInp.setAttribute("type", "text")
-                    showPass.classList.replace("fa-eye", "fa-eye-slash")
-                } else {
-                    passwordInp.setAttribute("type", "password")
-                    showPass.classList.replace("fa-eye-slash", "fa-eye")
+            <?php if ($locked_out): ?>
+            const remainingTime = <?php echo $remaining_time; ?>;
+            btnLogin.disabled = true;
+
+            const timer = setInterval(() => {
+                if (remainingTime <= 0) {
+                    btnLogin.disabled = false;
+                    clearInterval(timer);
                 }
-            }
+            }, 1000);
 
-        })
+            setTimeout(() => {
+                btnLogin.disabled = false;
+            }, remainingTime * 1000);
+            <?php endif; ?>
+        });
     </script>
 </body>
-
 </html>
