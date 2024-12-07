@@ -1,33 +1,102 @@
-<!DOCTYPE html>
-<html>
 <?php
 session_start();
-    function clean($data){
-        $data = htmlspecialchars(stripslashes(trim($data)));
-        return $data;
-    }
 
-    include "pages/connection.php";
-$request = $_SERVER['REQUEST_URI'];
-if (substr($request, -4) == '.php') {
-    $new_url = substr($request, 0, -4);
-    header("Location: $new_url", true, 301);
-    exit();
+function clean($data) {
+    $data = htmlspecialchars(stripslashes(trim($data)));
+    return $data;
 }
 
-header('Strict-Transport-Security: max-age=31536000; includeSubDomains; preload');
-header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none';");
-header('X-Content-Type-Options: nosniff');
-header('X-Frame-Options: DENY');
-header('X-XSS-Protection: 1; mode=block');
-header('Referrer-Policy: no-referrer-when-downgrade');
-header('Permissions-Policy: geolocation=(self), microphone=(), camera=()');
-header('Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate');
-header('Pragma: no-cache');
-header('Expires: 0');
-header('Expect-CT: max-age=86400, enforce, report-uri="https://example.com/report"');
-    
+include "pages/connection.php";
 
+// Initialize login attempts and lockout tracking
+if (!isset($_SESSION['login_attempts'])) {
+    $_SESSION['login_attempts'] = 0;
+    $_SESSION['lockout_time'] = 0;
+}
+
+$max_attempts = 3; // Maximum allowed attempts
+$lockout_duration = 3 * 60; // Lockout duration in seconds (3 minutes)
+
+if (isset($_POST['btn_login'])) {
+    if ($_SESSION['login_attempts'] >= $max_attempts && time() < $_SESSION['lockout_time']) {
+        $remaining_time = $_SESSION['lockout_time'] - time();
+        echo "<script>
+                Swal.fire({
+                    title: 'Account Locked!',
+                    text: 'Too many failed login attempts. Try again in " . ceil($remaining_time / 60) . " minutes.',
+                    icon: 'error',
+                    timer: 4000,
+                    showConfirmButton: false
+                });
+              </script>";
+        exit;
+    }
+
+    $username = clean($_POST['txt_username']);
+    $password = clean($_POST['txt_password']);
+
+    // Query database to check login credentials
+    $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+
+        if (password_verify($password, $row['password'])) {
+            $_SESSION['login_attempts'] = 0; // Reset login attempts on success
+
+            // Store user details in session and redirect
+            $_SESSION['role'] = clean($row['type']);
+            $_SESSION['userid'] = clean($row['id']);
+            $_SESSION['username'] = clean($row['username']);
+            $_SESSION['barangay'] = clean($row['barangay']);
+
+            echo "<script>
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Welcome, " . $row['type'] . "!',
+                        icon: 'success',
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = 'pages/dashboard/dashboard.php';
+                    });
+                  </script>";
+        } else {
+            $_SESSION['login_attempts']++;
+            if ($_SESSION['login_attempts'] >= $max_attempts) {
+                $_SESSION['lockout_time'] = time() + $lockout_duration;
+            }
+
+            echo "<script>
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Incorrect username or password.',
+                        icon: 'error',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                  </script>";
+        }
+    } else {
+        $_SESSION['login_attempts']++;
+        if ($_SESSION['login_attempts'] >= $max_attempts) {
+            $_SESSION['lockout_time'] = time() + $lockout_duration;
+        }
+
+        echo "<script>
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Account doesn\\'t exist.',
+                    icon: 'error',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+              </script>";
+    }
+}
 ?>
 
 <head>
@@ -173,212 +242,77 @@ if (isset($_POST['btn_login'])) {
     if (!$responseData->success) {
         echo "<script>
                 Swal.fire({
-                    title: 'Error!',
-                    text: 'reCAPTCHA verification failed. Please try again.',
-                    icon: 'error',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-              </script>";
-        exit;
-    }
-
-    // Sanitize and validate user inputs
-    $username = clean($_POST['txt_username']);
-    $password = clean($_POST['txt_password']);
-
-    // Query the database for the user
-    $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-
-        // Verify password
-        if (password_verify($password, $row['password'])) {
-            // Reset login attempts on successful login
-            $_SESSION['login_attempts'] = 0;
-
-            // Store user details in session and redirect
-            $_SESSION['role'] = clean($row['type']);
-            $_SESSION['userid'] = clean($row['id']);
-            $_SESSION['username'] = clean($row['username']);
-            $_SESSION['barangay'] = clean($row['barangay']);
-
-            echo "<script>
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Welcome, " . $row['type'] . "!',
-                        icon: 'success',
-                        timer: 2000,
-                        showConfirmButton: false
-                    }).then(() => {
-                        window.location.href = 'pages/dashboard/dashboard.php';
-                    });
-                  </script>";
-        } else {
-            // Increment login attempts and set lockout time if necessary
-            $_SESSION['login_attempts']++;
-            if ($_SESSION['login_attempts'] >= $max_attempts) {
-                $_SESSION['lockout_time'] = time() + $lockout_duration;
-            }
-
-            echo "<script>
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Incorrect username or password.',
-                        icon: 'error',
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-                  </script>";
-        }
-    } else {
-        // Handle case where user does not exist
-        $_SESSION['login_attempts']++;
-        if ($_SESSION['login_attempts'] >= $max_attempts) {
-            $_SESSION['lockout_time'] = time() + $lockout_duration;
-        }
-
-        echo "<script>
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Account doesn\'t exist.',
-                    icon: 'error',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-              </script>";
-    }
-
-
-        // Prepare and bind parameters
-        // $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ? AND password = ? AND type = 'administrator'");
-        // $stmt->bind_param("ss", $username, $password);
-        // $stmt->execute();
-        // $admin_result = $stmt->get_result();
-
-        // $stmt = $con->prepare("SELECT * FROM tblzone WHERE username = ? AND password = ?");
-        // $stmt->bind_param("ss", $username, $password);
-        // $stmt->execute();
-        // $zone_result = $stmt->get_result();
-
-        // $stmt = $con->prepare("SELECT * FROM tblstaff WHERE username = ? AND password = ?");
-        // $stmt->bind_param("ss", $username, $password);
-        // $stmt->execute();
-        // $staff_result = $stmt->get_result();
-
-        // $stmt = $con->prepare("SELECT * FROM tblresident WHERE username = ? AND password = ?");
-        // $stmt->bind_param("ss", $username, $password);
-        // $stmt->execute();
-        // $user_result = $stmt->get_result();
-
-        // if ($admin_result->num_rows > 0) {
-        //     while ($row = $admin_result->fetch_assoc()) {
-        //         $_SESSION['role'] = "Administrator";
-        //         $_SESSION['userid'] = $row['id'];
-        //         $_SESSION['username'] = $row['username'];
-        //     }
-        //     echo "<script>
-        //     Swal.fire({
-        //         title: 'Success!',
-        //         text: 'Welcome, Administrator!',
-        //         icon: 'success',
-        //         timer: 2000,
-        //         showConfirmButton: false
-        //     }).then(() => {
-        //         window.location.href = 'pages/dashboard/dashboard.php';
-        //     });
-        // </script>";
-        // } elseif ($zone_result->num_rows > 0) {
-        //     while ($row = $zone_result->fetch_assoc()) {
-        //         $_SESSION['role'] = "Zone Leader";
-        //         $_SESSION['userid'] = $row['id'];
-        //         $_SESSION['username'] = $row['username'];
-        //     }
-        //     echo "<script>
-        //     Swal.fire({
-        //         title: 'Success!',
-        //         text: 'Welcome, Zone Leader!',
-        //         icon: 'success',
-        //         timer: 2000,
-        //         showConfirmButton: false
-        //     }).then(() => {
-        //         window.location.href = 'pages/permit/permit.php';
-        //     });
-        // </script>";
-        // } elseif ($staff_result->num_rows > 0) {
-        //     while ($row = $staff_result->fetch_assoc()) {
-        //         $_SESSION['role'] = $row['name'];
-        //         $_SESSION['staff'] = "Staff";
-        //         $_SESSION['userid'] = $row['id'];
-        //         $_SESSION['username'] = $row['username'];
-        //     }
-        //     echo "<script>
-        //     Swal.fire({
-        //         title: 'Success!',
-        //         text: 'Welcome, Staff Member!',
-        //         icon: 'success',
-        //         timer: 2000,
-        //         showConfirmButton: false
-        //     }).then(() => {
-        //         window.location.href = 'pages/resident/resident.php';
-        //     });
-        // </script>";
-        // } elseif ($user_result->num_rows > 0) {
-        //     while ($row = $user_result->fetch_assoc()) {
-        //         $_SESSION['role'] = $row['fname'];
-        //         $_SESSION['resident'] = 1;
-        //         $_SESSION['userid'] = $row['id'];
-        //         $_SESSION['username'] = $row['username'];
-        //     }
-        //     echo "<script>
-        //     Swal.fire({
-        //         title: 'Success!',
-        //         text: 'Welcome, Resident!',
-        //         icon: 'success',
-        //         timer: 2000,
-        //         showConfirmButton: false
-        //     }).then(() => {
-        //         window.location.href = 'pages/permit/permit.php';
-        //     });
-        // </script>";
-        // } else {
-        //     echo "<script>
-        //     Swal.fire({
-        //         title: 'Error!',
-        //         text: 'Invalid username or password.',
-        //         icon: 'error',
-        //         timer: 2000,
-        //         showConfirmButton: false
-        //     });
-        // </script>";
-        // }
-
-
-
-    }
-    ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="text-align:center;">
+                    <h3>Login</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" method="post">
+                        <div class="form-group">
+                            <label for="txt_username">Email</label>
+                            <input type="text" class="form-control" name="txt_username" placeholder="Enter Username" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_password">Password</label>
+                            <div style="position: relative;">
+                                <input type="password" class="form-control" name="txt_password" id="txt_password" placeholder="Enter Password" required />
+                                <i class="fas fa-eye eye-icon" id="togglePassword"></i>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="btn_login" id="btn_login">Log in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            let passwordInp = document.querySelector("input[name='txt_password']");
-            let showPass = document.getElementById("togglePassword");
+            let loginBtn = document.getElementById("btn_login");
+            let lockoutTime = <?php echo isset($_SESSION['lockout_time']) ? $_SESSION['lockout_time'] : 0; ?>;
+            let currentTime = Math.floor(Date.now() / 1000);
 
-            showPass.onclick = () => {
-                if (passwordInp.getAttribute("type") == "password") {
-                    passwordInp.setAttribute("type", "text")
-                    showPass.classList.replace("fa-eye", "fa-eye-slash")
-                } else {
-                    passwordInp.setAttribute("type", "password")
-                    showPass.classList.replace("fa-eye-slash", "fa-eye")
-                }
+            if (lockoutTime > currentTime) {
+                let remainingTime = lockoutTime - currentTime;
+                disableButton(loginBtn, remainingTime);
             }
 
-        })
+            function disableButton(button, seconds) {
+                button.disabled = true;
+                let timer = setInterval(() => {
+                    seconds--;
+                    button.innerText = `Login (${seconds}s)`;
+                    if (seconds <= 0) {
+                        clearInterval(timer);
+                        button.disabled = false;
+                        button.innerText = "Log in";
+                    }
+                }, 1000);
+            }
+
+            // Password visibility toggle
+            let passwordInp = document.getElementById("txt_password");
+            let togglePassword = document.getElementById("togglePassword");
+            togglePassword.onclick = function() {
+                if (passwordInp.type === "password") {
+                    passwordInp.type = "text";
+                    togglePassword.classList.replace("fa-eye", "fa-eye-slash");
+                } else {
+                    passwordInp.type = "password";
+                    togglePassword.classList.replace("fa-eye-slash", "fa-eye");
+                }
+            };
+        });
     </script>
 </body>
-
 </html>
