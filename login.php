@@ -9,7 +9,7 @@ include "pages/connection.php";
 
 // Security headers
 header('Strict-Transport-Security: max-age=31536000; includeSubDomains; preload');
-header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none';");
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; frame-ancestors 'none';");
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
 header('X-XSS-Protection: 1; mode=block');
@@ -77,30 +77,32 @@ if (isset($_POST['btn_login'])) {
             exit;
         } else {
             $_SESSION['login_attempts']++;
+            $remaining_attempts = $max_attempts - $_SESSION['login_attempts'];
             if ($_SESSION['login_attempts'] >= $max_attempts) {
                 $_SESSION['lockout_time'] = time() + $lockout_duration;
             }
             echo "<script>
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Incorrect username or password.',
+                        text: 'Incorrect username or password. You have " . $remaining_attempts . " attempts left.',
                         icon: 'error',
-                        timer: 2000,
+                        timer: 3000,
                         showConfirmButton: false
                     });
                   </script>";
         }
     } else {
         $_SESSION['login_attempts']++;
+        $remaining_attempts = $max_attempts - $_SESSION['login_attempts'];
         if ($_SESSION['login_attempts'] >= $max_attempts) {
             $_SESSION['lockout_time'] = time() + $lockout_duration;
         }
         echo "<script>
                 Swal.fire({
                     title: 'Error!',
-                    text: 'Account doesn\'t exist.',
+                    text: 'Account doesn\\'t exist. You have " . $remaining_attempts . " attempts left.',
                     icon: 'error',
-                    timer: 2000,
+                    timer: 3000,
                     showConfirmButton: false
                 });
               </script>";
@@ -137,7 +139,8 @@ if (isset($_POST['btn_login'])) {
             }
         });
     </script>
-</head>    <meta charset="UTF-8">
+</head>
+    <meta charset="UTF-8">
     <title>Barangay Information System</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- bootstrap 3.0.2 -->
