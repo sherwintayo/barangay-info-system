@@ -305,7 +305,7 @@ echo ' <header class="header">
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i><span>' . $_SESSION['barangayByZoneLeader'] . '<i class="caret"></i></span>
+                            <i class="glyphicon glyphicon-user"></i><span>' . $_SESSION['role'] . '<i class="caret"></i></span>
                         </a>
                       
                         <ul class="dropdown-menu">
