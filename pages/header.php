@@ -321,6 +321,24 @@ while ($rows = mysqli_fetch_assoc($result)) {
     font-weight: bold;
 }
 
+    /* Hover effect for user dropdown links */
+.navbar-right .dropdown-menu li a:hover {
+    background-color: #000 !important; /* Black background on hover */
+    color: #fff !important; /* White text on hover */
+}
+
+/* Optionally, you can apply a hover effect to the Change Account button */
+.navbar-right .dropdown-menu .user-header a:hover {
+    background-color: #000 !important; /* Black background on hover */
+    color: #fff !important; /* White text on hover */
+}
+
+/* Optional: Hover effect on the sign-out button */
+.navbar-right .dropdown-menu .user-footer .pull-left a:hover {
+    background-color: #000 !important; /* Black background on hover */
+    color: #fff !important; /* White text on hover */
+}
+
 </style>
 
 <?php
