@@ -59,7 +59,7 @@ function resetpassword($data) {
         "icon" => "success",
         "title" => "Success",
         "text" => "Password successfully updated.",
-        "redirect" => "login.php"
+        "redirect" => "login"
     ];
 }
 ?>
