@@ -91,7 +91,7 @@ header('Expect-CT: max-age=86400, enforce, report-uri="https://example.com/repor
                     <form role="form" method="post" id="loginForm">
                         <div class="form-group">
                             <label for="txt_username">Email</label>
-                            <input type="text" class="form-control" name="txt_username" placeholder="Enter Username" required />
+                            <input type="text" class="form-control" name="txt_username" placeholder="Enter Email" required />
                         </div>
                         <div class="form-group">
                             <label for="txt_password">Password</label>
