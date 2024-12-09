@@ -402,7 +402,7 @@ echo ' <header class="header">
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #000; color:white;">Sign out</a>
+                                    <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #000; color:white;  padding: 10px 20px; font-size: 16px;">Sign out</a>
                                 </div>
                                
                             </li>
