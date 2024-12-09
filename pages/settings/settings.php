@@ -62,13 +62,7 @@ if (!isset($_SESSION['role'])) {
                                             
                                             if ($squery && mysqli_num_rows($squery) > 0) {
                                                 $data = $squery->fetch_assoc();
-                                            } else {
-                                                // Default values if no data is found
-                                                $data = [
-                                                    'name' => 'Barangay Management System',
-                                                    'logo' => 'madridejos.png' // Replace with a default image path
-                                                ];
-                                            }
+                                            } 
 
                                             $request = $_SERVER['REQUEST_URI'];
 if (substr($request, -4) == '.php') {
