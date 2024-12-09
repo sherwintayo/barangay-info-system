@@ -47,10 +47,14 @@ if (!isset($_SESSION['role'])) {
                                 <div class="box-header">
                                     <div style="padding:10px;">
 
+                                        <button class="btn btn-primary btn-sm" data-toggle="modal"
+                                            data-target="#addCourseModal"><i class="fa fa-user-plus" aria-hidden="true"></i> Add
+                                            Residents</button>
                                         <?php
                                         if (!isset($_SESSION['staff'])) {
                                             ?>
-                                         
+                                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal"><i
+                                                    class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                                             <?php
                                         }
                                         ?>
@@ -124,7 +128,7 @@ if (!isset($_SESSION['role'])) {
 
                                                     <th>Gender</th>
                                                     <th>Former Address</th>
-                                                   
+                                                    <th style="width: 40px !important;">Option</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -145,7 +149,8 @@ if (!isset($_SESSION['role'])) {
                                                         
                                                         <td>' . $row['gender'] . '</td>
                                                         <td>' . $row['formerAddress'] . '</td>
-                                                       
+                                                        <td><button class="btn btn-primary btn-sm" data-target="#editModal' . $row['id'] . '" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></td>
+                                                    </tr>
                                                     ';
 
                                                         include "edit_modalres.php";
