@@ -1,5 +1,5 @@
 <?php
-include('./connection.php');
+include('../connection.php');
 
 // Fetch all tables in the database
 $tables_query = "SHOW TABLES";
