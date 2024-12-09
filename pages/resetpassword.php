@@ -63,6 +63,10 @@ function resetpassword($data) {
     ];
 }
 
+
+?>
+
+<?php
 if (isset($_SESSION['alert'])) {
     $alert = $_SESSION['alert'];
     echo '<script>
@@ -78,8 +82,7 @@ if (isset($_SESSION['alert'])) {
     </script>';
     unset($_SESSION['alert']);
 }
-?>
-
+    ?>
 
 <!DOCTYPE html>
 <html lang="en">
