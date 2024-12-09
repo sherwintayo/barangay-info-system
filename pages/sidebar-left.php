@@ -1,3 +1,4 @@
+
 <?php
 echo '
     <aside class="left-side sidebar-offcanvas">
@@ -193,7 +194,7 @@ echo '
         </section>
     </aside>';
 ?>
-<stye>
+<style>
 ### Enhanced CSS Styling:
 ```css
 /* General Sidebar Enhancements */
