@@ -43,7 +43,7 @@ if (substr($request, -4) == '.php') {
         <!-- Main content -->
         <section class="content">
 
-        <?= $barangayByZoneLeader ?>
+     
 
           <div class="row">
             <!-- left column -->
