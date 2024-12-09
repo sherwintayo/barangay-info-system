@@ -6,11 +6,130 @@ function clean($data)
 }
 
 include "pages/connection.php";
-$request = $_SERVER['REQUEST_URI'];
-if (substr($request, -4) == '.php') {
-    $new_url = substr($request, 0, -4);
-    header("Location: $new_url", true, 301);
-    exit();
+
+if (!isset($_SESSION['login_attempts'])) {
+    $_SESSION['login_attempts'] = 0;
+    $_SESSION['block_time'] = null;
+}
+
+$currentTime = time();
+$blockDuration = 20; // Block duration in seconds
+
+if ($_SESSION['block_time'] && ($currentTime - $_SESSION['block_time']) < $blockDuration) {
+    $remainingTime = $blockDuration - ($currentTime - $_SESSION['block_time']);
+    echo "<script>
+            Swal.fire({
+                title: 'Blocked!',
+                text: 'You have been temporarily blocked. Try again in $remainingTime seconds.',
+                icon: 'error',
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+          </script>";
+    exit;
+}
+
+if (isset($_POST['btn_login'])) {
+    // Verify reCAPTCHA v3
+    $recaptchaResponse = $_POST['g-recaptcha-response'];
+    $secretKey = '6LepTJUqAAAAADNU42GE1ZgbXUOP4n1RulY5OVCC';
+    $verifyResponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$recaptchaResponse");
+    $responseData = json_decode($verifyResponse);
+
+    if (!$responseData->success || $responseData->score < 0.5) { // Adjust threshold
+        echo "<script>
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'reCAPTCHA verification failed. Please try again.',
+                    icon: 'error',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+              </script>";
+        exit;
+    }
+
+    // Process login
+    $username = clean($_POST['txt_username']);
+    $password = clean($_POST['txt_password']);
+
+    $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        if (password_verify($password, $row['password'])) {
+            $_SESSION['login_attempts'] = 0; // Reset login attempts
+            $_SESSION['block_time'] = null;
+
+            $_SESSION['role'] = clean($row['type']);
+            $_SESSION['userid'] = clean($row['id']);
+            $_SESSION['username'] = clean($row['username']);
+            $_SESSION['barangay'] = clean($row['barangay']);
+
+            echo "<script>
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Welcome, " . $row['type'] . "!',
+                        icon: 'success',
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = 'pages/dashboard/dashboard.php';
+                    });
+                  </script>";
+        } else {
+            $_SESSION['login_attempts']++;
+            if ($_SESSION['login_attempts'] >= 3) {
+                $_SESSION['block_time'] = $currentTime;
+                echo "<script>
+                        Swal.fire({
+                            title: 'Blocked!',
+                            text: 'Too many failed attempts. You are blocked for $blockDuration seconds.',
+                            icon: 'error',
+                            showConfirmButton: false,
+                            allowOutsideClick: false
+                        });
+                      </script>";
+            } else {
+                echo "<script>
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Incorrect username or password.',
+                            icon: 'error',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                      </script>";
+            }
+        }
+    } else {
+        $_SESSION['login_attempts']++;
+        if ($_SESSION['login_attempts'] >= 3) {
+            $_SESSION['block_time'] = $currentTime;
+            echo "<script>
+                    Swal.fire({
+                        title: 'Blocked!',
+                        text: 'Too many failed attempts. You are blocked for $blockDuration seconds.',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+                  </script>";
+        } else {
+            echo "<script>
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Account does not exist.',
+                        icon: 'error',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                  </script>";
+        }
+    }
 }
 
 // Security headers
@@ -79,6 +198,19 @@ header('Expect-CT: max-age=86400, enforce, report-uri="https://example.com/repor
 </head>
 
 <body>
+    <!-- Countdown Modal -->
+<div id="blockModal" style="display:none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Too Many Attempts</h4>
+            </div>
+            <div class="modal-body">
+                <p>You have been temporarily blocked. Try again in <span id="countdown">20</span> seconds.</p>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="container">
         <div class="card">
             <div class="panel panel-default">
@@ -138,17 +270,36 @@ header('Expect-CT: max-age=86400, enforce, report-uri="https://example.com/repor
             };
         });
     </script>
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    let blockTimeRemaining = <?php echo isset($remainingTime) ? $remainingTime : 0; ?>;
+    if (blockTimeRemaining > 0) {
+        let countdownElement = document.getElementById("countdown");
+        document.getElementById("blockModal").style.display = "block";
+        
+        let interval = setInterval(function() {
+            blockTimeRemaining--;
+            countdownElement.innerText = blockTimeRemaining;
+
+            if (blockTimeRemaining <= 0) {
+                clearInterval(interval);
+                location.reload();
+            }
+        }, 1000);
+    }
+});
+</script>s
 </body>
 
-<?php
+<!-- <?php
 if (isset($_POST['btn_login'])) {
-    // Verify reCAPTCHA v3
+    
     $recaptchaResponse = $_POST['g-recaptcha-response'];
     $secretKey = '6LepTJUqAAAAADNU42GE1ZgbXUOP4n1RulY5OVCC';
     $verifyResponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$recaptchaResponse");
     $responseData = json_decode($verifyResponse);
 
-    if (!$responseData->success || $responseData->score < 0.5) { // Adjust threshold
+    if (!$responseData->success || $responseData->score < 0.5) { 
         echo "<script>
                 Swal.fire({
                     title: 'Error!',
@@ -161,7 +312,7 @@ if (isset($_POST['btn_login'])) {
         exit;
     }
 
-    // Process login
+  
     $username = clean($_POST['txt_username']);
     $password = clean($_POST['txt_password']);
 
@@ -172,7 +323,7 @@ if (isset($_POST['btn_login'])) {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        // Check if password is correct using bcrypt
+      
         if (password_verify($password, $row['password'])) {
             $_SESSION['login_attempts'] = 0;
 
@@ -215,4 +366,4 @@ if (isset($_POST['btn_login'])) {
               </script>";
     }
 }
-?>
+?> -->
