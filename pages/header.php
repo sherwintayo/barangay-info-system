@@ -385,14 +385,17 @@ echo ' <header class="header">
                 echo '</div>';
             }
             echo '<ul>
-        <div class="navbar-right">
+                  <div class="navbar-right">
                 <ul class="nav navbar-nav" style="background-color:transparent;">
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="glyphicon glyphicon-user"></i><span>' . $_SESSION['barangay'] . '<i class="caret"></i></span>
                         </a>
-                      
+                       <?= $barangayByZoneLeader ?>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                          
                             <!-- Menu Body -->
                             <!-- Menu Footer-->
                             <li class="user-footer">
