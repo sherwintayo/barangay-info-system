@@ -121,6 +121,7 @@ displayTable($conn, 'tblproject');
 displayTable($conn, 'tblpurok');
 displayTable($conn, 'tblpwd');
 displayTable($conn, 'tblresident');
+displayTable($conn, 'tbluser');
 
 $conn->close();
 ?>
