@@ -230,6 +230,91 @@ while ($rows = mysqli_fetch_assoc($result)) {
         display: none !important;
     }
 }
+
+
+
+    /* Styling for the navbar-right section */
+.navbar-right {
+    margin-right: 20px;
+}
+
+/* Styling the dropdown menu */
+.dropdown-menu {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 220px; /* Adjust width as needed */
+}
+
+/* Styling the user-header */
+.user-header {
+    background-color: #0000FF;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Profile image style */
+.user-header img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+/* Styling the user-footer */
+.user-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+/* Style for left button */
+.user-footer .pull-left .btn {
+    background-color: #00BB27;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+/* Style for right button */
+.user-footer .pull-right .btn {
+    background-color: #D9534F;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for buttons */
+.user-footer .pull-left .btn:hover,
+.user-footer .pull-right .btn:hover {
+    background-color: #28a745; /* For the Change Account button */
+    background-color: #c9302c; /* For the Sign Out button */
+}
+
+/* Styling the dropdown toggle link */
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #333;
+}
+
+.dropdown-toggle i {
+    margin-right: 10px;
+}
+
+.dropdown-toggle span {
+    font-weight: bold;
+}
+
 </style>
 
 <?php
@@ -300,38 +385,38 @@ echo ' <header class="header">
                 echo '</div>';
             }
             echo '<ul>
-            <div class="navbar-right">
-                <ul class="nav navbar-nav" style="background-color:transparent;">
-                    <!-- User Account: style can be found in dropdown.less -->
-                    <li class="dropdown user user-menu">
-                        <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i><span>' . $_SESSION['barangay'] . '<i class="caret"></i></span>
+        <div class="navbar-right">
+    <ul class="nav navbar-nav" style="background-color:transparent;">
+        <!-- User Account: style can be found in dropdown.less -->
+        <li class="dropdown user user-menu">
+            <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-user"></i>
+                <span><?php echo $_SESSION['barangay']; ?><i class="caret"></i></span>
+            </a>
+            <ul class="dropdown-menu">
+                <!-- User image -->
+                <li class="user-header" style="background-color:#0000FF; color: white; text-align: center; padding: 20px;">
+                    <img src="path/to/your/profile-image.jpg" alt="User Image" class="img-circle" style="width: 50px; height: 50px; margin-bottom: 10px;">
+                    <p><?php echo $_SESSION['barangay']; ?></p>
+                </li>
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                    <div class="pull-left">
+                        <a href="#" class="btn btn-success btn-flat" data-toggle="modal" data-target="#editProfileModal" style="background-color: #00BB27; border-radius: 5px; padding: 10px 20px; font-size: 14px; text-transform: uppercase;">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Change Account
                         </a>
-                      
-                     <ul class="dropdown-menu">
-                            <!-- User image -->
-                            <li class="user-header bg-light-blue" style="background-color:#0000FF;">
-                                <p>' . $_SESSION['barangay'] . '</p>
-                            </li>
-                            <!-- Menu Body -->
-                            <!-- Menu Footer-->
-                           <li class="user-footer">
-        <div class="pull-left">
-            <a href="#" class="btn btn-success btn-flat" data-toggle="modal" data-target="#editProfileModal" style="background-color: #00BB27; border-radius: 5px; padding: 10px 20px; font-size: 14px; text-transform: uppercase;">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Change Account
-            </a>
-        </div>
-        <div class="pull-right">
-            <a href="../../logout.php" class="btn btn-danger btn-flat" style="background-color: #D9534F; border-radius: 5px; padding: 10px 20px; font-size: 14px; text-transform: uppercase;">
-                <i class="fa fa-sign-out" aria-hidden="true"></i> Sign out
-            </a>
-        </div>
-    </li>
-                        </ul>
+                    </div>
+                    <div class="pull-right">
+                        <a href="../../logout.php" class="btn btn-danger btn-flat" style="background-color: #D9534F; border-radius: 5px; padding: 10px 20px; font-size: 14px; text-transform: uppercase;">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i> Sign out
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
 
-                    </li>
-                </ul>
-            </div>
         </nav>
     </header>';
 ?>
