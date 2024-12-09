@@ -1,14 +1,4 @@
-<?php
-// Include PHPMailer at the top
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\SMTP;
-
-require "./include/Exception.php";
-require "./include/PHPMailer.php";
-require "./include/SMTP.php";
-?>
-
+<!-- forgotpass.php -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,11 +29,20 @@ require "./include/SMTP.php";
 
     <?php
     if (isset($_POST['btn_reset_pass'])) {
+        // Include PHPMailer
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    use PHPMailer\PHPMailer\SMTP;
+
+    require "./include/Exception.php";
+    require "./include/PHPMailer.php";
+    require "./include/SMTP.php";
+
         // Get the email from the form
         $email = $_POST['email'];
 
         // Connect to your database
-        include('connection.php');
+        include 'pages/connection.php';
 
         // Check if the email exists in the database
         $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
@@ -62,7 +61,7 @@ require "./include/SMTP.php";
             $stmt->execute();
 
             // Send the reset link to the user's email
-            $resetLink = "http://barangayportal.com/pages/resetpassword.php?token=$resetToken";
+            $resetLink = "http://yourdomain.com/resetpassword.php?token=$resetToken";
 
             $mail = new PHPMailer(true);
             try {
@@ -70,12 +69,12 @@ require "./include/SMTP.php";
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
                 $mail->Username = 'sshin8859@gmail.com';
-                $mail->Password = 'hhgwbzklpinejqjh'; // Make sure your password is correct
+                $mail->Password = 'hhgwbzklpinejqjh';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
 
-                // Recipients
-                $mail->setFrom('sshin8859@gmail.com', 'Your Name');
+                //Recipients
+                $mail->setFrom('youremail@example.com', 'Your Name');
                 $mail->addAddress($email); // User's email
 
                 // Content
