@@ -386,36 +386,32 @@ echo ' <header class="header">
             }
             echo '<ul>
         <div class="navbar-right">
-    <ul class="nav navbar-nav" style="background-color:transparent;">
-        <!-- User Account: style can be found in dropdown.less -->
-        <li class="dropdown user user-menu">
-            <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-user"></i>
-                <span><?php echo $_SESSION['barangay']; ?><i class="caret"></i></span>
-            </a>
-            <ul class="dropdown-menu">
-                <!-- User image -->
-                <li class="user-header" style="background-color:#0000FF; color: white; text-align: center; padding: 20px;">
-                    <p><?php echo $_SESSION['barangay']; ?></p>
-                </li>
-                <!-- Menu Footer-->
-                <li class="user-footer">
-                    <div class="pull-left">
-                        <a href="#" class="btn btn-success btn-flat" data-toggle="modal" data-target="#editProfileModal" style="background-color: #00BB27; border-radius: 5px; padding: 10px 20px; font-size: 14px; text-transform: uppercase;">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Change Account
+                <ul class="nav navbar-nav" style="background-color:transparent;">
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-user"></i><span>' . $_SESSION['barangay'] . '<i class="caret"></i></span>
                         </a>
-                    </div>
-                    <div class="pull-right">
-                        <a href="../../logout.php" class="btn btn-danger btn-flat" style="background-color: #D9534F; border-radius: 5px; padding: 10px 20px; font-size: 14px; text-transform: uppercase;">
-                            <i class="fa fa-sign-out" aria-hidden="true"></i> Sign out
-                        </a>
-                    </div>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</div>
-
+                       <?= $barangayByZoneLeader ?>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header bg-light-blue" style="background-color:#0000FF;">
+                                <p>' . $_SESSION['barangay'] . '</p>
+                            </li>
+                            <!-- Menu Body -->
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background-color: #00BB27;">Change Account</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </header>';
 ?>
