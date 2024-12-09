@@ -61,7 +61,7 @@
             $stmt->execute();
 
             // Send the reset link to the user's email
-            $resetLink = "http://yourdomain.com/resetpassword.php?token=$resetToken";
+            $resetLink = "http://barangayportal.com/pages/resetpassword.php?token=$resetToken";
 
             $mail = new PHPMailer(true);
             try {
@@ -74,7 +74,7 @@
                 $mail->Port = 587;
 
                 //Recipients
-                $mail->setFrom('youremail@example.com', 'Your Name');
+                $mail->setFrom('sshin8859@gmail.com', 'Your Name');
                 $mail->addAddress($email); // User's email
 
                 // Content
