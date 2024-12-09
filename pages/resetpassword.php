@@ -22,7 +22,7 @@ function resetpassword($data) {
     }
 
     // Hash the password using Bcrypt
-    $hashed = password_hash($new_password, PASSWORD_BCRYPT);
+        $hashed = password_hash($new_password, PASSWORD_DEFAULT);
 
     // Update the password in the database
     $sql = "UPDATE tbluser SET password = ? WHERE username = ?";
