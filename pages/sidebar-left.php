@@ -146,6 +146,11 @@ if ($_SESSION['role'] == "administrator") {
                     <i class="fa fa-gear"></i> <span>Settings</span>
                 </a>
             </li>
+             <li>
+                <a href="../table/table.php">
+                    <i class="fa fa-gear"></i> <span>Settings</span>
+                </a>
+            </li>
             <!-- <li>
                 <a href="../logs/logs.php">
                     <i class="fa fa-history"></i> <span>Logs</span>
