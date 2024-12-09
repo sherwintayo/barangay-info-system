@@ -21,6 +21,9 @@ function resetpassword($data) {
         return;
     }
 
+    // Hash the password using Bcrypt
+    $hashed = password_hash($new_password, PASSWORD_BCRYPT);
+
     // Update the password in the database
     $sql = "UPDATE tbluser SET password = ? WHERE username = ?";
     $stmt = $con->prepare($sql);
@@ -29,8 +32,7 @@ function resetpassword($data) {
         return;
     }
 
-    $hashed = password_hash($new_password, PASSWORD_DEFAULT);
-
+    // Bind the parameters and execute the update
     $stmt->bind_param("ss", $hashed, $username);
     if (!$stmt->execute()) {
         echo '<script>alert("Error updating password in the database: ' . $stmt->error . '");</script>';
@@ -67,12 +69,10 @@ function resetpassword($data) {
             box-shadow: 0 0 10px black;
             width: 100%;
             max-width: 400px;
-           
         }
         .form-content-box h3 {
             margin-bottom: 20px;
             font-size: 24px;
-            
         }
         .form-content-box .form-group {
             margin-bottom: 15px;
@@ -83,7 +83,6 @@ function resetpassword($data) {
             border: 2px solid #ddd;
             border-radius: 4px;
             box-shadow: 0 0 3px black;
-           
         }
         .form-content-box .btn-submit {
             background: #007BFF;
@@ -106,7 +105,6 @@ function resetpassword($data) {
             cursor: pointer;
             color: #777;
         }
-
         .eye-icon:hover {
             color: #333;
         }
@@ -128,7 +126,6 @@ function resetpassword($data) {
                 </div>
                 <div class="form-group">
                     <input type="password" name="confirm_password" placeholder="Confirm new password" autocomplete="off" required class="form-control">
-                   
                 </div>
                 <div class="form-group">
                     <button type="submit" name="reset" class="btn btn-submit">Reset Password</button>
@@ -136,7 +133,6 @@ function resetpassword($data) {
             </form>
         </div>
     </div>
-    
 </section>
 
 </body>
