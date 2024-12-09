@@ -1,83 +1,96 @@
+<!-- forgotpass.php -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: blue; /* Changed background color to blue */
-    }
-    .background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: blue;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .form-content-box {
-        background-color: #fff;
-        padding: 50px; /* Reduced padding for better appearance */
-        border-radius: 8px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
-        width: 100%; /* Change width to 100% */
-        max-width: 400px; /* Optional: limit the maximum width */
-        text-align: center; /* Center align the form content */
-    }
-    .form-group {
-        margin-bottom: 30px; /* Reduced margin between form groups */
-    }
-    .form-control {
-        width: 100%; /* Change input field width to 100% */
-    }
-    .btn-submit {
-        width: 100%; /* Change button width to 100% */
-    }
-</style>
+    <meta charset="UTF-8">
+    <title>Forgot Password</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<div class="background">
-    <div class="form-content-box">
-        <div class="login-header">
-            <h3 class="text-center">Reset your Password</h3>
-        </div>
-        <div class="details">
-            <form action="" method="post" onsubmit="return resetPassword()">
-                <div class="form-group">
-                    <input type="text" id="email" name="email" placeholder="Mobile number or Email" autocomplete="off" required class="form-control">
+    <div class="container">
+        <div class="card">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="text-align:center;">
+                    <h3 class="panel-title"><strong>Forgot Password</strong></h3>
+                    <p>Enter your email to reset your password</p>
                 </div>
-                <div class="form-group">
-                    <input type="password" id="password" name="password" placeholder="Enter Password" autocomplete="off" required class="form-control">
+                <div class="panel-body">
+                    <form role="form" method="post" id="forgotPassForm">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" name="email" placeholder="Enter your email" required />
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-primary" name="btn_reset_pass">Send Reset Link</button>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <button type="submit" name="forgot" class="btn btn-submit">Reset Password</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
-</div>
-<script>
-    function resetPassword() {
-        // Assume password reset logic is successful
-        // Display prompt for successful reset
-        alert("Password successfully reset!");
 
-        // Clear the email and password fields
-        document.getElementById("email").value = "";
-        document.getElementById("password").value = "";
+    <?php
+    if (isset($_POST['btn_reset_pass'])) {
+        // Include PHPMailer
+  use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    use PHPMailer\PHPMailer\SMTP;
 
-        // Prevent form submission
-        return false;
+    require "./include/Exception.php";
+    require "./include/PHPMailer.php";
+    require "./include/SMTP.php";
+
+        // Get the email from the form
+        $email = $_POST['email'];
+
+        // Connect to your database
+        include 'pages/connection.php';
+
+        // Check if the email exists in the database
+        $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $userId = $row['id'];
+            $resetToken = bin2hex(random_bytes(32)); // Create a unique reset token
+
+            // Save the reset token in the database
+            $stmt = $con->prepare("UPDATE tbluser SET reset_token = ? WHERE id = ?");
+            $stmt->bind_param("si", $resetToken, $userId);
+            $stmt->execute();
+
+            // Send the reset link to the user's email
+            $resetLink = "http://yourdomain.com/resetpassword.php?token=$resetToken";
+
+            $mail = new PHPMailer(true);
+            try {
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'sshin8859@gmail.com';
+                $mail->Password = 'hhgwbzklpinejqjh';
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587;
+
+                //Recipients
+                $mail->setFrom('youremail@example.com', 'Your Name');
+                $mail->addAddress($email); // User's email
+
+                // Content
+                $mail->isHTML(true);
+                $mail->Subject = 'Password Reset Request';
+                $mail->Body    = "Click the following link to reset your password: <a href='$resetLink'>$resetLink</a>";
+
+                $mail->send();
+                echo "<script>alert('Password reset link sent! Check your email.'); window.location.href = './login.php';</script>";
+            } catch (Exception $e) {
+                echo "<script>alert('Message could not be sent. Mailer Error: {$mail->ErrorInfo}');</script>";
+            }
+        } else {
+            echo "<script>alert('Email not found in the system.');</script>";
+        }
     }
-</script>
+    ?>
 </body>
 </html>
