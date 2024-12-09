@@ -395,16 +395,16 @@ echo ' <header class="header">
                        <?= $barangayByZoneLeader ?>
                         <ul class="dropdown-menu">
                             <!-- User image -->
-                          
+                           <li class="user-header bg-light-blue" style="background-color:#0000FF;">
+                               <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background-color: #00BB27;">Change Account</a>
+                            </li>
                             <!-- Menu Body -->
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background-color: #00BB27;">Change Account</a>
-                                </div>
-                                <div class="pull-left">
                                     <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
                                 </div>
+                               
                             </li>
                         </ul>
                     </li>
