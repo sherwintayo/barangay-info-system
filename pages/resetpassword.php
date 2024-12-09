@@ -77,7 +77,7 @@ function resetpassword($data) {
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(./images/bg-img.jpeg);
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../images/bg-img.jpeg);
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
