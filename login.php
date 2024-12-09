@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
 <?php
 session_start();
 function clean($data)
@@ -29,6 +27,8 @@ header('Expires: 0');
 header('Expect-CT: max-age=86400, enforce, report-uri="https://example.com/report"');
 ?>
 
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Barangay Information System</title>
@@ -172,6 +172,7 @@ if (isset($_POST['btn_login'])) {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
+        // Check if password is correct using bcrypt
         if (password_verify($password, $row['password'])) {
             $_SESSION['login_attempts'] = 0;
 
