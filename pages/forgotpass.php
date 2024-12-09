@@ -1,4 +1,14 @@
-<!-- forgotpass.php -->
+<?php
+// Include PHPMailer at the top
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
+require "./include/Exception.php";
+require "./include/PHPMailer.php";
+require "./include/SMTP.php";
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,20 +39,11 @@
 
     <?php
     if (isset($_POST['btn_reset_pass'])) {
-        // Include PHPMailer
-  use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
-    use PHPMailer\PHPMailer\SMTP;
-
-    require "./include/Exception.php";
-    require "./include/PHPMailer.php";
-    require "./include/SMTP.php";
-
         // Get the email from the form
         $email = $_POST['email'];
 
         // Connect to your database
-      include('connection.php');
+        include('connection.php');
 
         // Check if the email exists in the database
         $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
@@ -69,11 +70,11 @@
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
                 $mail->Username = 'sshin8859@gmail.com';
-                $mail->Password = 'hhgwbzklpinejqjh';
+                $mail->Password = 'hhgwbzklpinejqjh'; // Make sure your password is correct
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
 
-                //Recipients
+                // Recipients
                 $mail->setFrom('sshin8859@gmail.com', 'Your Name');
                 $mail->addAddress($email); // User's email
 
