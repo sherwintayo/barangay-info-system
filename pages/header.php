@@ -249,12 +249,12 @@ if ($squery && mysqli_num_rows($squery) > 0) {
 $logo = $data['logo'];
 $name = $data['name'];
 
-echo '<header class="header">
+echo ' <header class="header">
     <a href="#" class="logo">
         <!-- Logo image with size and styling -->
-        <img src="../../images/<?php echo $logo; ?>" style="height: 50px; width: 50px; float: left; margin-left: -10px;">
+        <img src="../../images/'.$logo. '" style="height: 50px; width: 50px; float: left; margin-left: -10px;">
         <!-- Text next to the logo, with a smaller font size -->
-        <p style="font-size: 12px; font-family: Arial, sans-serif;"><?php echo $name; ?></p>
+        <p style="font-size: 12px; font-family: Arial, sans-serif;">'.$name.'</p>
     </a>
 
 
