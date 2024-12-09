@@ -396,7 +396,6 @@ echo ' <header class="header">
             <ul class="dropdown-menu">
                 <!-- User image -->
                 <li class="user-header" style="background-color:#0000FF; color: white; text-align: center; padding: 20px;">
-                    <img src="path/to/your/profile-image.jpg" alt="User Image" class="img-circle" style="width: 50px; height: 50px; margin-bottom: 10px;">
                     <p><?php echo $_SESSION['barangay']; ?></p>
                 </li>
                 <!-- Menu Footer-->
