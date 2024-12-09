@@ -251,10 +251,13 @@ $name = $data['name'];
 
 echo '<header class="header">
     <a href="#" class="logo">
-        <img src="../../images/'.$logo.'" style="height: 50px; width:50px; float: left; margin-left: -10px;">
-        <!-- Add the class icon to your logo image or logo icon to add the margining -->
-        <p style="font-size: 12px;"> '.$name.'</p>
+        <!-- Logo image with size and styling -->
+        <img src="../../images/<?php echo $logo; ?>" style="height: 50px; width: 50px; float: left; margin-left: -10px;">
+        <!-- Text next to the logo, with a smaller font size -->
+        <p style="font-size: 12px; font-family: Arial, sans-serif;"><?php echo $name; ?></p>
     </a>
+
+
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
