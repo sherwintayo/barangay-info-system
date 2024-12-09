@@ -193,7 +193,7 @@ echo '
         </section>
     </aside>';
 ?>
-
+<stye>
 ### Enhanced CSS Styling:
 ```css
 /* General Sidebar Enhancements */
@@ -270,3 +270,4 @@ echo '
 .left-side.sidebar-offcanvas::-webkit-scrollbar-track {
     background-color: #ecf0f1;
 }
+</stye>
