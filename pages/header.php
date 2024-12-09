@@ -408,7 +408,7 @@ echo ' <header class="header">
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                   <a href="javascript:void(0);" class="btn btn-default btn-flat" style="background-color: #000;" onclick="confirmLogout()">Sign out</a>
+                                   <a href="javascript:void(0);" class="btn btn-default btn-flat" style="background-color: #000; color:white;" onclick="confirmLogout()">Sign out</a>
                                 </div>
                                
                             </li>
