@@ -66,23 +66,7 @@ function resetpassword($data) {
 
 ?>
 
-<?php
-if (isset($_SESSION['alert'])) {
-    $alert = $_SESSION['alert'];
-    echo '<script>
-        Swal.fire({
-            icon: "' . $alert['icon'] . '",
-            title: "' . $alert['title'] . '",
-            text: "' . $alert['text'] . '"
-        }).then(() => {';
-    if (!empty($alert['redirect'])) {
-        echo 'window.location.href = "' . $alert['redirect'] . '";';
-    }
-    echo '});
-    </script>';
-    unset($_SESSION['alert']);
-}
-    ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -177,6 +161,23 @@ if (isset($_SESSION['alert'])) {
             </form>
         </div>
     </div>
+    <?php
+if (isset($_SESSION['alert'])) {
+    $alert = $_SESSION['alert'];
+    echo '<script>
+        Swal.fire({
+            icon: "' . $alert['icon'] . '",
+            title: "' . $alert['title'] . '",
+            text: "' . $alert['text'] . '"
+        }).then(() => {';
+    if (!empty($alert['redirect'])) {
+        echo 'window.location.href = "' . $alert['redirect'] . '";';
+    }
+    echo '});
+    </script>';
+    unset($_SESSION['alert']);
+}
+    ?>
 </section>
 <!-- SweetAlert Script -->
 
