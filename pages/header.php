@@ -392,12 +392,7 @@ echo ' <header class="header">
                         <a href="resident" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="glyphicon glyphicon-user"></i><span>' . $_SESSION['barangay'] . '<i class="caret"></i></span>
                         </a>
-                       <?= $barangayByZoneLeader ?>
-                        <ul class="dropdown-menu">
-                            <!-- User image -->
-                            <li class="user-header bg-light-blue" style="background-color:#0000FF;">
-                                <p>' . $_SESSION['barangay'] . '</p>
-                            </li>
+                      
                             <!-- Menu Body -->
                             <!-- Menu Footer-->
                             <li class="user-footer">
