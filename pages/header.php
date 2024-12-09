@@ -402,7 +402,7 @@ echo ' <header class="header">
                                 <div class="pull-left">
                                     <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#editProfileModal" style=" background-color: #00BB27;">Change Account</a>
                                 </div>
-                                <div class="pull-right">
+                                <div class="pull-down">
                                     <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #00BB27;">Sign out</a>
                                 </div>
                             </li>
