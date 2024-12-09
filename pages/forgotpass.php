@@ -42,7 +42,7 @@
         $email = $_POST['email'];
 
         // Connect to your database
-        include 'pages/connection.php';
+      include('connection.php');
 
         // Check if the email exists in the database
         $stmt = $con->prepare("SELECT * FROM tbluser WHERE username = ?");
