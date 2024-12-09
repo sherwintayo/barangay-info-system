@@ -301,8 +301,8 @@ while ($rows = mysqli_fetch_assoc($result)) {
 /* Hover effect for buttons */
 .user-footer .pull-left .btn:hover,
 .user-footer .pull-right .btn:hover {
-    background-color: #28a745; /* For the Change Account button */
-    background-color: #c9302c; /* For the Sign Out button */
+    background-color: #000; /* For the Change Account button */
+    background-color: #000; /* For the Sign Out button */
 }
 
 /* Styling the dropdown toggle link */
