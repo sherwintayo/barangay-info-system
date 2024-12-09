@@ -101,7 +101,7 @@ header('Expect-CT: max-age=86400, enforce, report-uri="https://example.com/repor
                             </div>
                         </div>
                         <button type="submit" class="btn btn-sm btn-primary" name="btn_login" style="background-color:#00BB27;">Log in</button>
-                        <a href="pages/resetpassword.php" style="float: right;">Forgot password</a>
+                        <a href="pages/forgotpass.php" style="float: right;">Forgot password</a>
                         <label id="error" class="label label-danger pull-right"></label>
                         <p class="text-center" style="margin-top: 20px;">Don't have an account? <a href="signup.php">Sign Up</a></p>
                     </form>
