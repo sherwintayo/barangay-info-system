@@ -17,7 +17,13 @@ function resetpassword($data) {
 
     // Check if the new password matches the confirmed password
     if ($new_password !== $confirm_password) {
-        echo '<script>alert("New Password and Confirm Password do not match.");</script>';
+  echo '<script>
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "New Password and Confirm Password do not match."
+            });
+        </script>';
         return;
     }
 
@@ -28,20 +34,41 @@ function resetpassword($data) {
     $sql = "UPDATE tbluser SET password = ? WHERE username = ?";
     $stmt = $con->prepare($sql);
     if (!$stmt) {
-        echo '<script>alert("Error preparing SQL statement: ' . $con->error . '");</script>';
+          echo '<script>
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error preparing SQL statement: ' . $con->error . '"
+            });
+        </script>';
         return;
     }
 
     // Bind the parameters and execute the update
     $stmt->bind_param("ss", $hashed, $username);
     if (!$stmt->execute()) {
-        echo '<script>alert("Error updating password in the database: ' . $stmt->error . '");</script>';
+      echo '<script>
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error updating password in the database: ' . $stmt->error . '"
+            });
+        </script>';
         return;
     }
     $stmt->close();
 
     // Password update successful, redirect to login page
-    echo '<script>alert("Password successfully updated.");</script>';
+   // Password update successful, redirect to login page
+    echo '<script>
+        Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "Password successfully updated."
+        }).then(() => {
+            window.location.href = "login.php";
+        });
+    </script>';
 }
 ?>
 
