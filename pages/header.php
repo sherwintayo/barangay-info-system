@@ -278,7 +278,7 @@ while ($rows = mysqli_fetch_assoc($result)) {
 
 /* Style for left button */
 .user-footer .pull-left .btn {
-    background-color: #00BB27;
+    background-color: #000;
     color: white;
     border-radius: 5px;
     padding: 10px 20px;
@@ -289,7 +289,7 @@ while ($rows = mysqli_fetch_assoc($result)) {
 
 /* Style for right button */
 .user-footer .pull-right .btn {
-    background-color: #D9534F;
+    background-color: #000;
     color: white;
     border-radius: 5px;
     padding: 10px 20px;
@@ -301,8 +301,8 @@ while ($rows = mysqli_fetch_assoc($result)) {
 /* Hover effect for buttons */
 .user-footer .pull-left .btn:hover,
 .user-footer .pull-right .btn:hover {
-    background-color: #000; /* For the Change Account button */
-    background-color: #000; /* For the Sign Out button */
+    background-color: black; /* For the Change Account button */
+    background-color: black; /* For the Sign Out button */
 }
 
 /* Styling the dropdown toggle link */
