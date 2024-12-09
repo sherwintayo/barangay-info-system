@@ -59,8 +59,24 @@ function resetpassword($data) {
         "icon" => "success",
         "title" => "Success",
         "text" => "Password successfully updated.",
-        "redirect" => "login"
+        "redirect" => "./login"
     ];
+}
+
+if (isset($_SESSION['alert'])) {
+    $alert = $_SESSION['alert'];
+    echo '<script>
+        Swal.fire({
+            icon: "' . $alert['icon'] . '",
+            title: "' . $alert['title'] . '",
+            text: "' . $alert['text'] . '"
+        }).then(() => {';
+    if (!empty($alert['redirect'])) {
+        echo 'window.location.href = "' . $alert['redirect'] . '";';
+    }
+    echo '});
+    </script>';
+    unset($_SESSION['alert']);
 }
 ?>
 
@@ -160,22 +176,6 @@ function resetpassword($data) {
     </div>
 </section>
 <!-- SweetAlert Script -->
-<?php
-if (isset($_SESSION['alert'])) {
-    $alert = $_SESSION['alert'];
-    echo '<script>
-        Swal.fire({
-            icon: "' . $alert['icon'] . '",
-            title: "' . $alert['title'] . '",
-            text: "' . $alert['text'] . '"
-        }).then(() => {';
-    if (!empty($alert['redirect'])) {
-        echo 'window.location.href = "' . $alert['redirect'] . '";';
-    }
-    echo '});
-    </script>';
-    unset($_SESSION['alert']);
-}
-?>
+
 </body>
 </html>
