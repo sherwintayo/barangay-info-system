@@ -1,3 +1,5 @@
+
+
 <?php
 include('connection.php');
 
@@ -17,60 +19,51 @@ function resetpassword($data) {
 
     // Check if the new password matches the confirmed password
     if ($new_password !== $confirm_password) {
-  echo '<script>
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "New Password and Confirm Password do not match."
-            });
-        </script>';
+        $_SESSION['alert'] = [
+            "icon" => "error",
+            "title" => "Error",
+            "text" => "New Password and Confirm Password do not match."
+        ];
         return;
     }
 
     // Hash the password using Bcrypt
-        $hashed = password_hash($new_password, PASSWORD_DEFAULT);
+    $hashed = password_hash($new_password, PASSWORD_DEFAULT);
 
     // Update the password in the database
     $sql = "UPDATE tbluser SET password = ? WHERE username = ?";
     $stmt = $con->prepare($sql);
     if (!$stmt) {
-          echo '<script>
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "Error preparing SQL statement: ' . $con->error . '"
-            });
-        </script>';
+        $_SESSION['alert'] = [
+            "icon" => "error",
+            "title" => "Error",
+            "text" => "Error preparing SQL statement: " . $con->error
+        ];
         return;
     }
 
     // Bind the parameters and execute the update
     $stmt->bind_param("ss", $hashed, $username);
     if (!$stmt->execute()) {
-      echo '<script>
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "Error updating password in the database: ' . $stmt->error . '"
-            });
-        </script>';
+        $_SESSION['alert'] = [
+            "icon" => "error",
+            "title" => "Error",
+            "text" => "Error updating password in the database: " . $stmt->error
+        ];
         return;
     }
     $stmt->close();
 
-    // Password update successful, redirect to login page
-   // Password update successful, redirect to login page
-    echo '<script>
-        Swal.fire({
-            icon: "success",
-            title: "Success",
-            text: "Password successfully updated."
-        }).then(() => {
-            window.location.href = "login.php";
-        });
-    </script>';
+    // Password update successful
+    $_SESSION['alert'] = [
+        "icon" => "success",
+        "title" => "Success",
+        "text" => "Password successfully updated.",
+        "redirect" => "login.php"
+    ];
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -163,6 +156,23 @@ function resetpassword($data) {
         </div>
     </div>
 </section>
-
+<!-- SweetAlert Script -->
+<?php
+if (isset($_SESSION['alert'])) {
+    $alert = $_SESSION['alert'];
+    echo '<script>
+        Swal.fire({
+            icon: "' . $alert['icon'] . '",
+            title: "' . $alert['title'] . '",
+            text: "' . $alert['text'] . '"
+        }).then(() => {';
+    if (!empty($alert['redirect'])) {
+        echo 'window.location.href = "' . $alert['redirect'] . '";';
+    }
+    echo '});
+    </script>';
+    unset($_SESSION['alert']);
+}
+?>
 </body>
 </html>
