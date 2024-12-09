@@ -128,7 +128,6 @@ if (!isset($_SESSION['role'])) {
 
                                                     <th>Gender</th>
                                                     <th>Former Address</th>
-                                                    <th style="width: 40px !important;">Option</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
