@@ -1,9 +1,9 @@
 <?php
 // Connect to database
 $host = '127.0.0.1';
-$username = '';
-$password = '';  // Replace with the actual password
-$dbname = '';
+$username = 'u510162695_barangay';
+$password = '1Db_barangay';  // Replace with the actual password
+$dbname = 'u510162695_barangay';
 
 $conn = new mysqli($host, $username, $password, $dbname);
 
