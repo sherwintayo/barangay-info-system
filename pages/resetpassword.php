@@ -160,8 +160,7 @@ function resetpassword($data) {
                 </div>
             </form>
         </div>
-    </div>
-    <?php
+          <?php
 if (isset($_SESSION['alert'])) {
     $alert = $_SESSION['alert'];
     echo '<script>
@@ -178,6 +177,8 @@ if (isset($_SESSION['alert'])) {
     unset($_SESSION['alert']);
 }
     ?>
+    </div>
+  
 </section>
 <!-- SweetAlert Script -->
 
