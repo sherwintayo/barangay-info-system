@@ -33,6 +33,7 @@ function displayTable($conn, $tableName) {
         foreach ($fields as $field) {
             echo "<th style='background-color: #f2f2f2;'>" . escapeOutput($field->name) . "</th>";
         }
+        echo "<th style='background-color: #f2f2f2;'>Action</th>"; // Add delete button column header
         echo "</tr>";
 
         // Output data of each row
@@ -46,6 +47,8 @@ function displayTable($conn, $tableName) {
                     echo "<td>" . escapeOutput($value ?? "NULL") . "</td>";
                 }
             }
+            // Add delete button for each row
+            echo "<td><form method='POST' action='deletedb.php'><input type='hidden' name='tableName' value='" . escapeOutput($tableName) . "'><input type='hidden' name='id' value='" . escapeOutput($row['id']) . "'><button type='submit'>Delete</button></form></td>";
             echo "</tr>";
         }
         echo "</table>";
