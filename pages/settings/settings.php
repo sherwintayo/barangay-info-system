@@ -54,9 +54,21 @@ if (!isset($_SESSION['role'])) {
                                     <form method="post" enctype="multipart/form-data">
 
                                         <?php
-                                        if (!isset($_SESSION['staff'])) {
+                                           if (!isset($_SESSION['staff'])) {
+                                           // Get the user_id from session
+                                            $userid = $_SESSION['userid'];
+                                            
                                             $squery = mysqli_query($con, "SELECT * FROM tblsettings");
-                                            $data = $squery->fetch_assoc();
+                                            
+                                            if ($squery && mysqli_num_rows($squery) > 0) {
+                                                $data = $squery->fetch_assoc();
+                                            } 
+                                            $request = $_SERVER['REQUEST_URI'];
+                                    if (substr($request, -4) == '.php') {
+                                        $new_url = substr($request, 0, -4);
+                                        header("Location: $new_url", true, 301);
+                                        exit();
+                                    }
                                         ?>
                                             <form method="post" enctype="multipart/form-data">
                                                 <label for="">Name</label>
