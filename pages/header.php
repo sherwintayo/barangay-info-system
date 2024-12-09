@@ -311,7 +311,7 @@ echo ' <header class="header">
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header bg-light-blue" style="background-color:#0000FF;">
-                                <p>' . $_SESSION['role'] . '</p>
+                                <p>' . $_SESSION['barangay'] . '</p>
                             </li>
                             <!-- Menu Body -->
                             <!-- Menu Footer-->
