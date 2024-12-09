@@ -7,6 +7,12 @@
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Include SweetAlert CSS -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.css" rel="stylesheet">
+
+<!-- Include SweetAlert JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.all.min.js"></script>
+
 
 <?php
 function clean($data){
@@ -402,7 +408,7 @@ echo ' <header class="header">
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="../../logout.php" class="btn btn-default btn-flat" style="background-color: #000; color:white;  padding: 10px 20px; font-size: 16px;">Sign out</a>
+                                   <a href="javascript:void(0);" class="btn btn-default btn-flat" style="background-color: #00BB27;" onclick="confirmLogout()">Sign out</a>
                                 </div>
                                
                             </li>
@@ -519,6 +525,27 @@ if (isset($_POST['btn_saveeditProfile'])) {
 }
 
 ?>
+<script>
+function confirmLogout() {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You want to log out of your account?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, log out!',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Redirect to logout page if user confirms
+            window.location.href = '../../logout.php';
+        } else {
+            // Optionally: Handle cancel action here (e.g., show message)
+            Swal.fire('Cancelled', 'You are still logged in!', 'info');
+        }
+    });
+}
+</script>
 
 <script>
     $(document).ready(function () {
