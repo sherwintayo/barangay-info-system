@@ -58,7 +58,7 @@ if (!isset($_SESSION['role'])) {
                                            // Get the user_id from session
                                             $userid = $_SESSION['userid'];
                                             
-                                            $squery = mysqli_query($con, "SELECT * FROM tblsettings");
+                                            $squery = mysqli_query($con, "SELECT * FROM tblsettings WHERE user_id = '$userid'");
                                             
                                             if ($squery && mysqli_num_rows($squery) > 0) {
                                                 $data = $squery->fetch_assoc();
