@@ -344,7 +344,7 @@ while ($rows = mysqli_fetch_assoc($result)) {
 <?php
  $userid = $_SESSION['userid'];
                                             
-$squery = mysqli_query($con, "SELECT * FROM tblsettings");
+$squery = mysqli_query($con, "SELECT * FROM tblsettings WHERE user_id = '$userid'");
 
 if ($squery && mysqli_num_rows($squery) > 0) {
     $data = $squery->fetch_assoc();
