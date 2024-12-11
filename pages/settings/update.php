@@ -41,79 +41,80 @@ if (isset($_POST['btn_update'])) {
                 <?php
                 exit; // Stop execution
             }
- if (isset($_POST['btn_update'])) {
-    $name = $_POST['name'];
-    $userid = $_SESSION['userid'];
-    
-    if ($_FILES['logo']['error'] > 0) {
-        $stmt = $con->query("UPDATE tblsettings SET name = '$name', user_id = '$userid'");
-        if ($stmt) {
-            ?>
-            <script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Updated Successfully!',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    customClass: {
-                        confirmButton: 'swal2-square-button'
-                    }
-                }).then(() => {
-                    window.location.href = "settings.php"
-                });
-               
-            </script>
-            <?php 
-        }
-    }else{
-        $filename = $_FILES['logo']['name'];
-        $tmpname = $_FILES['logo']['tmp_name'];
-        $img_type = $_FILES['logo']['type'];
-        $folder = "../../images/" . $filename;
+ }
+} else {
+        // Data exists, perform an update
+        if ($_FILES['logo']['error'] > 0) {
+            // Update without logo
+            $stmt = $con->query("UPDATE tblsettings SET name = '$name' WHERE user_id = '$userid'");
+        } else {
+            // Update with logo
+            $filename = $_FILES['logo']['name'];
+            $tmpname = $_FILES['logo']['tmp_name'];
+            $img_type = $_FILES['logo']['type'];
+            $folder = "../../images/" . $filename;
+    // Validate image format
+            if ($img_type == "image/jpg" || $img_type == "image/png" || $img_type == "image/jpeg") {
+                $stmt = $con->query("UPDATE tblsettings SET name = '$name', logo = '$filename' WHERE user_id = '$userid'");
 
-        if ($img_type == "image/jpg" || $img_type == "image/png" || $img_type == "image/jpeg") {
-            $stmt = $con->query("UPDATE tblsettings SET name = '$name', user_id = '$userid', logo = '$filename'");
-            if ($stmt) {
-                if (!file_exists($folder)) {
-                    move_uploaded_file($tmpname, $folder); 
-                }
-                    ?>
-                    <script>
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Updated Successfully!',
-                            showConfirmButton: false,
-                            timer: 1500,
-                            customClass: {
-                                confirmButton: 'swal2-square-button'
-                            }
-                        }).then(() => {
-                            window.location.href = "settings.php"
-                        });
-                       
-                    </script>
-                    <?php 
-                
-            }
-        }else{
-            ?>
-            <script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Invalid image format',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    customClass: {
-                        confirmButton: 'swal2-square-button'
-                    }
-                }).then(() => {
-                    window.location.href = "settings.php"
-                });
-               
-            </script>
-            <?php 
-        }
-
+  if (!file_exists($folder)) {
+                    move_uploaded_file($tmpname, $folder);
+ }
+            } else {
+                // Invalid image format
+                ?>
+                <script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid Image Format! Only JPG, PNG, and JPEG are allowed.',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        customClass: {
+                            confirmButton: 'swal2-square-button'
+                        }
+                    }).then(() => {
+                        window.location.href = "settings.php";
+                    });
+                </script>
+                <?php
+                exit; // Stop execution
+   }
+ }
     }
 
+    // Check if query was successful and display feedback
+    if ($stmt) {
+        ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Operation Successful!',
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                    confirmButton: 'swal2-square-button'
+                }
+            }).then(() => {
+                window.location.href = "settings.php";
+            });
+        </script>
+        <?php
+    } else {
+        ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Operation Failed!',
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                    confirmButton: 'swal2-square-button'
+                }
+            }).then(() => {
+                window.location.href = "settings.php";
+            });
+        </script>
+        <?php
+    }
 }
+?>
